@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "core/stl/Vector.hpp"
+#include <core/stl/Vector.hpp>
 
 TEST(StlVectorTest, Creation) {
     Rtb::Vector<int> v;

@@ -23,6 +23,7 @@ if (ENABLE_TESTING)
     include(CTest)
     enable_testing()
     add_subdirectory(test/unit/core)
+    add_subdirectory(test/unit/proto)
 endif ()
 
 if (ENABLE_BENCHMARKING)
