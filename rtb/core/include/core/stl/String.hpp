@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Rtb
+namespace Core
 {
 
 using String = std::string;

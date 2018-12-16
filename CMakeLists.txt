@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 project(rtb LANGUAGES CXX)
 
-option(ENABLE_TESTING "Run unit tests" OFF)
-option(ENABLE_BENCHMARKING "Run benchmark tests" OFF)
+option(ENABLE_TESTING "Run unit tests" ON)
+option(ENABLE_BENCHMARKING "Run benchmark tests" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -17,6 +17,7 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_subdirectory(rtb/core)
+add_subdirectory(rtb/proto)
 
 if (ENABLE_TESTING)
     include(CTest)
