@@ -6,7 +6,7 @@ file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "source/*.cpp")
 
 add_library(${PROJECT_NAME} STATIC
     ${${PROJECT_NAME}_SOURCE}
-)
+        include/core/stl/String.hpp)
 
 add_library(rtb::core ALIAS ${PROJECT_NAME})
 

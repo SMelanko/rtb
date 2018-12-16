@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(rtb LANGUAGES CXX)
 
-option(ENABLE_TESTING "Run unit tests" ON)
+option(ENABLE_TESTING "Run unit tests" OFF)
 option(ENABLE_BENCHMARKING "Run benchmark tests" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -25,5 +25,5 @@ if (ENABLE_TESTING)
 endif ()
 
 if (ENABLE_BENCHMARKING)
-    add_subdirectory(test/bench)
+    add_subdirectory(test/bench/core)
 endif ()

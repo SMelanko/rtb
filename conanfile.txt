@@ -1,4 +1,5 @@
 [requires]
+boost/1.69.0@conan/stable
 fmt/5.2.1@bincrafters/stable
 google-benchmark/1.4.1@mpusz/stable
 gtest/1.8.1@bincrafters/stable
