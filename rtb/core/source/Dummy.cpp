@@ -1,3 +1,5 @@
+#include "pch.hpp"
+
 #include "core/Dummy.hpp"
 
 namespace Rtb

@@ -1,9 +1,5 @@
 #pragma once
 
-#include <core/json/Json.hpp>
-#include <core/stl/String.hpp>
-#include <core/stl/Vector.hpp>
-
 #include "proto/OpenRtbRef.hpp"
 
 /*

@@ -1,8 +1,5 @@
 #pragma once
 
-#include <core/Type.hpp>
-#include <core/stl/String.hpp>
-
 /*
  * 5.2 Banner Ad Types
  *

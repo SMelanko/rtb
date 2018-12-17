@@ -1,5 +1,14 @@
 #include <gtest/gtest.h>
 
+#include <optional>
+#include <string>
+
+#include <rapidjson/document.h>
+
+#include <core/json/Json.hpp>
+#include <core/stl/String.hpp>
+#include <core/stl/Vector.hpp>
+#include <core/Type.hpp>
 #include <proto/Parser2Point3.hpp>
 
 Core::Json Str2Json(const Core::String& str)

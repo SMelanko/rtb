@@ -1,8 +1,11 @@
+#include "pch.hpp"
+
 #include "proto/Parser2Point3.hpp"
 
 JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Core::Json& j)
 {
-    Type banner;
+    Type banner = {};
+
     if (j.HasMember("w")) {
         if (j["w"].IsArray()) {
             banner.w.reserve(j["w"].Size());

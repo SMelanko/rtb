@@ -9,7 +9,7 @@ static constexpr size_t Size = 1000;
 void PushBackIntStlAllocator(benchmark::State& state)
 {
     for (auto _ : state) {
-        Rtb::Vector<int> v;
+        Core::Vector<int> v;
         v.reserve(Size);
         for (size_t i = 0; i < Size; ++i) {
             v.push_back(i);
