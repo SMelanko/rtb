@@ -11,10 +11,13 @@ add_library(${PROJECT_NAME} STATIC
 add_library(rtb::core ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-target_compile_options(${PROJECT_NAME}
-    PRIVATE
-        -Wall -Wextra -Werror -Wpedantic -pedantic-errors -pipe
-)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+    target_compile_options(${PROJECT_NAME}
+            PRIVATE
+            -Wall -Wextra -Werror -pedantic -pedantic-errors
+            )
+endif ()
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
