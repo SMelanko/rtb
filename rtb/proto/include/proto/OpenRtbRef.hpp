@@ -108,13 +108,13 @@ enum class AdPosition
 struct MimeType
 {
 public:
-    explicit MimeType(const Core::String& type = "")
-        : _type{ type }
+    explicit MimeType(Core::String type = "")
+        : type{ std::move(type) }
     {
     }
 
 public:
-    Core::String _type;
+    Core::String type;
 };
 
 /*

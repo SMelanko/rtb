@@ -30,16 +30,16 @@ public:
     /// this value is an exact height requirement. Otherwise it is a preferred height.
     Core::Vector<Core::Int> h;
     /// Maximum width of the impression in pixels. If included along with a w value
-    /// then w should be Core::Interpreted as a recommended or preferred width.
+    /// then w should be interpreted as a recommended or preferred width.
     Core::Int wmax;
     /// Maximum height of the impression in pixels. If included along with an h value
-    /// then h should be Core::Interpreted as a recommended or preferred height.
+    /// then h should be interpreted as a recommended or preferred height.
     Core::Int hmax;
     /// Minimum width of the impression in pixels. If included along with a w value
-    /// then w should be Core::Interpreted as a recommended or preferred width.
+    /// then w should be interpreted as a recommended or preferred width.
     Core::Int wmin;
     /// Minimum height of the impression in pixels. If included along with an h value
-    /// then h should be Core::Interpreted as a recommended or preferred height.
+    /// then h should be interpreted as a recommended or preferred height.
     Core::Int hmin;
     /// Unique identifier for this banner object. Recommended when Banner objects are used with a Video object
     /// (Section 3.2.4) to represent an array of companion ads. Values usually start at 1 and increase with each object;

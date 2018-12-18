@@ -15,5 +15,5 @@ public:
 
 public:
     /// Parses Banner.
-    Type Parse(const Core::Json& j);
+    static Type Parse(const Core::Json& j);
 };
