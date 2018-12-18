@@ -28,4 +28,5 @@ endif ()
 
 if (ENABLE_BENCHMARKING)
     add_subdirectory(test/bench/core)
+    add_subdirectory(test/bench/proto)
 endif ()
