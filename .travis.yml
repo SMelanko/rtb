@@ -108,3 +108,6 @@ install:
       brew install cmake || brew upgrade cmake
       brew install conan || brew upgrade conan
     fi
+  - cmake --version
+  - conan remote add conan-mpusz https://api.bintray.com/conan/mpusz/conan-mpusz
+  - conan remote list
