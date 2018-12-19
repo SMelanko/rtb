@@ -1,0 +1,110 @@
+language: cpp
+
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+
+    ###########################################################################
+    # Xcode on macOS.
+    #
+
+    #
+    # Xcode 9.0 Release.
+    #
+    - os: osx
+      env:
+        - CXX_COMPILER=clang++
+        - BUILD_TYPE=Release
+      osx_image: xcode9.0
+      compiler: clang
+      script:
+        - cd "${TRAVIS_BUILD_DIR}"
+        - mkdir -p build && cd build
+        - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        - cmake --build . --config ${BUILD_TYPE} -- -j2
+
+    ###########################################################################
+    # GCC on Linux.
+    #
+
+    #
+    # GCC 7 Release.
+    #
+    - os: linux
+      env:
+        - JOB="GCC 7 Release"
+        - CC_COMPILER=gcc-7
+        - CXX_COMPILER=g++-7
+        - BUILD_TYPE=Release
+      addons: &gcc7
+        apt:
+          packages:
+            - gcc-7
+            - g++-7
+          sources:
+            - ubuntu-toolchain-r-test
+      script:
+        - cd "${TRAVIS_BUILD_DIR}"
+        - mkdir -p build && cd build
+        - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        - cmake --build . --config ${BUILD_TYPE} -- -j2
+
+    ###########################################################################
+    # Clang on Linux.
+    #
+
+    #
+    # Clang 5 Debug.
+    #
+    - os: linux
+      env:
+        - CC_COMPILER=clang-5.0
+        - CXX_COMPILER=clang++-5.0
+        - BUILD_TYPE=Debug
+      addons: &clang4
+        apt:
+          packages:
+            - clang-5.0
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+      script:
+        - cd "${TRAVIS_BUILD_DIR}"
+        - mkdir -p build && cd build
+        - cmake .. -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        - cmake --build . --config ${BUILD_TYPE} -- -j2
+
+  exclude:
+    - os: osx
+      compiler: gcc
+
+install:
+  # Set up the environment.
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
+      # Set the ${CC} variable properly.
+      export CC=${CC_COMPILER}
+    fi
+
+  # Set the ${CXX} variable properly.
+  - export CXX=${CXX_COMPILER}
+
+  # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/.
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p "${DEPS_DIR}" && cd "${DEPS_DIR}"
+  # Install a recent CMake (unless already installed on macOS) and Conan.
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
+      CMAKE_VERSION=3.10.0
+      CMAKE_ARCH=cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
+      CMAKE_URL="https://cmake.org/files/v${CMAKE_VERSION%.[0-9]}/${CMAKE_ARCH}"
+      mkdir cmake && travis_retry wget --no-check-certificate -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+      sudo pip install conan
+    else
+      brew update
+      brew install cmake || brew upgrade cmake
+      brew install conan || brew upgrade conan
+    fi
