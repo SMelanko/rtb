@@ -92,3 +92,42 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Core::Json& j)
 #endif
     return banner;
 }
+
+JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::Json& j)
+{
+    Deal deal = {};
+
+    deal.id = j["id"].GetString();
+
+    if (j.HasMember("bidfloor")) {
+        deal.bidfloor = j["bidfloor"].GetDouble();
+    }
+
+    if (j.HasMember("bidfloorcur")) {
+        deal.bidfloorcur = j["bidfloorcur"].GetString();
+    }
+
+    if (j.HasMember("at")) {
+        deal.at = static_cast<AuctionPrice>(j["at"].GetInt());
+    }
+
+    if (j.HasMember("wseat") && j["wseat"].IsArray()) {
+        deal.wseat.reserve(j["wseat"].Size());
+        for (const auto& val : j["wseat"].GetArray()) {
+            deal.wseat.emplace_back(val.GetString());
+        }
+    }
+
+    if (j.HasMember("wadomain") && j["wadomain"].IsArray()) {
+        deal.wadomain.reserve(j["wadomain"].Size());
+        for (const auto& val : j["wadomain"].GetArray()) {
+            deal.wadomain.emplace_back(val.GetString());
+        }
+    }
+#if 0
+    if (j.HasMember("ext")) {
+        deal.ext = j["ext"].GetObject();
+    }
+#endif
+    return deal;
+}

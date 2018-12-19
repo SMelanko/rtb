@@ -180,3 +180,23 @@ enum class ApiFramework
     /// IAB Mobile Rich Media Ad Interface Definitions V2.
     MRAID2 = 5
 };
+
+/*
+ * Auction Price
+ *
+ * Optional override of the overall auction type of the bid request, where
+ * 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed upon deal price.
+ * Additional auction types can be defined by the exchange.
+ */
+
+enum class AuctionPrice
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// First Price.
+    FIRST_PRICE = 1,
+    /// Second Price Plus.
+    SECOND_PRICE_PLUS = 2,
+    /// Agreed upon deal price.
+    DEAL_PRICE = 3
+};
