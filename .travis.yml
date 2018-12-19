@@ -110,4 +110,5 @@ install:
     fi
   - cmake --version
   - conan remote add conan-mpusz https://api.bintray.com/conan/mpusz/conan-mpusz
+  - conan remote add conan-transit https://api.bintray.com/conan/conan/conan-transit
   - conan remote list
