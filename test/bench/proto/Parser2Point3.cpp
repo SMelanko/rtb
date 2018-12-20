@@ -32,3 +32,18 @@ void ParseBanner(benchmark::State& state)
     }
 }
 BENCH(ParseBanner);
+
+void ParseDeal(benchmark::State& state)
+{
+    for (auto _ : state) {
+        const Core::String str = R"({
+            "id":"1452f.eadb4.7aaa",
+            "bidfloor":5.3,
+            "at":1,
+            "wseats":[],
+            "ext":{"priority":1,"wadvs":[]}
+        })";
+        auto deal = JsonWorker<Deal>::Parse(Str2Json(str));
+    }
+}
+BENCH(ParseDeal);
