@@ -111,14 +111,14 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::Json& j)
         deal.at = static_cast<AuctionPrice>(j["at"].GetInt());
     }
 
-    if (j.HasMember("wseat") && j["wseat"].IsArray()) {
+    if (j.HasMember("wseat") && j["wseat"].IsArray() && (j["wseat"].Size() > 0)) {
         deal.wseat.reserve(j["wseat"].Size());
         for (const auto& val : j["wseat"].GetArray()) {
             deal.wseat.emplace_back(val.GetString());
         }
     }
 
-    if (j.HasMember("wadomain") && j["wadomain"].IsArray()) {
+    if (j.HasMember("wadomain") && j["wadomain"].IsArray() && (j["wadomain"].Size() > 0)) {
         deal.wadomain.reserve(j["wadomain"].Size());
         for (const auto& val : j["wadomain"].GetArray()) {
             deal.wadomain.emplace_back(val.GetString());

@@ -18,7 +18,8 @@ Core::Json Str2Json(const Core::String& str)
     return j;
 }
 
-TEST(BannerTest, Parse) {
+TEST(BannerTest, Parse)
+{
     const Core::String str = R"({
         "h":250,
         "w":300,
@@ -61,7 +62,26 @@ TEST(BannerTest, Parse) {
     EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
 }
 
-int main(int argc, char* argv[]) {
+TEST(DealTest, Parse)
+{
+    const Core::String str = R"({
+        "id":"1452f.eadb4.7aaa",
+        "bidfloor":5.3,
+        "at":1,
+        "wseats":[],
+        "ext":{"priority":1,"wadvs":[]}
+    })";
+    auto deal = JsonWorker<Deal>::Parse(Str2Json(str));
+    EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
+    EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
+    EXPECT_EQ(deal.bidfloorcur, "USD"); // Default value.
+    EXPECT_EQ(deal.at, AuctionPrice::FIRST_PRICE);
+    EXPECT_EQ(deal.wseat.size(), 0);
+    EXPECT_EQ(deal.wadomain.size(), 0);
+}
+
+int main(int argc, char* argv[])
+{
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
