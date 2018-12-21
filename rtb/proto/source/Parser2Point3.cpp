@@ -1,6 +1,6 @@
 #include "proto/Parser2Point3.hpp"
 
-JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Core::Json& j)
+JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
 {
     Type banner = {};
 
@@ -93,7 +93,7 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Core::Json& j)
     return banner;
 }
 
-JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::JsonVal& j)
+JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
 {
     Deal deal = {};
 
@@ -132,7 +132,7 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::JsonVal& j)
     return deal;
 }
 
-JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Core::Json& j)
+JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
 {
     Pmp pmp = {};
 

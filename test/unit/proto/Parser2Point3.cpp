@@ -11,9 +11,9 @@
 #include <core/Type.hpp>
 #include <proto/Parser2Point3.hpp>
 
-Core::Json Str2Json(const Core::String& str)
+auto Str2Json(const Core::String& str)
 {
-    Core::Json j;
+    Json::Document j;
     j.Parse(str.c_str(), str.length());
     return j;
 }

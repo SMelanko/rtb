@@ -2,10 +2,10 @@
 
 #include <rapidjson/document.h>
 
-namespace Core
+namespace Json
 {
 
-using Json = ::rapidjson::Document;
-using JsonVal = ::rapidjson::Value;
+using Document = ::rapidjson::Document;
+using Object = ::rapidjson::Value;
 
 }

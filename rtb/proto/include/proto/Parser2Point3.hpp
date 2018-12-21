@@ -14,7 +14,7 @@ public:
     using Type = Banner;
 
 public:
-    static Type Parse(const Core::Json& j);
+    static Type Parse(const Json::Object& j);
 };
 
 template<>
@@ -24,7 +24,7 @@ public:
     using Type = Deal;
 
 public:
-    static Type Parse(const Core::JsonVal& j);
+    static Type Parse(const Json::Object& j);
 };
 
 template<>
@@ -34,5 +34,5 @@ public:
     using Type = Pmp;
 
 public:
-    static Type Parse(const Core::Json& j);
+    static Type Parse(const Json::Object& j);
 };

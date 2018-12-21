@@ -62,7 +62,7 @@ public:
     /// it is assumed not to be supported.
     Core::Vector<ApiFramework> api;
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    Core::Json ext;
+    Json::Document ext;
 };
 
 /*
@@ -93,7 +93,7 @@ struct Deal
     /// Omission implies no advertiser restrictions.
     Core::Vector<Core::String> wadomain;
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    Core::Json ext;
+    Json::Document ext;
 };
 
 /*
@@ -112,7 +112,7 @@ struct Pmp
     /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable to this impression.
     Core::Vector<Deal> deals;
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    Core::Json ext;
+    Json::Document ext;
 };
 
 /*
@@ -164,5 +164,5 @@ struct Impression
     /// A Pmp object (Section 3.2.17) containing any private marketplace deals in effect for this impression.
     Core::Opt<Pmp> pmp;
     /// Placeholder for exchange-specific extensions to OpenRTB.
-    Core::Json ext;
+    Json::Document ext;
 };
