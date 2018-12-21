@@ -118,10 +118,13 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
         }
     }
 
-    if (j.HasMember("wadomain") && j["wadomain"].IsArray() && (j["wadomain"].Size() > 0)) {
-        deal.wadomain.reserve(j["wadomain"].Size());
-        for (const auto& val : j["wadomain"].GetArray()) {
-            deal.wadomain.emplace_back(val.GetString());
+    if (j.HasMember("wadomain")) {
+        const auto& wadomain = j["wadomain"];
+        if (const auto size = wadomain.Size(); wadomain.IsArray() && (size > 0)) {
+            deal.wadomain.reserve(size);
+            for (const auto& val : wadomain.GetArray()) {
+                deal.wadomain.emplace_back(val.GetString());
+            }
         }
     }
 #if 0
@@ -141,9 +144,9 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
     }
 
     if (j.HasMember("deals")) {
-        auto& deals = j["deals"];
-        if (deals.IsArray() && (deals.Size() > 0)) {
-            pmp.deals.reserve(deals.Size());
+        const auto& deals = j["deals"];
+        if (const auto size = deals.Size(); deals.IsArray() && (size > 0)) {
+            pmp.deals.reserve(size);
             for (const auto& val : deals.GetArray()) {
                 pmp.deals.push_back(JsonWorker<Deal>::Parse(val));
             }
