@@ -14,7 +14,6 @@ public:
     using Type = Banner;
 
 public:
-    /// Parses Banner.
     static Type Parse(const Core::Json& j);
 };
 
@@ -25,6 +24,15 @@ public:
     using Type = Deal;
 
 public:
-    /// Parses Deal.
+    static Type Parse(const Core::JsonVal& j);
+};
+
+template<>
+class JsonWorker<Pmp>
+{
+public:
+    using Type = Pmp;
+
+public:
     static Type Parse(const Core::Json& j);
 };

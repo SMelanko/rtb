@@ -80,6 +80,27 @@ TEST(DealTest, Parse)
     EXPECT_EQ(deal.wadomain.size(), 0);
 }
 
+TEST(PmpTest, Parse)
+{
+    const Core::String str = R"({
+        "private_auction": 1,
+        "deals": [
+            {
+                "id": "DX-1985-010A",
+                "bidfloor": 2.5,
+                "at": 2
+            }
+        ]
+    })";
+    auto pmp = JsonWorker<Pmp>::Parse(Str2Json(str));
+    EXPECT_EQ(pmp.private_auction, 1);
+    EXPECT_EQ(pmp.deals.size(), 1);
+    EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
+    EXPECT_DOUBLE_EQ(pmp.deals[0].bidfloor, 2.5);
+    EXPECT_EQ(pmp.deals[0].bidfloorcur, "USD"); // Default value.
+    EXPECT_EQ(pmp.deals[0].at, AuctionPrice::SECOND_PRICE_PLUS);
+}
+
 int main(int argc, char* argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);

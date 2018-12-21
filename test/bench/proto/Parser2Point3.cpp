@@ -47,3 +47,21 @@ void ParseDeal(benchmark::State& state)
     }
 }
 BENCH(ParseDeal);
+
+void ParsePmp(benchmark::State& state)
+{
+    for (auto _ : state) {
+        const Core::String str = R"({
+            "private_auction": 1,
+            "deals": [
+                {
+                    "id": "DX-1985-010A",
+                    "bidfloor": 2.5,
+                    "at": 2
+                }
+            ]
+        })";
+        auto pmp = JsonWorker<Pmp>::Parse(Str2Json(str));
+    }
+}
+BENCH(ParsePmp);

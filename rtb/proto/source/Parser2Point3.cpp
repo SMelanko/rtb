@@ -93,7 +93,7 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Core::Json& j)
     return banner;
 }
 
-JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::Json& j)
+JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::JsonVal& j)
 {
     Deal deal = {};
 
@@ -130,4 +130,29 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Core::Json& j)
     }
 #endif
     return deal;
+}
+
+JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Core::Json& j)
+{
+    Pmp pmp = {};
+
+    if (j.HasMember("private_auction")) {
+        pmp.private_auction = j["private_auction"].GetInt();
+    }
+
+    if (j.HasMember("deals")) {
+        auto& deals = j["deals"];
+        if (deals.IsArray() && (deals.Size() > 0)) {
+            pmp.deals.reserve(deals.Size());
+            for (const auto& val : deals.GetArray()) {
+                pmp.deals.push_back(JsonWorker<Deal>::Parse(val));
+            }
+        }
+    }
+#if 0
+    if (j.HasMember("ext")) {
+        pmp.ext = j["ext"].GetObject();
+    }
+#endif
+    return pmp;
 }
