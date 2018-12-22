@@ -5,32 +5,17 @@
 
 #include <rapidjson/document.h>
 
+#include <data/OpenRtb2Point3.hpp>
 #include <core/json/Json.hpp>
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
 #include <proto/Parser2Point3.hpp>
 
-auto Str2Json(const Core::String& str)
-{
-    Json::Document j;
-    j.Parse(str.c_str(), str.length());
-    return j;
-}
-
 TEST(BannerTest, Parse)
 {
-    const Core::String str = R"({
-        "h":250,"w":300,
-        "wmax":640,"hmax":320,
-        "wmin":240,"hmin":200,
-        "id":"p7mwtup3aep7c0io",
-        "pos":0,"topframe":0,
-        "btype":[4],"battr":[14],
-        "mimes":["image/jpg","image/png"],
-        "expdir":[2,4],"api":[3]
-    })";
-    auto banner = JsonWorker<Banner>::Parse(Str2Json(str));
+    const auto str = test::data::OpenRtb2Point3::GetBanner();
+    const auto banner = JsonWorker<Banner>::Parse(Json::Str2Json(str));
     EXPECT_EQ(banner.w.size(), 1);
     EXPECT_EQ(banner.w[0], 300);
     EXPECT_EQ(banner.h.size(), 1);
@@ -58,14 +43,11 @@ TEST(BannerTest, Parse)
 
 TEST(DealTest, Parse)
 {
-    const Core::String str = R"({
-        "id":"1452f.eadb4.7aaa","bidfloor":5.3,"at":1,"wseats":[],
-        "ext":{"priority":1,"wadvs":[]}
-    })";
-    auto deal = JsonWorker<Deal>::Parse(Str2Json(str));
+    const auto str = test::data::OpenRtb2Point3::GetDeal();
+    const auto deal = JsonWorker<Deal>::Parse(Json::Str2Json(str));
     EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
     EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
-    EXPECT_EQ(deal.bidfloorcur, "USD"); // Default value.
+    EXPECT_EQ(deal.bidfloorcur, "USD");
     EXPECT_EQ(deal.at, AuctionPrice::FIRST_PRICE);
     EXPECT_EQ(deal.wseat.size(), 0);
     EXPECT_EQ(deal.wadomain.size(), 0);
@@ -73,27 +55,20 @@ TEST(DealTest, Parse)
 
 TEST(PmpTest, Parse)
 {
-    const Core::String str = R"({
-        "private_auction": 1,
-        "deals": [{"id": "DX-1985-010A","bidfloor": 2.5,"at": 2}]
-    })";
-    auto pmp = JsonWorker<Pmp>::Parse(Str2Json(str));
+    const auto str = test::data::OpenRtb2Point3::GetPmp();
+    const auto pmp = JsonWorker<Pmp>::Parse(Json::Str2Json(str));
     EXPECT_EQ(pmp.private_auction, 1);
     EXPECT_EQ(pmp.deals.size(), 1);
     EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
     EXPECT_DOUBLE_EQ(pmp.deals[0].bidfloor, 2.5);
-    EXPECT_EQ(pmp.deals[0].bidfloorcur, "USD"); // Default value.
+    EXPECT_EQ(pmp.deals[0].bidfloorcur, "USD");
     EXPECT_EQ(pmp.deals[0].at, AuctionPrice::SECOND_PRICE_PLUS);
 }
 
 TEST(ImpressionTest, Parse)
 {
-    const Core::String str = R"({
-        "id":"1",
-        "banner":{"w":728,"h":90,"pos":1,"btype":[4],"battr":[14],"api":[3]},
-        "instl":0,"tagid":"agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw","bidfloor":0.5
-    })";
-    auto imp = JsonWorker<Impression>::Parse(Str2Json(str));
+    const auto str = test::data::OpenRtb2Point3::GetImpression();
+    const auto imp = JsonWorker<Impression>::Parse(Json::Str2Json(str));
     EXPECT_EQ(imp.id, "1");
     EXPECT_TRUE(imp.banner.has_value());
     EXPECT_EQ(imp.banner->w.size(), 1);

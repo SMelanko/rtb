@@ -14,4 +14,5 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::google-benchmark
         rtb::proto
+        test::data
 )

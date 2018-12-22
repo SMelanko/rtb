@@ -1,14 +1,16 @@
 #pragma once
 
-#include <string_view>
-
 #include <rapidjson/document.h>
+
+#include "core/stl/String.hpp"
 
 namespace Json
 {
 
 using Document = ::rapidjson::Document;
 using Object = ::rapidjson::Value;
+
+Json::Document Str2Json(Core::StringView str);
 
 template<class C>
 void ExtVecStr(const Json::Object& j, const std::string_view field, C& data)

@@ -27,6 +27,7 @@ if (ENABLE_TESTING)
 endif ()
 
 if (ENABLE_BENCHMARKING)
+    add_subdirectory(test/data)
     add_subdirectory(test/bench/core)
     add_subdirectory(test/bench/proto)
 endif ()

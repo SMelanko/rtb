@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(core LANGUAGES CXX)
+project(data LANGUAGES CXX)
 
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "source/*.cpp")
 
@@ -8,7 +8,7 @@ add_library(${PROJECT_NAME} STATIC
     ${${PROJECT_NAME}_SOURCE}
 )
 
-add_library(rtb::core ALIAS ${PROJECT_NAME})
+add_library(test::data ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
@@ -26,5 +26,5 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        ${CONAN_LIBS}
+        rtb::core
 )
