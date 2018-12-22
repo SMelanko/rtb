@@ -111,22 +111,9 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
         deal.at = static_cast<AuctionPrice>(j["at"].GetInt());
     }
 
-    if (j.HasMember("wseat") && j["wseat"].IsArray() && (j["wseat"].Size() > 0)) {
-        deal.wseat.reserve(j["wseat"].Size());
-        for (const auto& val : j["wseat"].GetArray()) {
-            deal.wseat.emplace_back(val.GetString());
-        }
-    }
+    Json::ExtVecStr(j, "wseat", deal.wseat);
+    Json::ExtVecStr(j, "wadomain", deal.wadomain);
 
-    if (j.HasMember("wadomain")) {
-        const auto& wadomain = j["wadomain"];
-        if (const auto size = wadomain.Size(); wadomain.IsArray() && (size > 0)) {
-            deal.wadomain.reserve(size);
-            for (const auto& val : wadomain.GetArray()) {
-                deal.wadomain.emplace_back(val.GetString());
-            }
-        }
-    }
 #if 0
     if (j.HasMember("ext")) {
         deal.ext = j["ext"].GetObject();
