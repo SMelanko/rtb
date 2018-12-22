@@ -191,14 +191,14 @@ public:
 #if 0
     /// Details via a Site object (Section 3.2.6) about the publisher’s website.
     /// Only applicable and recommended for websites.
-    Site site;
+    Core::Opt<Site> site;
     /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e., non-browser applications).
     /// Only applicable and recommended for apps.
-    App app;
+    Core::Opt<App> app;
     /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
-    Device device;
+    Core::Opt<Device> device;
     /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.
-    User user;
+    Core::Opt<User> user;
 #endif
     /// Indicator of test mode in which auctions are not billable, where 0 (false) = live mode, 1 (true) = test mode.
     Core::Bool test = false;
@@ -223,7 +223,9 @@ public:
     Core::Vector<Core::String> badv;
     /// A Regs object (Section 3.2.16) that specifies any industry, legal,
     /// or governmental regulations in force for this request.
-    Json::Document regs;
+    Core::Opt<Json::Document> regs;
     /// Placeholder for exchange-specific extensions to OpenRTB.
     Json::Document ext;
+    /// Unparseable fields get put here.
+    Json::Document unparseable;
 };
