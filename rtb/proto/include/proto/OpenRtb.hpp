@@ -142,10 +142,10 @@ struct Impression
     /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
     Core::String displaymanager;
-    /// Version of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
+    /// Version of ad mediation partner, SDK technology or player responsible for rendering ad (typically video or mobile).
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
     Core::String displaymanagerver;
-    /// 1 = the ad is Core::Interstitial or full screen, 0 = not Core::Interstitial.
+    /// 1 = the ad is interstitial or full screen, 0 = not interstitial.
     Core::Int instl = 0;
     /// Identifier for specific ad placement or ad tag that was used to initiate the auction.
     /// This can be useful for debugging of any issues, or for Core::Optimization by the buyer.
@@ -155,9 +155,8 @@ struct Impression
     /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder
     /// if this is allowed by the exchange.
     Core::String bidfloorcur = "USD";
-    /// Flag to indicate if the impression requires secure HTTPS URL creative assets and markup,
-    /// where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown,
-    /// but non-secure HTTP support can be assumed.
+    /// Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where
+    /// 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed.
     Core::Int secure;
     /// Array of exchange-specific names of supported iframe busters.
     Core::Vector<Core::String> iframebuster;

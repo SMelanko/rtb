@@ -36,3 +36,13 @@ public:
 public:
     static Type Parse(const Json::Object& j);
 };
+
+template<>
+class JsonWorker<Impression>
+{
+public:
+    using Type = Impression;
+
+public:
+    static Type Parse(const Json::Object& j);
+};

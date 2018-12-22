@@ -146,3 +146,50 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
 #endif
     return pmp;
 }
+
+JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j)
+{
+    Impression imp = {};
+
+    imp.id = j["id"].GetString();
+
+    if (j.HasMember("banner")) {
+        imp.banner = JsonWorker<Banner>::Parse(j["banner"]);
+    }
+
+    if (j.HasMember("displaymanager")) {
+        imp.displaymanager = j["displaymanager"].GetString();
+    }
+
+    if (j.HasMember("displaymanagerver")) {
+        imp.displaymanagerver = j["displaymanagerver"].GetString();
+    }
+
+    if (j.HasMember("instl")) {
+        imp.instl = j["instl"].GetInt();
+    }
+
+    if (j.HasMember("tagid")) {
+        imp.tagid = j["tagid"].GetString();
+    }
+
+    if (j.HasMember("bidfloor")) {
+        imp.bidfloor = j["bidfloor"].GetDouble();
+    }
+
+    if (j.HasMember("bidfloorcur")) {
+        imp.bidfloorcur = j["bidfloorcur"].GetString();
+    }
+
+    if (j.HasMember("secure")) {
+        imp.secure = j["secure"].GetInt();
+    }
+
+    Json::ExtVecStr(j, "iframebuster", imp.iframebuster);
+
+    if (j.HasMember("pmp")) {
+        imp.pmp = JsonWorker<Pmp>::Parse(j["pmp"]);
+    }
+
+    return imp;
+}
