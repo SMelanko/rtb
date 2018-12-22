@@ -6,3 +6,7 @@
 void ParseBanner(benchmark::State& state);
 /// Parses deal.
 void ParseDeal(benchmark::State& state);
+/// Parses pmp.
+void ParsePmp(benchmark::State& state);
+/// Parses impression.
+void ParseImpression(benchmark::State& state);

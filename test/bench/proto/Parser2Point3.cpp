@@ -53,15 +53,24 @@ void ParsePmp(benchmark::State& state)
     for (auto _ : state) {
         const Core::String str = R"({
             "private_auction": 1,
-            "deals": [
-                {
-                    "id": "DX-1985-010A",
-                    "bidfloor": 2.5,
-                    "at": 2
-                }
-            ]
+            "deals": [{"id": "DX-1985-010A","bidfloor": 2.5,"at": 2}]
         })";
         auto pmp = JsonWorker<Pmp>::Parse(Str2Json(str));
     }
 }
 BENCH(ParsePmp);
+
+void ParseImpression(benchmark::State& state)
+{
+    for (auto _ : state) {
+        const Core::String str = R"({
+            "id":"1",
+            "banner":{"w":728,"h":90,"pos":1,"btype":[4],"battr":[14],"api":[3]},
+            "instl":0,
+            "tagid":"agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw",
+            "bidfloor":0.5
+        })";
+        auto imp = JsonWorker<Impression>::Parse(Str2Json(str));
+    }
+}
+BENCH(ParseImpression);
