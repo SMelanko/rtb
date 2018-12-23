@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/json/Json.hpp>
+#include <core/stl/Optional.hpp>
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
 
@@ -135,12 +136,12 @@ public:
     /// A unique identifier for this impression within the context of the bid request.
     Core::String id;
     /// A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.
-    Core::Opt<Banner> banner;
+    Core::Optional<Banner> banner;
 #if 0
     /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
-    Core::Opt<Video> video;
+    Core::Optional<Video> video;
     /// A Native object (Section 3.2.5); required if this impression is offered as a native ad opportunity.
-    Core::Opt<Native> native;
+    Core::Optional<Native> native;
 #endif
     /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
@@ -164,7 +165,7 @@ public:
     /// Array of exchange-specific names of supported iframe busters.
     Core::Vector<Core::String> iframebuster;
     /// A Pmp object (Section 3.2.17) containing any private marketplace deals in effect for this impression.
-    Core::Opt<Pmp> pmp;
+    Core::Optional<Pmp> pmp;
     /// Placeholder for exchange-specific extensions to OpenRTB.
     Json::Document ext;
 };
@@ -191,14 +192,14 @@ public:
 #if 0
     /// Details via a Site object (Section 3.2.6) about the publisher’s website.
     /// Only applicable and recommended for websites.
-    Core::Opt<Site> site;
+    Core::Optional<Site> site;
     /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e., non-browser applications).
     /// Only applicable and recommended for apps.
-    Core::Opt<App> app;
+    Core::Optional<App> app;
     /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
-    Core::Opt<Device> device;
+    Core::Optional<Device> device;
     /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.
-    Core::Opt<User> user;
+    Core::Optional<User> user;
 #endif
     /// Indicator of test mode in which auctions are not billable, where 0 (false) = live mode, 1 (true) = test mode.
     Core::Bool test = false;
@@ -223,7 +224,7 @@ public:
     Core::Vector<Core::String> badv;
     /// A Regs object (Section 3.2.16) that specifies any industry, legal,
     /// or governmental regulations in force for this request.
-    Core::Opt<Json::Document> regs;
+    Core::Optional<Json::Document> regs;
     /// Placeholder for exchange-specific extensions to OpenRTB.
     Json::Document ext;
     /// Unparseable fields get put here.
