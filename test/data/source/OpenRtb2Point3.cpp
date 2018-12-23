@@ -10,6 +10,8 @@ static Core::String Prepare(Core::String str)
 {
     str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
     str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+    str.erase(std::remove(str.begin(), str.end(), '\t'), str.end());
+
     return str;
 }
 
@@ -33,6 +35,7 @@ Core::String OpenRtb2Point3::GetBanner()
         "expdir":[2,4],
         "api":[3]
     })";
+
     return imp::Prepare(str);
 }
 
@@ -48,6 +51,7 @@ Core::String OpenRtb2Point3::GetDeal()
             "wadvs":[]
         }
     })";
+
     return imp::Prepare(str);
 }
 
@@ -63,6 +67,7 @@ Core::String OpenRtb2Point3::GetPmp()
             }
         ]
     })";
+
     return imp::Prepare(str);
 }
 
@@ -82,6 +87,58 @@ Core::String OpenRtb2Point3::GetImpression()
         "tagid":"agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw",
         "bidfloor":0.5
     })";
+
+    return imp::Prepare(str);
+}
+
+Core::String OpenRtb2Point3::GetBidRequestBrandscreen()
+{
+    // https://github.com/openrtb/examples/blob/master/brandscreen/example-request-mobile.json
+    auto str = R"({
+        "id":"IxexyLDIIk",
+        "imp":[
+            {
+                "id":"1",
+                "banner":{
+                    "w":728,
+                    "h":90,
+                    "pos":1,
+                    "btype":[
+                        4
+                    ],
+                    "battr":[
+                        14
+                    ],
+                    "api":[
+                        3
+                    ]
+                },
+                "instl":0,
+                "tagid":"agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw",
+                "bidfloor":0.5
+            }
+        ],
+        "app":{
+        },
+        "device":{
+        },
+        "user":{
+        },
+        "at":2,
+        "bcat":[
+            "IAB25",
+            "IAB7-39",
+            "IAB8-18",
+            "IAB8-5",
+            "IAB9-9"
+        ],
+        "badv":[
+            "apple.com",
+            "go-text.me",
+            "heywire.com"
+        ]
+    })";
+
     return imp::Prepare(str);
 }
 

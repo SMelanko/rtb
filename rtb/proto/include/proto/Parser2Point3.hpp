@@ -46,3 +46,13 @@ public:
 public:
     static Type Parse(const Json::Object& j);
 };
+
+template<>
+class JsonWorker<BidRequest>
+{
+public:
+    using Type = BidRequest;
+
+public:
+    static Type Parse(const Json::Object& j);
+};

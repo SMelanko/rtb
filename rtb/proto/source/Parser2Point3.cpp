@@ -191,5 +191,60 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
         imp.pmp = JsonWorker<Pmp>::Parse(j["pmp"]);
     }
 
+#if 0
+    if (j.HasMember("ext")) {
+        imp.ext = j["ext"].GetObject();
+    }
+#endif
+
     return imp;
+}
+
+JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j)
+{
+    BidRequest br = {};
+
+    br.id = j["id"].GetString();
+
+    const auto& imp = j["imp"];
+    if (const auto size = imp.Size(); imp.IsArray() && (size > 0)) {
+        br.imp.reserve(size);
+        for (const auto& val : imp.GetArray()) {
+            br.imp.push_back(JsonWorker<Impression>::Parse(val));
+        }
+    }
+
+    if (j.HasMember("test")) {
+        br.test = static_cast<bool>(j["test"].GetInt());
+    }
+
+    if (j.HasMember("at")) {
+        br.at = static_cast<AuctionPrice>(j["at"].GetInt());
+    }
+
+    if (j.HasMember("tmax")) {
+        br.tmax = j["tmax"].GetInt();
+    }
+
+    Json::ExtVecStr(j, "wseat", br.wseat);
+
+    if (j.HasMember("allimps")) {
+        br.allimps = static_cast<bool>(j["allimps"].GetInt());
+    }
+
+    Json::ExtVecStr(j, "cur", br.cur);
+    Json::ExtVecStr(j, "bcat", br.bcat);
+    Json::ExtVecStr(j, "badv", br.badv);
+
+#if 0
+    if (j.HasMember("regs")) {
+        br.regs = j["regs"].GetObject();
+    }
+
+    if (j.HasMember("ext")) {
+        br.ext = j["ext"].GetObject();
+    }
+#endif
+
+    return br;
 }
