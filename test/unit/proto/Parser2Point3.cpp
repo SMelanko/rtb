@@ -90,7 +90,7 @@ TEST(ImpressionTest, Parse)
 
 TEST(BidRequestTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetBidRequestBrandscreen();
+    const auto str = test::data::OpenRtb2Point3::GetBrandscreenBidRequest();
     const auto br = JsonWorker<BidRequest>::Parse(Json::Str2Json(str));
     EXPECT_EQ(br.id, "IxexyLDIIk");
     EXPECT_EQ(br.imp.size(), 1);

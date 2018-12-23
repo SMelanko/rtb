@@ -91,7 +91,7 @@ Core::String OpenRtb2Point3::GetImpression()
     return imp::Prepare(str);
 }
 
-Core::String OpenRtb2Point3::GetBidRequestBrandscreen()
+Core::String OpenRtb2Point3::GetBrandscreenBidRequest()
 {
     // https://github.com/openrtb/examples/blob/master/brandscreen/example-request-mobile.json
     auto str = R"({

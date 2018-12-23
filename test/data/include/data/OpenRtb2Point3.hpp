@@ -12,7 +12,7 @@ public:
     static Core::String GetDeal();
     static Core::String GetPmp();
     static Core::String GetImpression();
-    static Core::String GetBidRequestBrandscreen();
+    static Core::String GetBrandscreenBidRequest();
 };
 
 }

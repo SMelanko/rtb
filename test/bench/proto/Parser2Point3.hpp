@@ -10,3 +10,5 @@ void ParseDeal(benchmark::State& state);
 void ParsePmp(benchmark::State& state);
 /// Parses impression.
 void ParseImpression(benchmark::State& state);
+/// Parses bid request.
+void ParseBrandscreenBidRequest(benchmark::State& state);
