@@ -25,23 +25,11 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
         }
     }
 
-    if (j.HasMember("wmax")) {
-        banner.wmax = j["wmax"].GetInt();
-    }
-    if (j.HasMember("hmax")) {
-        banner.hmax = j["hmax"].GetInt();
-    }
-
-    if (j.HasMember("wmin")) {
-        banner.wmin = j["wmin"].GetInt();
-    }
-    if (j.HasMember("hmin")) {
-        banner.hmin = j["hmin"].GetInt();
-    }
-
-    if (j.HasMember("id")) {
-        banner.id = j["id"].GetString();
-    }
+    Json::ExtOptInt(j, "wmax", banner.wmax);
+    Json::ExtOptInt(j, "hmax", banner.hmax);
+    Json::ExtOptInt(j, "wmin", banner.wmin);
+    Json::ExtOptInt(j, "hmin", banner.hmin);
+    Json::ExtOptStr(j, "id", banner.id);
 
     if (j.HasMember("btype") && j["btype"].IsArray()) {
         banner.btype.reserve(j["btype"].Size());
@@ -57,20 +45,9 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
         }
     }
 
-    if (j.HasMember("pos")) {
-        banner.pos = static_cast<AdPosition>(j["pos"].GetInt());
-    }
-
-    if (j.HasMember("mimes") && j["mimes"].IsArray()) {
-        banner.mimes.reserve(j["mimes"].Size());
-        for (const auto& val : j["mimes"].GetArray()) {
-            banner.mimes.emplace_back(val.GetString());
-        }
-    }
-
-    if (j.HasMember("topframe")) {
-        banner.topframe = static_cast<FramePosition>(j["topframe"].GetInt());
-    }
+    Json::ExtEnum(j, "pos", banner.pos);
+    Json::ExtVecStr(j, "mimes", banner.mimes);
+    Json::ExtEnum(j, "topframe", banner.topframe);
 
     if (j.HasMember("expdir") && j["expdir"].IsArray()) {
         banner.expdir.reserve(j["expdir"].Size());
@@ -97,23 +74,12 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
 {
     Deal deal = {};
 
-    deal.id = j["id"].GetString();
-
-    if (j.HasMember("bidfloor")) {
-        deal.bidfloor = j["bidfloor"].GetDouble();
-    }
-
-    if (j.HasMember("bidfloorcur")) {
-        deal.bidfloorcur = j["bidfloorcur"].GetString();
-    }
-
-    if (j.HasMember("at")) {
-        deal.at = static_cast<AuctionPrice>(j["at"].GetInt());
-    }
-
+    Json::ExtReqStr(j, "id", deal.id);
+    Json::ExtDouble(j, "bidfloor", deal.bidfloor);
+    Json::ExtOptStr(j, "bidfloorcur", deal.bidfloorcur);
+    Json::ExtEnum(j, "at", deal.at);
     Json::ExtVecStr(j, "wseat", deal.wseat);
     Json::ExtVecStr(j, "wadomain", deal.wadomain);
-
 #if 0
     if (j.HasMember("ext")) {
         deal.ext = j["ext"].GetObject();
@@ -126,9 +92,7 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
 {
     Pmp pmp = {};
 
-    if (j.HasMember("private_auction")) {
-        pmp.private_auction = j["private_auction"].GetInt();
-    }
+    Json::ExtOptInt(j, "private_auction", pmp.private_auction);
 
     if (j.HasMember("deals")) {
         const auto& deals = j["deals"];
@@ -151,52 +115,29 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
 {
     Impression imp = {};
 
-    imp.id = j["id"].GetString();
+    Json::ExtReqStr(j, "id", imp.id);
 
     if (j.HasMember("banner")) {
         imp.banner = JsonWorker<Banner>::Parse(j["banner"]);
     }
 
-    if (j.HasMember("displaymanager")) {
-        imp.displaymanager = j["displaymanager"].GetString();
-    }
-
-    if (j.HasMember("displaymanagerver")) {
-        imp.displaymanagerver = j["displaymanagerver"].GetString();
-    }
-
-    if (j.HasMember("instl")) {
-        imp.instl = j["instl"].GetInt();
-    }
-
-    if (j.HasMember("tagid")) {
-        imp.tagid = j["tagid"].GetString();
-    }
-
-    if (j.HasMember("bidfloor")) {
-        imp.bidfloor = j["bidfloor"].GetDouble();
-    }
-
-    if (j.HasMember("bidfloorcur")) {
-        imp.bidfloorcur = j["bidfloorcur"].GetString();
-    }
-
-    if (j.HasMember("secure")) {
-        imp.secure = j["secure"].GetInt();
-    }
-
+    Json::ExtOptStr(j, "displaymanager", imp.displaymanager);
+    Json::ExtOptStr(j, "displaymanagerver", imp.displaymanagerver);
+    Json::ExtOptInt(j, "instl", imp.instl);
+    Json::ExtOptStr(j, "tagid", imp.tagid);
+    Json::ExtDouble(j, "bidfloor", imp.bidfloor);
+    Json::ExtOptStr(j, "bidfloorcur", imp.bidfloorcur);
+    Json::ExtOptInt(j, "secure", imp.secure);
     Json::ExtVecStr(j, "iframebuster", imp.iframebuster);
 
     if (j.HasMember("pmp")) {
         imp.pmp = JsonWorker<Pmp>::Parse(j["pmp"]);
     }
-
 #if 0
     if (j.HasMember("ext")) {
         imp.ext = j["ext"].GetObject();
     }
 #endif
-
     return imp;
 }
 
@@ -204,7 +145,7 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
 {
     BidRequest br = {};
 
-    br.id = j["id"].GetString();
+    Json::ExtReqStr(j, "id", br.id);
 
     const auto& imp = j["imp"];
     if (const auto size = imp.Size(); imp.IsArray() && (size > 0)) {
@@ -218,14 +159,8 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
         br.test = static_cast<bool>(j["test"].GetInt());
     }
 
-    if (j.HasMember("at")) {
-        br.at = static_cast<AuctionPrice>(j["at"].GetInt());
-    }
-
-    if (j.HasMember("tmax")) {
-        br.tmax = j["tmax"].GetInt();
-    }
-
+    Json::ExtEnum(j, "at", br.at);
+    Json::ExtOptInt(j, "tmax", br.tmax);
     Json::ExtVecStr(j, "wseat", br.wseat);
 
     if (j.HasMember("allimps")) {
@@ -235,7 +170,6 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
     Json::ExtVecStr(j, "cur", br.cur);
     Json::ExtVecStr(j, "bcat", br.bcat);
     Json::ExtVecStr(j, "badv", br.badv);
-
 #if 0
     if (j.HasMember("regs")) {
         br.regs = j["regs"].GetObject();
@@ -245,6 +179,5 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
         br.ext = j["ext"].GetObject();
     }
 #endif
-
     return br;
 }

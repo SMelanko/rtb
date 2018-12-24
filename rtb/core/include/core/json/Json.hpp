@@ -15,7 +15,7 @@ using Object = rapidjson::Value;
 Json::Document Str2Json(Core::StringView str);
 
 template<class T>
-void ExtStrReq(const Json::Object& j, Core::StringView field, T& data)
+void ExtReqStr(const Json::Object& j, Core::StringView field, T& data)
 {
     if (!j.HasMember(field.data())) {
         throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
@@ -25,10 +25,34 @@ void ExtStrReq(const Json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtStrOpt(const Json::Object& j, Core::StringView field, T& data)
+void ExtOptStr(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         data = j[field.data()].GetString();
+    }
+}
+
+template<class T>
+void ExtOptInt(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        data = j[field.data()].GetInt();
+    }
+}
+
+template<class T>
+void ExtDouble(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        data = j[field.data()].GetDouble();
+    }
+}
+
+template<class T>
+void ExtEnum(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        data = static_cast<T>(j[field.data()].GetInt());
     }
 }
 
