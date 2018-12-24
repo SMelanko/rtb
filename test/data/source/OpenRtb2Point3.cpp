@@ -1,21 +1,9 @@
 #include "data/OpenRtb2Point3.hpp"
 
+#include <core/utils/StringAlgo.hpp>
+
 namespace test::data
 {
-
-namespace imp
-{
-
-static Core::String Prepare(Core::String str)
-{
-    str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
-    str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
-    str.erase(std::remove(str.begin(), str.end(), '\t'), str.end());
-
-    return str;
-}
-
-}
 
 Core::String OpenRtb2Point3::GetBanner()
 {
@@ -36,7 +24,7 @@ Core::String OpenRtb2Point3::GetBanner()
         "api":[3]
     })";
 
-    return imp::Prepare(str);
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
 Core::String OpenRtb2Point3::GetDeal()
@@ -52,7 +40,7 @@ Core::String OpenRtb2Point3::GetDeal()
         }
     })";
 
-    return imp::Prepare(str);
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
 Core::String OpenRtb2Point3::GetPmp()
@@ -68,7 +56,7 @@ Core::String OpenRtb2Point3::GetPmp()
         ]
     })";
 
-    return imp::Prepare(str);
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
 Core::String OpenRtb2Point3::GetImpression()
@@ -88,7 +76,7 @@ Core::String OpenRtb2Point3::GetImpression()
         "bidfloor":0.5
     })";
 
-    return imp::Prepare(str);
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
 Core::String OpenRtb2Point3::GetBrandscreenBidRequest()
@@ -139,7 +127,7 @@ Core::String OpenRtb2Point3::GetBrandscreenBidRequest()
         ]
     })";
 
-    return imp::Prepare(str);
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
 }
