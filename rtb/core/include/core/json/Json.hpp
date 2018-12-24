@@ -1,8 +1,10 @@
 #pragma once
 
+#include "core/stl/String.hpp"
+
 #include <rapidjson/document.h>
 
-#include "core/stl/String.hpp"
+#include <fmt/format.h>
 
 namespace Json
 {
@@ -12,8 +14,26 @@ using Object = rapidjson::Value;
 
 Json::Document Str2Json(Core::StringView str);
 
+template<class T>
+void ExtStrReq(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (!j.HasMember(field.data())) {
+        throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
+    }
+
+    data = j[field.data()].GetString();
+}
+
+template<class T>
+void ExtStrOpt(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        data = j[field.data()].GetString();
+    }
+}
+
 template<class C>
-void ExtVecStr(const Json::Object& j, const std::string_view field, C& data)
+void ExtVecStr(const Json::Object& j, Core::StringView field, C& data)
 {
     if (j.HasMember(field.data())) {
         const auto& arr = j[field.data()];
