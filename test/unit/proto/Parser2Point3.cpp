@@ -51,6 +51,13 @@ TEST(DealTest, Parse)
     EXPECT_EQ(deal.at, AuctionPrice::FIRST_PRICE);
     EXPECT_EQ(deal.wseat.size(), 0);
     EXPECT_EQ(deal.wadomain.size(), 0);
+#if 0
+    EXPECT_TRUE(deal.ext.HasMember("priority"));
+    EXPECT_EQ(deal.ext["priority"].GetInt(), 1);
+    EXPECT_TRUE(deal.ext.HasMember("wadvs"));
+    EXPECT_TRUE(deal.ext["wadvs"].IsArray());
+    EXPECT_EQ(deal.ext["wadvs"].Size(), 0);
+#endif
 }
 
 TEST(PmpTest, Parse)

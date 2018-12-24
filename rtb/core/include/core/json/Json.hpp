@@ -7,8 +7,8 @@
 namespace Json
 {
 
-using Document = ::rapidjson::Document;
-using Object = ::rapidjson::Value;
+using Document = rapidjson::Document;
+using Object = rapidjson::Value;
 
 Json::Document Str2Json(Core::StringView str);
 
