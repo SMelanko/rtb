@@ -20,7 +20,7 @@ void ExtBool(const Json::Object& j, Core::StringView field, T& data)
 {
     auto name = field.data();
     if (j.HasMember(name)) {
-        if (!j[name].IsInt() || !j[name].IsBool()) {
+        if (!j[name].IsInt() && !j[name].IsBool()) {
             throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
         }
         data = (j[name].IsInt()) ? static_cast<Core::Bool>(j[name].GetInt()) : j[name].GetBool();

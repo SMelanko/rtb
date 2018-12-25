@@ -4,6 +4,19 @@
 #include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
 
+TEST(Json, ExtractBool)
+{
+    auto str = R"({"bool":1})";
+    auto doc = Json::Str2Json(str);
+    Core::Bool b;
+    Json::ExtBool(doc, "bool", b);
+    EXPECT_TRUE(b);
+    str = R"({"bool":false})";
+    doc = Json::Str2Json(str);
+    Json::ExtBool(doc, "bool", b);
+    EXPECT_FALSE(b);
+}
+
 TEST(Json, ExtractEnum)
 {
     enum class Color { NONE = 0, RED = 1 };
