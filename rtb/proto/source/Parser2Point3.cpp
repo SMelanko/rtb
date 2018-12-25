@@ -30,38 +30,13 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
     Json::ExtOptInt(j, "wmin", banner.wmin);
     Json::ExtOptInt(j, "hmin", banner.hmin);
     Json::ExtOptStr(j, "id", banner.id);
-
-    if (j.HasMember("btype") && j["btype"].IsArray()) {
-        banner.btype.reserve(j["btype"].Size());
-        for (const auto& val : j["btype"].GetArray()) {
-            banner.btype.push_back(static_cast<BannerAdType>(val.GetInt()));
-        }
-    }
-
-    if (j.HasMember("battr") && j["battr"].IsArray()) {
-        banner.battr.reserve(j["battr"].Size());
-        for (const auto& val : j["battr"].GetArray()) {
-            banner.battr.push_back(static_cast<CreativeAttribute>(val.GetInt()));
-        }
-    }
-
+    Json::ExtVecEnum(j, "btype", banner.btype);
+    Json::ExtVecEnum(j, "battr", banner.battr);
     Json::ExtEnum(j, "pos", banner.pos);
     Json::ExtVecStr(j, "mimes", banner.mimes);
     Json::ExtEnum(j, "topframe", banner.topframe);
-
-    if (j.HasMember("expdir") && j["expdir"].IsArray()) {
-        banner.expdir.reserve(j["expdir"].Size());
-        for (const auto& val : j["expdir"].GetArray()) {
-            banner.expdir.push_back(static_cast<ExpandableDirection>(val.GetInt()));
-        }
-    }
-
-    if (j.HasMember("api") && j["api"].IsArray()) {
-        banner.api.reserve(j["api"].Size());
-        for (const auto& val : j["api"].GetArray()) {
-            banner.api.push_back(static_cast<ApiFramework>(val.GetInt()));
-        }
-    }
+    Json::ExtVecEnum(j, "expdir", banner.expdir);
+    Json::ExtVecEnum(j, "api", banner.api);
 #if 0
     if (j.HasMember("ext")) {
         banner.ext = j["ext"].GetObject();
@@ -80,11 +55,13 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
     Json::ExtEnum(j, "at", deal.at);
     Json::ExtVecStr(j, "wseat", deal.wseat);
     Json::ExtVecStr(j, "wadomain", deal.wadomain);
+
 #if 0
     if (j.HasMember("ext")) {
         deal.ext = j["ext"].GetObject();
     }
 #endif
+
     return deal;
 }
 
@@ -103,11 +80,13 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
             }
         }
     }
+
 #if 0
     if (j.HasMember("ext")) {
         pmp.ext = j["ext"].GetObject();
     }
 #endif
+
     return pmp;
 }
 
@@ -133,11 +112,13 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
     if (j.HasMember("pmp")) {
         imp.pmp = JsonWorker<Pmp>::Parse(j["pmp"]);
     }
+
 #if 0
     if (j.HasMember("ext")) {
         imp.ext = j["ext"].GetObject();
     }
 #endif
+
     return imp;
 }
 
@@ -155,21 +136,15 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
         }
     }
 
-    if (j.HasMember("test")) {
-        br.test = static_cast<bool>(j["test"].GetInt());
-    }
-
+    Json::ExtBool(j, "test", br.test);
     Json::ExtEnum(j, "at", br.at);
     Json::ExtOptInt(j, "tmax", br.tmax);
     Json::ExtVecStr(j, "wseat", br.wseat);
-
-    if (j.HasMember("allimps")) {
-        br.allimps = static_cast<bool>(j["allimps"].GetInt());
-    }
-
+    Json::ExtBool(j, "allimps", br.allimps);
     Json::ExtVecStr(j, "cur", br.cur);
     Json::ExtVecStr(j, "bcat", br.bcat);
     Json::ExtVecStr(j, "badv", br.badv);
+
 #if 0
     if (j.HasMember("regs")) {
         br.regs = j["regs"].GetObject();
@@ -179,5 +154,6 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
         br.ext = j["ext"].GetObject();
     }
 #endif
+
     return br;
 }

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <core/json/Json.hpp>
+#include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
 
 TEST(Json, ExtractEnum)
@@ -12,6 +13,20 @@ TEST(Json, ExtractEnum)
     Color color;
     Json::ExtEnum(doc, "color", color);
     EXPECT_EQ(color, Color::RED);
+}
+
+TEST(Json, ExtractVectorEnum)
+{
+    enum class Color { RED = 1, GREEN = 2, BLUE = 3 };
+    // Ok.
+    auto str = R"({"color":[1,2,3]})";
+    auto doc = Json::Str2Json(str);
+    Core::Vector<Color> color;
+    Json::ExtVecEnum(doc, "color", color);
+    EXPECT_EQ(color.size(), 3);
+    EXPECT_EQ(color[0], Color::RED);
+    EXPECT_EQ(color[1], Color::GREEN);
+    EXPECT_EQ(color[2], Color::BLUE);
 }
 
 TEST(Json, ExtractDouble)
