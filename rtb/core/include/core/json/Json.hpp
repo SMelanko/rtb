@@ -28,40 +28,6 @@ void ExtBool(const Json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtReqStr(const Json::Object& j, Core::StringView field, T& data)
-{
-    if (!j.HasMember(field.data())) {
-        throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
-    }
-    if (!j[field.data()].IsString()) {
-        throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
-    }
-    data = j[field.data()].GetString();
-}
-
-template<class T>
-void ExtOptStr(const Json::Object& j, Core::StringView field, T& data)
-{
-    if (j.HasMember(field.data())) {
-        if (!j[field.data()].IsString()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
-        }
-        data = j[field.data()].GetString();
-    }
-}
-
-template<class T>
-void ExtOptInt(const Json::Object& j, Core::StringView field, T& data)
-{
-    if (j.HasMember(field.data())) {
-        if (!j[field.data()].IsInt()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
-        }
-        data = j[field.data()].GetInt();
-    }
-}
-
-template<class T>
 void ExtDouble(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
@@ -85,13 +51,50 @@ void ExtEnum(const Json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
+void ExtInt(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        if (!j[field.data()].IsInt()) {
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
+        }
+        data = j[field.data()].GetInt();
+    }
+}
+
+template<class T>
+void ExtReqStr(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (!j.HasMember(field.data())) {
+        throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
+    }
+    if (!j[field.data()].IsString()) {
+        throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
+    }
+    data = j[field.data()].GetString();
+}
+
+template<class T>
+void ExtStr(const Json::Object& j, Core::StringView field, T& data)
+{
+    if (j.HasMember(field.data())) {
+        if (!j[field.data()].IsString()) {
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
+        }
+        data = j[field.data()].GetString();
+    }
+}
+
+template<class T>
 void ExtVecEnum(const Json::Object& j, Core::StringView field, T& data)
 {
     auto name = field.data();
     if (j.HasMember(name) && j[name].IsArray()) {
-        data.reserve(j[name].Size());
-        for (const auto& val : j[name].GetArray()) {
-            data.push_back(static_cast<typename T::value_type>(val.GetInt()));
+        const auto& arr = j[name];
+        if (const auto size = arr.Size(); (size > 0)) {
+            data.reserve(size);
+            for (const auto& val : arr.GetArray()) {
+                data.push_back(static_cast<typename T::value_type>(val.GetInt()));
+            }
         }
     }
 }
@@ -99,9 +102,10 @@ void ExtVecEnum(const Json::Object& j, Core::StringView field, T& data)
 template<class C>
 void ExtVecStr(const Json::Object& j, Core::StringView field, C& data)
 {
-    if (j.HasMember(field.data())) {
-        const auto& arr = j[field.data()];
-        if (const auto size = arr.Size(); arr.IsArray() && (size > 0)) {
+    auto name = field.data();
+    if (j.HasMember(name) && j[name].IsArray()) {
+        const auto& arr = j[name];
+        if (const auto size = arr.Size(); (size > 0)) {
             data.reserve(size);
             for (const auto& val : arr.GetArray()) {
                 data.emplace_back(val.GetString());
