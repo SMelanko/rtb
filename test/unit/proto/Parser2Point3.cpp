@@ -41,6 +41,66 @@ TEST(BannerTest, Parse)
     EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
 }
 
+TEST(VideoTest, Parse) {
+    const auto str = test::data::OpenRtb2Point3::GetVideo();
+    const auto v = JsonWorker<Video>::Parse(Json::Str2Json(str));
+    EXPECT_EQ(v.w, 640);
+    EXPECT_EQ(v.h, 480);
+    EXPECT_EQ(v.pos, AdPosition::ABOVE);
+    EXPECT_EQ(v.startdelay, VideoStartDelay::PRE_ROLL);
+    EXPECT_EQ(v.minduration, 5);
+    EXPECT_EQ(v.maxduration, 30);
+    EXPECT_EQ(v.maxextended, 30);
+    EXPECT_EQ(v.minbitrate, 300);
+    EXPECT_EQ(v.maxbitrate, 1500);
+    EXPECT_EQ(v.api.size(), 2);
+    EXPECT_EQ(v.api[0], ApiFramework::VPAID_1);
+    EXPECT_EQ(v.api[1], ApiFramework::VPAID_2);
+    EXPECT_EQ(v.protocols.size(), 2);
+    EXPECT_EQ(v.protocols[0], VideoBidResponseProtocol::VAST2);
+    EXPECT_EQ(v.protocols[1], VideoBidResponseProtocol::VAST3);
+    EXPECT_EQ(v.mimes.size(), 4);
+    EXPECT_EQ(v.mimes[0].type, "video/x-flv");
+    EXPECT_EQ(v.mimes[1].type, "video/mp4");
+    EXPECT_EQ(v.mimes[2].type, "application/x-shockwave-flash");
+    EXPECT_EQ(v.mimes[3].type, "application/javascript");
+    EXPECT_EQ(v.linearity, VideoLinearity::IN_STREAM);
+    EXPECT_TRUE(v.boxingallowed);
+    EXPECT_EQ(v.playbackmethod.size(), 2);
+    EXPECT_EQ(v.playbackmethod[0], VideoPlaybackMethod::AUTO_PLAY_SOUND_ON);
+    EXPECT_EQ(v.playbackmethod[1], VideoPlaybackMethod::CLICK_TO_PLAY);
+    EXPECT_EQ(v.delivery.size(), 1);
+    EXPECT_EQ(v.delivery[0], ContentDeliveryMethod::PROGRESSIVE);
+    EXPECT_EQ(v.battr.size(), 2);
+    EXPECT_EQ(v.battr[0], CreativeAttribute::USER_INTERACTIVE);
+    EXPECT_EQ(v.battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(v.companionad.size(), 2);
+    {
+        EXPECT_EQ(v.companionad[0].id, "1234567893-1");
+        EXPECT_EQ(v.companionad[0].w[0], 300);
+        EXPECT_EQ(v.companionad[0].h[0], 250);
+        EXPECT_EQ(v.companionad[0].pos, AdPosition::ABOVE);
+        EXPECT_EQ(v.companionad[0].battr.size(), 2);
+        EXPECT_EQ(v.companionad[0].battr[0], CreativeAttribute::USER_INTERACTIVE);
+        EXPECT_EQ(v.companionad[0].battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+        EXPECT_EQ(v.companionad[0].expdir.size(), 2);
+        EXPECT_EQ(v.companionad[0].expdir[0], ExpandableDirection::RIGHT);
+        EXPECT_EQ(v.companionad[0].expdir[1], ExpandableDirection::DOWN);
+    }
+    {
+        EXPECT_EQ(v.companionad[1].id, "1234567893-2");
+        EXPECT_EQ(v.companionad[1].w[0], 728);
+        EXPECT_EQ(v.companionad[1].h[0], 90);
+        EXPECT_EQ(v.companionad[1].pos, AdPosition::ABOVE);
+        EXPECT_EQ(v.companionad[1].battr.size(), 2);
+        EXPECT_EQ(v.companionad[1].battr[0], CreativeAttribute::USER_INTERACTIVE);
+        EXPECT_EQ(v.companionad[1].battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    }
+    EXPECT_EQ(v.companiontype.size(), 2);
+    EXPECT_EQ(v.companiontype[0], VastCompanionType::STATIC_RESOURCE);
+    EXPECT_EQ(v.companiontype[1], VastCompanionType::HTML_RESOURCE);
+}
+
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3::GetDeal();

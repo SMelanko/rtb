@@ -56,7 +56,7 @@ void ExtVecObj(const Json::Object& j, Core::StringView field, T& data)
 
 JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
 {
-    Type banner = {};
+    Banner banner = {};
 
     Detail::ExtSize(j, "w", banner.w);
     Detail::ExtSize(j, "h", banner.h);
@@ -74,6 +74,35 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
     Json::ExtVecEnum(j, "api", banner.api);
 
     return banner;
+}
+
+JsonWorker<Video>::Type JsonWorker<Video>::Parse(const Json::Object& j)
+{
+    Video video = {};
+
+    Json::ExtVecStr(j, "mimes", video.mimes);
+    Json::ExtInt(j, "minduration", video.minduration);
+    Json::ExtInt(j, "maxduration", video.maxduration);
+    Json::ExtEnum(j, "protocol", video.protocol);
+    Json::ExtVecEnum(j, "protocols", video.protocols);
+    Json::ExtInt(j, "w", video.w);
+    Json::ExtInt(j, "h", video.h);
+    Json::ExtEnum(j, "startdelay", video.startdelay);
+    Json::ExtEnum(j, "linearity", video.linearity);
+    Json::ExtInt(j, "sequence", video.sequence);
+    Json::ExtVecEnum(j, "battr", video.battr);
+    Json::ExtInt(j, "maxextended", video.maxextended);
+    Json::ExtInt(j, "minbitrate", video.minbitrate);
+    Json::ExtInt(j, "maxbitrate", video.maxbitrate);
+    Json::ExtBool(j, "boxingallowed", video.boxingallowed);
+    Json::ExtVecEnum(j, "playbackmethod", video.playbackmethod);
+    Json::ExtVecEnum(j, "delivery", video.delivery);
+    Json::ExtEnum(j, "pos", video.pos);
+    Detail::ExtVecObj(j, "companionad", video.companionad);
+    Json::ExtVecEnum(j, "api", video.api);
+    Json::ExtVecEnum(j, "companiontype", video.companiontype);
+
+    return video;
 }
 
 JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
@@ -106,6 +135,7 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
 
     Json::ExtReqStr(j, "id", imp.id);
     Detail::ExtObj(j, "banner", *imp.banner);
+    Detail::ExtObj(j, "video", *imp.video);
     Json::ExtStr(j, "displaymanager", imp.displaymanager);
     Json::ExtStr(j, "displaymanagerver", imp.displaymanagerver);
     Json::ExtInt(j, "instl", imp.instl);

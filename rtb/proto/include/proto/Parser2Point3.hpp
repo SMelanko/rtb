@@ -18,6 +18,16 @@ public:
 };
 
 template<>
+class JsonWorker<Video>
+{
+public:
+    using Type = Video;
+
+public:
+    static Type Parse(const Json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:

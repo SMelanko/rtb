@@ -412,7 +412,7 @@ public:
     Core::Int maxduration;
     /// Supported video bid response protocol. Refer to List 5.8. At least one supported protocol
     /// must be specified in either the protocol or protocols attribute.
-    [[deprecated("Use of protocols instead is highly recommended")]] VideoBidResponseProtocol protocol;
+    VideoBidResponseProtocol protocol;
     /// Array of supported video bid response protocols. Refer to List 5.8. At least one
     /// supported protocol must be specified in either the protocol or protocols attribute.
     Core::Vector<VideoBidResponseProtocol> protocols;
@@ -528,9 +528,9 @@ public:
     Core::String id;
     /// A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.
     Core::Optional<Banner> banner = Banner{};
-#if 0
     /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
-    Core::Optional<Video> video;
+    Core::Optional<Video> video = Video{};
+#if 0
     /// A Native object (Section 3.2.5); required if this impression is offered as a native ad opportunity.
     Core::Optional<Native> native;
 #endif
