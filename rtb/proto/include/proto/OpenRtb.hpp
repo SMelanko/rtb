@@ -184,11 +184,136 @@ enum class ApiFramework
 };
 
 /*
+ * 5.7 Video Linearity
+ *
+ * The following table indicates the options for video linearity. “In-stream” or “linear” video
+ * refers to pre-roll, post-roll, or mid-roll video ads where the user is forced to watch ad
+ * in order to see the video content. “Overlay” or “non-linear” refer to ads that are shown
+ * on top of the video content.
+ * This field is optional. The following is the interpretation of the bidder based upon the presence
+ * or absence of the field in the bid request:
+ *  - If no value is set, any ad (linear or not) can be present in the response.
+ *  - If a value is set, only ads of the corresponding type can be present in the response.
+ * Note to the reader: This OpenRTB table has values derived from the IAB Quality Assurance Guidelines
+ * (QAG). Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
+ */
+
+enum class VideoLinearity
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Linear / In-Stream.
+    IN_STREAM = 1,
+    /// Non-Linear / Overlay.
+    OVERLAY = 2
+};
+
+/*
+ * 5.8 Video Bid Response Protocols
+ *
+ * The following table lists the options for video bid response protocols that
+ * could be supported by an exchange.
+ */
+
+enum class VideoBidResponseProtocol
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// VAST 1.0.
+    VAST1 = 1,
+    /// VAST 2.0.
+    VAST2 = 2,
+    /// VAST 3.0.
+    VAST3 = 3,
+    /// VAST 1.0 Wrapper.
+    VAST1_WRAPPER = 4,
+    /// VAST 2.0 Wrapper.
+    VAST2_WRAPPER = 5,
+    /// VAST 3.0 Wrapper.
+    VAST3_WRAPPER = 6
+};
+
+/*
+ * 5.9 Video Playback Methods
+ *
+ * The following table lists the various video playback methods.
+ */
+
+enum class VideoPlaybackMethod
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Auto-Play Sound On.
+    AUTO_PLAY_SOUND_ON = 1,
+    /// Auto-Play Sound Off.
+    AUTO_PLAY_SOUND_OFF = 2,
+    /// Click-to-Play.
+    CLICK_TO_PLAY = 3,
+    /// Mouse-Over.
+    MOUSE_OVER = 4
+};
+
+/*
+ * 5.10 Video Start Delay
+ *
+ * The following table lists the various options for the video start delay. If the start delay value
+ * is greater than 0, then the position is mid-roll and the value indicates the start delay.
+ */
+
+enum class VideoStartDelay
+{
+    /// Not explicitly specified.
+    NONE = -3,
+    /// Generic Post-Roll
+    GENERIC_POST_ROLL = -2,
+    /// Generic Mid-Roll.
+    GENERIC_MID_ROLL = -1,
+    /// Pre-Roll.
+    PRE_ROLL = 0
+    /// > 0, Mid-Roll (value indicates start delay in second).
+};
+
+/*
+ * 5.12 VAST Companion Types
+ *
+ * The following table lists the options to indicate markup types allowed for video companion ads.
+ * This table is derived from IAB VAST 2.0+. Refer to www.iab.net/vast/ for more information.
+ */
+
+enum class VastCompanionType
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Static Resource.
+    STATIC_RESOURCE = 1,
+    /// HTML Resource.
+    HTML_RESOURCE = 2,
+    /// Iframe Resource.
+    IFRAME_RESOURCE = 3
+};
+
+/*
+ * 5.13 Content Delivery Methods
+ *
+ * The following table lists the various options for the delivery of video content.
+ */
+
+enum class ContentDeliveryMethod
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Streaming.
+    STREAMING = 1,
+    /// Progressive.
+    PROGRESSIVE = 2
+};
+
+/*
  * Auction Price
  *
  * Optional override of the overall auction type of the bid request, where
- * 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed upon deal price.
- * Additional auction types can be defined by the exchange.
+ * 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed
+ * upon deal price. Additional auction types can be defined by the exchange.
  */
 
 enum class AuctionPrice
@@ -261,11 +386,87 @@ public:
 };
 
 /*
+ * 3.2.4 Object: Video
+ *
+ * This object represents an in-stream video impression. Many of the fields are non-essential
+ * for minimally viable transactions, but are included to offer fine control when needed.
+ * Video in OpenRTB generally assumes compliance with the VAST standard. As such,
+ * the notion of companion ads is supported by optionally including an array of Banner objects
+ * (refer to the Banner object in Section 3.2.3) that define these companion ads.
+ * The presence of a Video as a subordinate of the Imp object indicates that this impression is
+ * offered as a video type impression. At the publisher’s discretion, that same impression may
+ * also be offered as banner and/or native by also including as Imp subordinates the Banner and/or
+ * Native objects, respectively. However, any given bid for the impression must conform to
+ * one of the offered types.
+ */
+
+struct Video
+{
+public:
+    /// Content MIME types supported. Popular MIME types may include “video/x-ms-wmv” for
+    /// Windows Media and “video/x-flv” for Flash Video.
+    Core::Vector<MimeType> mimes;
+    /// Minimum video ad duration in seconds.
+    Core::Int minduration;
+    /// Maximum video ad duration in seconds.
+    Core::Int maxduration;
+    /// Supported video bid response protocol. Refer to List 5.8. At least one supported protocol
+    /// must be specified in either the protocol or protocols attribute.
+    [[deprecated("Use of protocols instead is highly recommended")]] VideoBidResponseProtocol protocol;
+    /// Array of supported video bid response protocols. Refer to List 5.8. At least one
+    /// supported protocol must be specified in either the protocol or protocols attribute.
+    Core::Vector<VideoBidResponseProtocol> protocols;
+    /// Width of the video player in pixels.
+    Core::Int w;
+    /// Height of the video player in pixels.
+    Core::Int h;
+    /// Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
+    /// Refer to List 5.10 for additional generic values.
+    VideoStartDelay startdelay;
+    /// Indicates if the impression must be linear, nonlinear, etc.
+    /// If none specified, assume all are allowed. Refer to List 5.7.
+    VideoLinearity linearity;
+    /// If multiple ad impressions are offered in the same bid request, the sequence number
+    /// will allow for the coordinated delivery of multiple creatives.
+    Core::Int sequence;
+    /// Blocked creative attributes. Refer to List 5.3.
+    Core::Vector<CreativeAttribute> battr;
+    /// Maximum extended video ad duration if extension is allowed.
+    /// If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no
+    /// time limit imposed. If greater than 0, then the value represents the number of seconds
+    /// of extended play supported beyond the maxduration value.
+    Core::Int maxextended = 0;
+    /// Minimum bit rate in Kbps. Exchange may set this dynamically or universally
+    /// across their set of publishers.
+    Core::Int minbitrate;
+    /// Maximum bit rate in Kbps. Exchange may set this dynamically or universally
+    /// across their set of publishers.
+    Core::Int maxbitrate;
+    /// Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes.
+    Core::Bool boxingallowed = true;
+    /// Allowed playback methods. If none specified, assume all are allowed. Refer to List 5.9.
+    Core::Vector<VideoPlaybackMethod> playbackmethod;
+    /// Supported delivery methods (e.g., streaming, progressive).
+    /// If none specified, assume all are supported. Refer to List 5.13.
+    Core::Vector<ContentDeliveryMethod> delivery;
+    /// Ad position on screen. Refer to List 5.4.
+    AdPosition pos;
+    /// Array of Banner objects (Section 3.2.3) if companion ads are available.
+    Core::Vector<Banner> companionad;
+    /// List of supported API frameworks for this impression. Refer to List 5.6.
+    /// If an API is not explicitly listed, it is assumed not to be supported.
+    Core::Vector<ApiFramework> api;
+    /// Supported VAST companion ad types. Refer to List 5.12. Recommended
+    /// if companion Banner objects are included via the companionad array.
+    Core::Vector<VastCompanionType> companiontype;
+};
+
+/*
  * 3.2.18 Object: Deal
  *
- * This object constitutes a specific deal that was struck a priori between a buyer and a seller. Its presence
- * with the Pmp collection indicates that this impression is available under the terms of that deal. Refer to
- * Section 7.2 for more details.
+ * This object constitutes a specific deal that was struck a priori between a buyer and a seller.
+ * Its presence with the Pmp collection indicates that this impression is available under
+ * the terms of that deal. Refer to Section 7.2 for more details.
  */
 
 struct Deal

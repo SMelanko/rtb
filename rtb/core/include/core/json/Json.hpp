@@ -21,7 +21,7 @@ void ExtBool(const Json::Object& j, Core::StringView field, T& data)
     auto name = field.data();
     if (j.HasMember(name)) {
         if (!j[name].IsInt() && !j[name].IsBool()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected int/bool", field) };
         }
         data = (j[name].IsInt()) ? static_cast<Core::Bool>(j[name].GetInt()) : j[name].GetBool();
     }
@@ -32,7 +32,7 @@ void ExtDouble(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsDouble()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect double", field) };
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected double", field) };
         }
         data = j[field.data()].GetDouble();
     }
@@ -43,7 +43,7 @@ void ExtEnum(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsInt()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected int", field) };
         }
         // TODO: Validate int value.
         data = static_cast<T>(j[field.data()].GetInt());
@@ -55,7 +55,7 @@ void ExtInt(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsInt()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect int", field) };
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected int", field) };
         }
         data = j[field.data()].GetInt();
     }
@@ -68,7 +68,7 @@ void ExtReqStr(const Json::Object& j, Core::StringView field, T& data)
         throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
     }
     if (!j[field.data()].IsString()) {
-        throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
+        throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected string", field) };
     }
     data = j[field.data()].GetString();
 }
@@ -78,7 +78,7 @@ void ExtStr(const Json::Object& j, Core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsString()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expect string", field) };
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected string", field) };
         }
         data = j[field.data()].GetString();
     }
