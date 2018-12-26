@@ -1,11 +1,11 @@
-#include "data/OpenRtb2Point3.hpp"
+#include "data/OpenRtb2Point3Sample.hpp"
 
 #include <core/utils/StringAlgo.hpp>
 
 namespace test::data
 {
 
-Core::String OpenRtb2Point3::GetBanner()
+Core::String OpenRtb2Point3Sample::GetBanner()
 {
     auto str = R"({
         "h":250,
@@ -27,7 +27,7 @@ Core::String OpenRtb2Point3::GetBanner()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
-Core::String OpenRtb2Point3::GetVideo()
+Core::String OpenRtb2Point3Sample::GetVideo()
 {
     auto str = R"({
         "w":640,
@@ -101,7 +101,7 @@ Core::String OpenRtb2Point3::GetVideo()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
-Core::String OpenRtb2Point3::GetDeal()
+Core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({
         "id":"1452f.eadb4.7aaa",
@@ -117,7 +117,7 @@ Core::String OpenRtb2Point3::GetDeal()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
-Core::String OpenRtb2Point3::GetPmp()
+Core::String OpenRtb2Point3Sample::GetPmp()
 {
     auto str = R"({
         "private_auction":1,
@@ -133,7 +133,7 @@ Core::String OpenRtb2Point3::GetPmp()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
-Core::String OpenRtb2Point3::GetImpression()
+Core::String OpenRtb2Point3Sample::GetImpression()
 {
     auto str = R"({
         "id":"1",
@@ -153,7 +153,7 @@ Core::String OpenRtb2Point3::GetImpression()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
-Core::String OpenRtb2Point3::GetBrandscreenBidRequest()
+Core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
 {
     // https://github.com/openrtb/examples/blob/master/brandscreen/example-request-mobile.json
     auto str = R"({

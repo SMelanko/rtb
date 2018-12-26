@@ -1,7 +1,7 @@
 #include "Parser2Point3.hpp"
 
 #include <core/stl/String.hpp>
-#include <data/OpenRtb2Point3.hpp>
+#include <data/OpenRtb2Point3Sample.hpp>
 #include <proto/Parser2Point3.hpp>
 
 #include <iostream>
@@ -16,9 +16,9 @@ void Log(Core::StringView str)
 #endif
 }
 
-void ParseBanner(benchmark::State& state)
+void ParseBanner(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3::GetBanner();
+    auto str = test::data::OpenRtb2Point3Sample::GetBanner();
     Log(str);
     for (auto _ : state) {
         auto banner = JsonWorker<Banner>::Parse(Json::Str2Json(str));
@@ -26,9 +26,19 @@ void ParseBanner(benchmark::State& state)
 }
 BENCH(ParseBanner);
 
-void ParseDeal(benchmark::State& state)
+void ParseVideo(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3::GetDeal();
+    auto str = test::data::OpenRtb2Point3Sample::GetVideo();
+    Log(str);
+    for (auto _ : state) {
+        auto v = JsonWorker<Video>::Parse(Json::Str2Json(str));
+    }
+}
+BENCH(ParseVideo);
+
+void ParseDeal(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetDeal();
     Log(str);
     for (auto _ : state) {
         auto deal = JsonWorker<Deal>::Parse(Json::Str2Json(str));
@@ -36,9 +46,9 @@ void ParseDeal(benchmark::State& state)
 }
 BENCH(ParseDeal);
 
-void ParsePmp(benchmark::State& state)
+void ParsePmp(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3::GetPmp();
+    auto str = test::data::OpenRtb2Point3Sample::GetPmp();
     Log(str);
     for (auto _ : state) {
         auto pmp = JsonWorker<Pmp>::Parse(Json::Str2Json(str));
@@ -46,9 +56,9 @@ void ParsePmp(benchmark::State& state)
 }
 BENCH(ParsePmp);
 
-void ParseImpression(benchmark::State& state)
+void ParseImpression(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3::GetImpression();
+    auto str = test::data::OpenRtb2Point3Sample::GetImpression();
     Log(str);
     for (auto _ : state) {
         auto imp = JsonWorker<Impression>::Parse(Json::Str2Json(str));
@@ -56,9 +66,9 @@ void ParseImpression(benchmark::State& state)
 }
 BENCH(ParseImpression);
 
-void ParseBrandscreenBidRequest(benchmark::State& state)
+void ParseBrandscreenBidRequest(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3::GetBrandscreenBidRequest();
+    auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
     Log(str);
     for (auto _ : state) {
         auto br = JsonWorker<BidRequest>::Parse(Json::Str2Json(str));

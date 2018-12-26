@@ -5,7 +5,7 @@
 
 #include <rapidjson/document.h>
 
-#include <data/OpenRtb2Point3.hpp>
+#include <data/OpenRtb2Point3Sample.hpp>
 #include <core/json/Json.hpp>
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
@@ -14,7 +14,7 @@
 
 TEST(BannerTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetBanner();
+    const auto str = test::data::OpenRtb2Point3Sample::GetBanner();
     const auto banner = JsonWorker<Banner>::Parse(Json::Str2Json(str));
     EXPECT_EQ(banner.w.size(), 1);
     EXPECT_EQ(banner.w[0], 300);
@@ -42,7 +42,7 @@ TEST(BannerTest, Parse)
 }
 
 TEST(VideoTest, Parse) {
-    const auto str = test::data::OpenRtb2Point3::GetVideo();
+    const auto str = test::data::OpenRtb2Point3Sample::GetVideo();
     const auto v = JsonWorker<Video>::Parse(Json::Str2Json(str));
     EXPECT_EQ(v.w, 640);
     EXPECT_EQ(v.h, 480);
@@ -103,7 +103,7 @@ TEST(VideoTest, Parse) {
 
 TEST(DealTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetDeal();
+    const auto str = test::data::OpenRtb2Point3Sample::GetDeal();
     const auto deal = JsonWorker<Deal>::Parse(Json::Str2Json(str));
     EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
     EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
@@ -122,7 +122,7 @@ TEST(DealTest, Parse)
 
 TEST(PmpTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetPmp();
+    const auto str = test::data::OpenRtb2Point3Sample::GetPmp();
     const auto pmp = JsonWorker<Pmp>::Parse(Json::Str2Json(str));
     EXPECT_EQ(pmp.private_auction, 1);
     EXPECT_EQ(pmp.deals.size(), 1);
@@ -134,7 +134,7 @@ TEST(PmpTest, Parse)
 
 TEST(ImpressionTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetImpression();
+    const auto str = test::data::OpenRtb2Point3Sample::GetImpression();
     const auto imp = JsonWorker<Impression>::Parse(Json::Str2Json(str));
     EXPECT_EQ(imp.id, "1");
     EXPECT_TRUE(imp.banner.has_value());
@@ -157,7 +157,7 @@ TEST(ImpressionTest, Parse)
 
 TEST(BidRequestTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3::GetBrandscreenBidRequest();
+    const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
     const auto br = JsonWorker<BidRequest>::Parse(Json::Str2Json(str));
     EXPECT_EQ(br.id, "IxexyLDIIk");
     EXPECT_EQ(br.imp.size(), 1);

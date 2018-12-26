@@ -5,7 +5,7 @@
 namespace test::data
 {
 
-class OpenRtb2Point3
+class OpenRtb2Point3Sample
 {
 public:
     static Core::String GetBanner();
