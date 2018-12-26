@@ -22,6 +22,22 @@ void ExtObj(const Json::Object& j, Core::StringView field, Core::Optional<T>& da
 }
 
 template<class T>
+void ExtSize(const Json::Object& j, Core::StringView field, T& data)
+{
+    const auto fieldName = field.data();
+    if (j.HasMember(fieldName)) {
+        if (j[fieldName].IsArray()) {
+            data.reserve(j[fieldName].Size());
+            for (const auto& val : j[fieldName].GetArray()) {
+                data.push_back(val.GetInt());
+            }
+        } else {
+            data.push_back(j[fieldName].GetInt());
+        }
+    }
+}
+
+template<class T>
 void ExtVecObj(const Json::Object& j, Core::StringView field, T& data)
 {
     const auto fieldName = field.data();
@@ -42,27 +58,8 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
 {
     Type banner = {};
 
-    if (j.HasMember("w")) {
-        if (j["w"].IsArray()) {
-            banner.w.reserve(j["w"].Size());
-            for (const auto& val : j["w"].GetArray()) {
-                banner.w.push_back(val.GetInt());
-            }
-        } else {
-            banner.w.push_back(j["w"].GetInt());
-        }
-    }
-    if (j.HasMember("h")) {
-        if (j["w"].IsArray()) {
-            banner.h.reserve(j["h"].Size());
-            for (const auto& val : j["h"].GetArray()) {
-                banner.h.push_back(val.GetInt());
-            }
-        } else {
-            banner.h.push_back(j["h"].GetInt());
-        }
-    }
-
+    Detail::ExtSize(j, "w", banner.w);
+    Detail::ExtSize(j, "h", banner.h);
     Json::ExtInt(j, "wmax", banner.wmax);
     Json::ExtInt(j, "hmax", banner.hmax);
     Json::ExtInt(j, "wmin", banner.wmin);
