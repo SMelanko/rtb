@@ -101,6 +101,23 @@ Core::String OpenRtb2Point3Sample::GetVideo()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
+Core::String OpenRtb2Point3Sample::GetNative()
+{
+    auto str = R"({
+        "request":"...Native_spec_request_as_an_encoded_string...",
+        "ver":"1.0",
+        "api":[
+            3
+        ],
+        "battr":[
+            13,
+            14
+        ]
+    })";
+
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
+}
+
 Core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({

@@ -1,4 +1,4 @@
-#include "Parser2Point3.hpp"
+#include "Bench.hpp"
 
 #include <core/stl/String.hpp>
 #include <data/OpenRtb2Point3Sample.hpp>
@@ -35,6 +35,16 @@ void ParseVideo(bench::State& state)
     }
 }
 BENCH(ParseVideo);
+
+void ParseNative(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetNative();
+    Log(str);
+    for (auto _ : state) {
+        auto n = JsonWorker<Native>::Parse(Json::Str2Json(str));
+    }
+}
+BENCH(ParseNative);
 
 void ParseDeal(bench::State& state)
 {

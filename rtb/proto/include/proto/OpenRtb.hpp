@@ -462,6 +462,40 @@ public:
 };
 
 /*
+ * 3.2.5 Object: Native
+ *
+ * This object represents a native type impression. Native ad units are intended to blend seamlessly
+ * into the surrounding content (e.g., a sponsored Twitter or Facebook post). As such, the response
+ * must be well-structured to afford the publisher fine-grained control over rendering.
+ * The Native Subcommittee has developed a companion specification to OpenRTB called
+ * the Native Ad Specification. It defines the request parameters and response markup
+ * structure of native ad units. This object provides the means of transporting request parameters
+ * as an opaque string so that the specific parameters can evolve separately under the auspices of
+ * the Native Ad Specification. Similarly, the ad markup served will be structured according
+ * to that specification.
+ * The presence of a Native as a subordinate of the Imp object indicates that this impression is
+ * offered as a native type impression. At the publisher’s discretion, that same impression
+ * may also be offered as banner and/or video by also including as Imp subordinates the Banner
+ * and/or Video objects, respectively. However, any given bid for the impression must conform to
+ * one of the offered types.
+ */
+
+struct Native
+{
+public:
+    /// Request payload complying with the Native Ad Specification.
+    Core::String request;
+    /// Version of the Native Ad Specification to which request complies;
+    /// highly recommended for efficient parsing.
+    Core::String ver;
+    /// List of supported API frameworks for this impression. Refer to List 5.6.
+    /// If an API is not explicitly listed, it is assumed not to be supported.
+    Core::Vector<ApiFramework> api;
+    /// Blocked creative attributes. Refer to List 5.3.
+    Core::Vector<CreativeAttribute> battr;
+};
+
+/*
  * 3.2.18 Object: Deal
  *
  * This object constitutes a specific deal that was struck a priori between a buyer and a seller.
@@ -530,10 +564,8 @@ public:
     Core::Optional<Banner> banner = Banner{};
     /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
     Core::Optional<Video> video = Video{};
-#if 0
     /// A Native object (Section 3.2.5); required if this impression is offered as a native ad opportunity.
-    Core::Optional<Native> native;
-#endif
+    Core::Optional<Native> native = Native{};
     /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
     Core::String displaymanager;

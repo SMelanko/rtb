@@ -54,7 +54,7 @@ void ExtVecObj(const Json::Object& j, Core::StringView field, T& data)
 
 }
 
-JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
+Banner JsonWorker<Banner>::Parse(const Json::Object& j)
 {
     Banner banner = {};
 
@@ -76,7 +76,7 @@ JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
     return banner;
 }
 
-JsonWorker<Video>::Type JsonWorker<Video>::Parse(const Json::Object& j)
+Video JsonWorker<Video>::Parse(const Json::Object& j)
 {
     Video video = {};
 
@@ -105,7 +105,19 @@ JsonWorker<Video>::Type JsonWorker<Video>::Parse(const Json::Object& j)
     return video;
 }
 
-JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
+Native JsonWorker<Native>::Parse(const Json::Object& j)
+{
+    Native native;
+
+    Json::ExtReqStr(j, "request", native.request);
+    Json::ExtStr(j, "ver", native.ver);
+    Json::ExtVecEnum(j, "api", native.api);
+    Json::ExtVecEnum(j, "battr", native.battr);
+
+    return native;
+}
+
+Deal JsonWorker<Deal>::Parse(const Json::Object& j)
 {
     Deal deal = {};
 
@@ -119,7 +131,7 @@ JsonWorker<Deal>::Type JsonWorker<Deal>::Parse(const Json::Object& j)
     return deal;
 }
 
-JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
+Pmp JsonWorker<Pmp>::Parse(const Json::Object& j)
 {
     Pmp pmp = {};
 
@@ -129,7 +141,7 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
     return pmp;
 }
 
-JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j)
+Impression JsonWorker<Impression>::Parse(const Json::Object& j)
 {
     Impression imp = {};
 
@@ -149,7 +161,7 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
     return imp;
 }
 
-JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j)
+BidRequest JsonWorker<BidRequest>::Parse(const Json::Object& j)
 {
     BidRequest br = {};
 

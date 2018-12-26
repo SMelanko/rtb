@@ -101,6 +101,19 @@ TEST(VideoTest, Parse) {
     EXPECT_EQ(v.companiontype[1], VastCompanionType::HTML_RESOURCE);
 }
 
+TEST(NativeTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetNative();
+    const auto n = JsonWorker<Native>::Parse(Json::Str2Json(str));
+    EXPECT_EQ(n.request, "...Native_spec_request_as_an_encoded_string...");
+    EXPECT_EQ(n.ver, "1.0");
+    EXPECT_EQ(n.api.size(), 1);
+    EXPECT_EQ(n.api[0], ApiFramework::MRAID);
+    EXPECT_EQ(n.battr.size(), 2);
+    EXPECT_EQ(n.battr[0], CreativeAttribute::USER_INTERACTIVE);
+    EXPECT_EQ(n.battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+}
+
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDeal();
@@ -111,13 +124,6 @@ TEST(DealTest, Parse)
     EXPECT_EQ(deal.at, AuctionPrice::FIRST_PRICE);
     EXPECT_EQ(deal.wseat.size(), 0);
     EXPECT_EQ(deal.wadomain.size(), 0);
-#if 0
-    EXPECT_TRUE(deal.ext.HasMember("priority"));
-    EXPECT_EQ(deal.ext["priority"].GetInt(), 1);
-    EXPECT_TRUE(deal.ext.HasMember("wadvs"));
-    EXPECT_TRUE(deal.ext["wadvs"].IsArray());
-    EXPECT_EQ(deal.ext["wadvs"].Size(), 0);
-#endif
 }
 
 TEST(PmpTest, Parse)

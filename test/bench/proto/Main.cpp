@@ -1,3 +1,3 @@
-#include "Parser2Point3.hpp"
+#include "Bench.hpp"
 
 BENCHMARK_MAIN();
