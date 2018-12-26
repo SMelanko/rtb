@@ -1,5 +1,43 @@
 #include "proto/Parser2Point3.hpp"
 
+namespace Detail
+{
+
+template<class T>
+void ExtObj(const Json::Object& j, Core::StringView field, T& data)
+{
+    const auto fieldName = field.data();
+    if (j.HasMember(fieldName)) {
+        data = JsonWorker<T>::Parse(j[fieldName]);
+    }
+}
+
+template<class T>
+void ExtObj(const Json::Object& j, Core::StringView field, Core::Optional<T>& data)
+{
+    const auto fieldName = field.data();
+    if (j.HasMember(fieldName)) {
+        data = JsonWorker<T>::Parse(j[fieldName]);
+    }
+}
+
+template<class T>
+void ExtVecObj(const Json::Object& j, Core::StringView field, T& data)
+{
+    const auto fieldName = field.data();
+    if (j.HasMember(fieldName)) {
+        const auto& deals = j[fieldName];
+        if (const auto size = deals.Size(); (size > 0)) {
+            data.reserve(size);
+            for (const auto& val : deals.GetArray()) {
+                data.push_back(JsonWorker<typename T::value_type>::Parse(val));
+            }
+        }
+    }
+}
+
+}
+
 JsonWorker<Banner>::Type JsonWorker<Banner>::Parse(const Json::Object& j)
 {
     Type banner = {};
@@ -60,16 +98,7 @@ JsonWorker<Pmp>::Type JsonWorker<Pmp>::Parse(const Json::Object& j)
     Pmp pmp = {};
 
     Json::ExtInt(j, "private_auction", pmp.private_auction);
-
-    if (j.HasMember("deals")) {
-        const auto& deals = j["deals"];
-        if (const auto size = deals.Size(); deals.IsArray() && (size > 0)) {
-            pmp.deals.reserve(size);
-            for (const auto& val : deals.GetArray()) {
-                pmp.deals.push_back(JsonWorker<Deal>::Parse(val));
-            }
-        }
-    }
+    Detail::ExtVecObj(j, "deals", pmp.deals);
 
     return pmp;
 }
@@ -79,11 +108,7 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
     Impression imp = {};
 
     Json::ExtReqStr(j, "id", imp.id);
-
-    if (j.HasMember("banner")) {
-        imp.banner = JsonWorker<Banner>::Parse(j["banner"]);
-    }
-
+    Detail::ExtObj(j, "banner", *imp.banner);
     Json::ExtStr(j, "displaymanager", imp.displaymanager);
     Json::ExtStr(j, "displaymanagerver", imp.displaymanagerver);
     Json::ExtInt(j, "instl", imp.instl);
@@ -92,10 +117,7 @@ JsonWorker<Impression>::Type JsonWorker<Impression>::Parse(const Json::Object& j
     Json::ExtStr(j, "bidfloorcur", imp.bidfloorcur);
     Json::ExtInt(j, "secure", imp.secure);
     Json::ExtVecStr(j, "iframebuster", imp.iframebuster);
-
-    if (j.HasMember("pmp")) {
-        imp.pmp = JsonWorker<Pmp>::Parse(j["pmp"]);
-    }
+    Detail::ExtObj(j, "pmp", imp.pmp);
 
     return imp;
 }
@@ -105,15 +127,7 @@ JsonWorker<BidRequest>::Type JsonWorker<BidRequest>::Parse(const Json::Object& j
     BidRequest br = {};
 
     Json::ExtReqStr(j, "id", br.id);
-
-    const auto& imp = j["imp"];
-    if (const auto size = imp.Size(); imp.IsArray() && (size > 0)) {
-        br.imp.reserve(size);
-        for (const auto& val : imp.GetArray()) {
-            br.imp.push_back(JsonWorker<Impression>::Parse(val));
-        }
-    }
-
+    Detail::ExtVecObj(j, "imp", br.imp);
     Json::ExtBool(j, "test", br.test);
     Json::ExtEnum(j, "at", br.at);
     Json::ExtInt(j, "tmax", br.tmax);

@@ -258,8 +258,6 @@ public:
     /// Core::Vector of supported API frameworks for this impression. If an API is not explicitly Core::Vectored,
     /// it is assumed not to be supported.
     Core::Vector<ApiFramework> api;
-    /// Placeholder for exchange-specific extensions to OpenRTB.
-    Json::Document ext;
 };
 
 /*
@@ -290,8 +288,6 @@ public:
     /// Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal.
     /// Omission implies no advertiser restrictions.
     Core::Vector<Core::String> wadomain;
-    /// Placeholder for exchange-specific extensions to OpenRTB.
-    Json::Document ext;
 };
 
 /*
@@ -310,8 +306,6 @@ public:
     Core::Int private_auction;
     /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable to this impression.
     Core::Vector<Deal> deals;
-    /// Placeholder for exchange-specific extensions to OpenRTB.
-    Json::Document ext;
 };
 
 /*
@@ -332,7 +326,7 @@ public:
     /// A unique identifier for this impression within the context of the bid request.
     Core::String id;
     /// A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.
-    Core::Optional<Banner> banner;
+    Core::Optional<Banner> banner = Banner{};
 #if 0
     /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
     Core::Optional<Video> video;
@@ -362,8 +356,6 @@ public:
     Core::Vector<Core::String> iframebuster;
     /// A Pmp object (Section 3.2.17) containing any private marketplace deals in effect for this impression.
     Core::Optional<Pmp> pmp;
-    /// Placeholder for exchange-specific extensions to OpenRTB.
-    Json::Document ext;
 };
 
 /*
@@ -421,8 +413,6 @@ public:
     /// A Regs object (Section 3.2.16) that specifies any industry, legal,
     /// or governmental regulations in force for this request.
     Core::Optional<Json::Document> regs;
-    /// Placeholder for exchange-specific extensions to OpenRTB.
-    Json::Document ext;
     /// Unparseable fields get put here.
     Json::Document unparseable;
 };
