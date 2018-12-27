@@ -114,6 +114,28 @@ TEST(NativeTest, Parse)
     EXPECT_EQ(n.battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
 }
 
+TEST(AppTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetApp();
+    const auto app = JsonWorker<App>::Parse(Json::Str2Json(str));
+    EXPECT_EQ(app.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA");
+    EXPECT_EQ(app.name, "Yahoo_Weather");
+    EXPECT_EQ(app.cat.size(), 3);
+    EXPECT_EQ(app.cat[0], "weather"); // Wrong IAB.
+    EXPECT_EQ(app.cat[1], "IAB15");
+    EXPECT_EQ(app.cat[2], "IAB15-10");
+    EXPECT_EQ(app.ver, "1.0.2");
+    EXPECT_EQ(app.bundle, "628677149");
+    {
+        EXPECT_TRUE(app.publisher.has_value());
+        auto& pub = *app.publisher;
+        EXPECT_EQ(pub.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV");
+        EXPECT_EQ(pub.name, "yahoo");
+        EXPECT_EQ(pub.domain, "www.yahoo.com");
+    }
+    EXPECT_EQ(app.storeurl, "https://itunes.apple.com/id628677149");
+}
+
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDeal();

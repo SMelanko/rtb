@@ -130,6 +130,29 @@ Core::String OpenRtb2Point3Sample::GetNative()
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
 }
 
+Core::String OpenRtb2Point3Sample::GetApp()
+{
+    auto str = R"({
+        "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA",
+        "name":"Yahoo_Weather",
+        "cat":[
+            "weather",
+            "IAB15",
+            "IAB15-10"
+        ],
+        "ver":"1.0.2",
+        "bundle":"628677149",
+        "publisher":{
+            "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV",
+            "name":"yahoo",
+            "domain":"www.yahoo.com"
+        },
+        "storeurl":"https://itunes.apple.com/id628677149"
+    })";
+
+    return Core::Utils::StringAlgo::RemoveWhitespace(str);
+}
+
 Core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({

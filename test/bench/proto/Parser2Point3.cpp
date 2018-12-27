@@ -46,6 +46,16 @@ void ParseNative(bench::State& state)
 }
 BENCH(ParseNative);
 
+void ParseApp(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetApp();
+    Log(str);
+    for (auto _ : state) {
+        auto a = JsonWorker<App>::Parse(Json::Str2Json(str));
+    }
+}
+BENCH(ParseApp);
+
 void ParseDeal(bench::State& state)
 {
     auto str = test::data::OpenRtb2Point3Sample::GetDeal();
