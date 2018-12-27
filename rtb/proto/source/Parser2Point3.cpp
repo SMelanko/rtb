@@ -117,6 +117,67 @@ Native JsonWorker<Native>::Parse(const Json::Object& j)
     return native;
 }
 
+Publisher JsonWorker<Publisher>::Parse(const Json::Object& j)
+{
+    Publisher pub;
+
+    Json::ExtStr(j, "id", pub.id);
+    Json::ExtStr(j, "name", pub.name);
+    Json::ExtVecStr(j, "cat", pub.cat);
+    Json::ExtStr(j, "domain", pub.domain);
+
+    return pub;
+}
+
+Content JsonWorker<Content>::Parse(const Json::Object& j)
+{
+    Content c;
+
+    Json::ExtStr(j, "id", c.id);
+    Json::ExtInt(j, "episode", c.episode);
+    Json::ExtStr(j, "title", c.title);
+    Json::ExtStr(j, "series", c.series);
+    Json::ExtStr(j, "season", c.season);
+    Detail::ExtObj(j, "producer", c.producer);
+    Json::ExtStr(j, "url", c.url);
+    Json::ExtVecStr(j, "cat", c.cat);
+    Json::ExtEnum(j, "videoquality", c.videoquality);
+    Json::ExtEnum(j, "context", c.context);
+    Json::ExtStr(j, "contentrating", c.contentrating);
+    Json::ExtStr(j, "userrating", c.userrating);
+    Json::ExtEnum(j, "qagmediarating", c.qagmediarating);
+    Json::ExtVecStr(j, "keywords", c.keywords);
+    Json::ExtBool(j, "livestream", c.livestream);
+    Json::ExtBool(j, "sourcerelationship", c.sourcerelationship);
+    Json::ExtInt(j, "len", c.len);
+    Json::ExtStr(j, "language", c.language);
+    Json::ExtBool(j, "embeddable", c.embeddable);
+
+    return c;
+}
+
+Site JsonWorker<Site>::Parse(const Json::Object& j)
+{
+    Site site;
+
+    Json::ExtReqStr(j, "id", site.id);
+    Json::ExtStr(j, "name", site.name);
+    Json::ExtStr(j, "domain", site.domain);
+    Json::ExtVecStr(j, "cat", site.cat);
+    Json::ExtVecStr(j, "sectioncat", site.sectioncat);
+    Json::ExtVecStr(j, "pagecat", site.pagecat);
+    Json::ExtStr(j, "page", site.page);
+    Json::ExtStr(j, "ref", site.ref);
+    Json::ExtStr(j, "search", site.search);
+    Json::ExtBool(j, "mobile", site.mobile);
+    Json::ExtBool(j, "privacypolicy", site.privacypolicy);
+    Detail::ExtObj(j, "publisher", site.publisher);
+    Detail::ExtObj(j, "content", site.content);
+    Json::ExtStr(j, "keywords", site.keywords);
+
+    return site;
+}
+
 Deal JsonWorker<Deal>::Parse(const Json::Object& j)
 {
     Deal deal = {};

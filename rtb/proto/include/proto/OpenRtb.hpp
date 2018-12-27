@@ -264,13 +264,34 @@ enum class VideoStartDelay
 {
     /// Not explicitly specified.
     NONE = -3,
-    /// Generic Post-Roll
+    /// Generic Post-Roll.
     GENERIC_POST_ROLL = -2,
     /// Generic Mid-Roll.
     GENERIC_MID_ROLL = -1,
     /// Pre-Roll.
     PRE_ROLL = 0
     /// > 0, Mid-Roll (value indicates start delay in second).
+};
+
+/*
+ * 5.11 Video Quality
+ *
+ * The following table lists the options for the video quality.
+ * These values are defined by the IAB – http://www.iab.net/media/file/long-form-video-final.pdf.
+ */
+
+enum class VideoQuality
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Unknown.
+    UNKNOWN = 0,
+    /// Professionally Produced.
+    PROFESSIONAL = 1,
+    /// Prosumer.
+    PROSUMER = 2,
+    /// User Generated (UGC).
+    USER_GENERATED = 3
 };
 
 /*
@@ -306,6 +327,58 @@ enum class ContentDeliveryMethod
     STREAMING = 1,
     /// Progressive.
     PROGRESSIVE = 2
+};
+
+/*
+ * 5.14 Content Context
+ *
+ * The following table lists the various options for indicating the type of content
+ * in which the impression will appear.
+ * This OpenRTB table has values derived from the IAB Quality Assurance Guidelines (QAG).
+ * Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
+ */
+
+enum class ContentContext
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Video (a video file or stream that is being watched by the user,
+    /// including (Internet) television broadcasts).
+    VIDEO = 1,
+    /// Game (an interactive software game that is being played by the user).
+    GAME = 2,
+    /// Music (an audio file or stream that is being listened to by the user,
+    /// including (Internet) radio broadcasts)
+    MUSIC = 3,
+    /// Application (an interactive software application that is being used by the user).
+    APPLICATION = 4,
+    /// Text (a document that is primarily textual in nature that is being read or viewed
+    /// by the user, including web page, eBook, or news article).
+    TEXT = 5,
+    /// Other (content type unknown or the user is consuming content which does not fit
+    /// into one of the categories above).
+    OTHER = 6,
+    /// Unknown.
+    UNKNOWN = 7
+};
+
+/*
+ * 5.15 QAG Media Ratings
+ *
+ * The following table lists the media ratings used in describing content based on
+ * the QAG categorization. Refer to http://www.iab.net/ne_guidelines for more information.
+ */
+
+enum class MediaRating
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// All audiences.
+    ALL = 1,
+    /// Everyone over 12.
+    OVER_12 = 2,
+    /// Mature audiences.
+    MATURE = 3
 };
 
 /*
@@ -493,6 +566,135 @@ public:
     Core::Vector<ApiFramework> api;
     /// Blocked creative attributes. Refer to List 5.3.
     Core::Vector<CreativeAttribute> battr;
+};
+
+/*
+ * 3.2.8 Object: Publisher
+ *
+ * This object describes the publisher of the media in which the ad will be displayed.
+ * The publisher is typically the seller in an OpenRTB transaction.
+ */
+
+struct Publisher
+{
+public:
+    /// Exchange-specific publisher ID.
+    Core::String id;
+    /// Publisher name (may be aliased at the publisher’s request).
+    Core::String name;
+    /// Array of IAB content categories that describe the publisher. Refer to List 5.1.
+    Core::Vector<Core::String> cat;
+    /// Highest level domain of the publisher (e.g., “publisher.com”).
+    Core::String domain;
+};
+
+/*
+ * 3.2.10 Object: Producer
+ *
+ * This object defines the producer of the content in which the ad will be shown.
+ * This is particularly useful when the content is syndicated and may be distributed through
+ * different publishers and thus when the producer and publisher are not necessarily the same entity.
+ */
+
+using Producer = Publisher;
+
+/*
+ * 3.2.9 Object: Content
+ *
+ * This object describes the content in which the impression will appear, which may be syndicated
+ * or non-syndicated content. This object may be useful when syndicated content contains impressions
+ * and does not necessarily match the publisher’s general content. The exchange might or might not
+ * have knowledge of the page where the content is running, as a result of the syndication method.
+ * For example might be a video impression embedded in an iframe on an unknown web property or device.
+ */
+
+struct Content
+{
+public:
+    /// ID uniquely identifying the content.
+    Core::String id;
+    /// Episode number (typically applies to video content).
+    Core::Int episode;
+    /// Content title.
+    /// Video Examples: “Search Committee” (TV), “A New Hope” (movie), or “Endgame” (made for web).
+    /// Non-Video Example: “Why an Antarctic Glacier Is Melting So Quickly” (Time magazine article).
+    Core::String title;
+    /// Content series.
+    /// Video Examples: “The Office” (TV), “Star Wars” (movie), or “Arby ‘N’ The Chief” (made for web).
+    /// Non-Video Example: “Ecocentric” (Time Magazine blog).
+    Core::String series;
+    /// Content season; typically for video content (e.g., “Season 3”).
+    Core::String season;
+    /// Details about the content Producer (Section 3.2.10).
+    Producer producer;
+    /// URL of the content, for buy-side contextualization or review.
+    Core::String url;
+    /// Array of IAB content categories that describe the content producer. Refer to List 5.1.
+    Core::Vector<Core::String> cat;
+    /// Video quality per IAB’s classification. Refer to List 5.11.
+    VideoQuality videoquality;
+    /// Type of content (game, video, text, etc.). Refer to List 5.14.
+    ContentContext context;
+    /// Content rating (e.g., MPAA).
+    Core::String contentrating;
+    /// User rating of the content (e.g., number of stars, likes, etc.).
+    Core::String userrating;
+    /// Media rating per QAG guidelines. Refer to List 5.15.
+    MediaRating qagmediarating;
+    /// Comma separated list of keywords describing the content.
+    Core::Vector<Core::String> keywords;
+    /// 0 = not live, 1 = content is live (e.g., stream, live blog).
+    Core::Bool livestream;
+    /// 0 = indirect, 1 = direct.
+    Core::Bool sourcerelationship;
+    /// Length of content in seconds; appropriate for video or audio.
+    Core::Int len;
+    /// Content language using ISO-639-1-alpha-2.
+    Core::String language;
+    /// Indicator of whether or not the content is embeddable (e.g., an embeddable video player),
+    /// where 0 = no, 1 = yes.
+    Core::Bool embeddable;
+};
+
+/*
+ * 3.2.6 Object: Site
+ *
+ * This object should be included if the ad supported content is a website as opposed to
+ * a non-browser application. A bid request must not contain botha Site and an App object.
+ * Ataminimum,itisuseful to provide a site ID or page URL, but this is not strictly required.
+ */
+
+struct Site
+{
+public:
+    /// Exchange-specific site ID.
+    Core::String id;
+    /// Site name (may be aliased at the publisher’s request).
+    Core::String name;
+    /// Domain of the site (e.g., “mysite.foo.com”).
+    Core::String domain;
+    /// Array of IAB content categories of the site. Refer to List 5.1.
+    Core::Vector<Core::String> cat;
+    /// Array of IAB content categories that describe the current section of the site.
+    Core::Vector<Core::String> sectioncat;
+    /// Array of IAB content categories that describe the current page or view of the site.
+    Core::Vector<Core::String> pagecat;
+    /// URL of the page where the impression will be shown.
+    Core::String page;
+    /// Referrer URL that caused navigation to the current page.
+    Core::String ref;
+    /// Search string that caused navigation to the current page.
+    Core::String search;
+    /// Mobile-optimized signal, where 0 = no, 1 = yes.
+    Core::Bool mobile;
+    /// Indicates if the site has a privacy policy, where 0 = no, 1 = yes.
+    Core::Bool privacypolicy;
+    /// Details about the Publisher (Section 3.2.8) of the site.
+    Publisher publisher;
+    /// Details about the Content (Section 3.2.9) within the site.
+    Content content;
+    /// Comma separated list of keywords about the site.
+    Core::String keywords;
 };
 
 /*

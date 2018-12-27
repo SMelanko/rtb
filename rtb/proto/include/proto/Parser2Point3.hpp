@@ -29,6 +29,27 @@ public:
 };
 
 template<>
+class JsonWorker<Publisher>
+{
+public:
+    static Publisher Parse(const Json::Object& j);
+};
+
+template<>
+class JsonWorker<Content>
+{
+public:
+    static Content Parse(const Json::Object& j);
+};
+
+template<>
+class JsonWorker<Site>
+{
+public:
+    static Site Parse(const Json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:
