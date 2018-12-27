@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configure build variables.
-BUILD_MODE=Release
+BUILD_MODE=Debug
 BUILD_ARCH=x64
 BUILD_DIR=../build/xcode-${BUILD_ARCH}-${BUILD_MODE}
 ENABLE_TESTING=TRUE
