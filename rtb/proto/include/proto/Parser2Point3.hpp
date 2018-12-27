@@ -50,6 +50,13 @@ public:
 };
 
 template<>
+class JsonWorker<App>
+{
+public:
+    static App Parse(const Json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:

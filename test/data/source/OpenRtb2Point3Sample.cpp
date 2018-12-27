@@ -17,11 +17,23 @@ Core::String OpenRtb2Point3Sample::GetBanner()
         "id":"p7mwtup3aep7c0io",
         "pos":0,
         "topframe":0,
-        "btype":[4],
-        "battr":[14],
-        "mimes":["image/jpg","image/png"],
-        "expdir":[2,4],
-        "api":[3]
+        "btype":[
+            4
+        ],
+        "battr":[
+            14
+        ],
+        "mimes":[
+            "image/jpg",
+            "image/png"
+        ],
+        "expdir":[
+            2,
+            4
+        ],
+        "api":[
+            3
+        ]
     })";
 
     return Core::Utils::StringAlgo::RemoveWhitespace(str);
@@ -198,6 +210,21 @@ Core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
             }
         ],
         "app":{
+            "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA",
+            "name":"Yahoo_Weather",
+            "cat":[
+                "weather",
+                "IAB15",
+                "IAB15-10"
+            ],
+            "ver":"1.0.2",
+            "bundle":"628677149",
+            "publisher":{
+                "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV",
+                "name":"yahoo",
+                "domain":"www.yahoo.com"
+            },
+            "storeurl":"https://itunes.apple.com/id628677149"
         },
         "device":{
         },

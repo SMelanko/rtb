@@ -166,25 +166,49 @@ TEST(BidRequestTest, Parse)
     const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
     const auto br = JsonWorker<BidRequest>::Parse(Json::Str2Json(str));
     EXPECT_EQ(br.id, "IxexyLDIIk");
-    EXPECT_EQ(br.imp.size(), 1);
-    auto& imp = br.imp[0];
-    EXPECT_EQ(imp.id, "1");
-    EXPECT_EQ(imp.instl, 0);
-    EXPECT_EQ(imp.tagid, "agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw");
-    EXPECT_DOUBLE_EQ(imp.bidfloor, 0.5);
-    EXPECT_TRUE(imp.banner.has_value());
-    auto& banner = *imp.banner;
-    EXPECT_EQ(banner.w.size(), 1);
-    EXPECT_EQ(banner.w[0], 728);
-    EXPECT_EQ(banner.h.size(), 1);
-    EXPECT_EQ(banner.h[0], 90);
-    EXPECT_EQ(banner.pos, AdPosition::ABOVE);
-    EXPECT_EQ(banner.btype.size(), 1);
-    EXPECT_EQ(banner.btype[0], BannerAdType::IFRAME);
-    EXPECT_EQ(banner.battr.size(), 1);
-    EXPECT_EQ(banner.battr[0], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
-    EXPECT_EQ(banner.api.size(), 1);
-    EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
+    {
+        EXPECT_EQ(br.imp.size(), 1);
+        auto& imp = br.imp[0];
+        EXPECT_EQ(imp.id, "1");
+        EXPECT_EQ(imp.instl, 0);
+        EXPECT_EQ(imp.tagid, "agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw");
+        EXPECT_DOUBLE_EQ(imp.bidfloor, 0.5);
+        {
+            EXPECT_TRUE(imp.banner.has_value());
+            auto& banner = *imp.banner;
+            EXPECT_EQ(banner.w.size(), 1);
+            EXPECT_EQ(banner.w[0], 728);
+            EXPECT_EQ(banner.h.size(), 1);
+            EXPECT_EQ(banner.h[0], 90);
+            EXPECT_EQ(banner.pos, AdPosition::ABOVE);
+            EXPECT_EQ(banner.btype.size(), 1);
+            EXPECT_EQ(banner.btype[0], BannerAdType::IFRAME);
+            EXPECT_EQ(banner.battr.size(), 1);
+            EXPECT_EQ(banner.battr[0], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+            EXPECT_EQ(banner.api.size(), 1);
+            EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
+        }
+    }
+    {
+        EXPECT_TRUE(br.app.has_value());
+        auto& app = *br.app;
+        EXPECT_EQ(app.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA");
+        EXPECT_EQ(app.name, "Yahoo_Weather");
+        EXPECT_EQ(app.cat.size(), 3);
+        EXPECT_EQ(app.cat[0], "weather"); // Wrong IAB.
+        EXPECT_EQ(app.cat[1], "IAB15");
+        EXPECT_EQ(app.cat[2], "IAB15-10");
+        EXPECT_EQ(app.ver, "1.0.2");
+        EXPECT_EQ(app.bundle, "628677149");
+        {
+            EXPECT_TRUE(app.publisher.has_value());
+            auto& pub = *app.publisher;
+            EXPECT_EQ(pub.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV");
+            EXPECT_EQ(pub.name, "yahoo");
+            EXPECT_EQ(pub.domain, "www.yahoo.com");
+        }
+        EXPECT_EQ(app.storeurl, "https://itunes.apple.com/id628677149");
+    }
     EXPECT_EQ(br.at, AuctionPrice::SECOND_PRICE_PLUS);
     EXPECT_FALSE(br.test);
     EXPECT_FALSE(br.allimps);

@@ -421,7 +421,7 @@ enum class SourceRelationship
  * This object represents the most general type of impression. Although the term “banner” may have very specific meaning
  * in other contexts, here it can be many things including a simple static image, an expandable ad unit, or even
  * in-banner video (refer to the Video object in Section 3.2.4 for the more generalized and full featured video ad units).
- * An array of Banner objects can also appear within the Video to describe Core::Optional companion ads defined in the VAST
+ * An array of Banner objects can also appear within the Video to describe optional companion ads defined in the VAST
  * specification.
  * The presence of a Banner as a subordinate of the Imp object indicates that this impression is offered as a banner
  * type impression. At the publisher’s discretion, that same impression may also be offered as video and/or native by
@@ -721,6 +721,29 @@ public:
 };
 
 /*
+ * 3.2.7 Object: App
+ *
+ * This object should be included if the ad supported content is a non-browser application
+ * (typically in mobile) as opposed to a website. A bid request must not contain both
+ * an App and a Site object. At a minimum, it is useful to provide an App ID or bundle,
+ * but this is not strictly required.
+ */
+
+struct App : public Context
+{
+public:
+    /// Application bundle or package name (e.g., com.foo.mygame);
+    /// intended to be a unique ID across exchanges.
+    Core::String bundle;
+    /// Application store URL for an installed app; for QAG 1.5 compliance.
+    Core::String storeurl;
+    /// Application version.
+    Core::String ver;
+    /// True if the application is a paid version, else - free.
+    Core::Bool paid;
+};
+
+/*
  * 3.2.18 Object: Deal
  *
  * This object constitutes a specific deal that was struck a priori between a buyer and a seller.
@@ -738,7 +761,7 @@ public:
     /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder
     /// if this is allowed by the exchange.
     Core::String bidfloorcur = "USD";
-    /// Core::Optional override of the overall auction type of the bid request, where
+    /// Optional override of the overall auction type of the bid request, where
     /// 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed upon deal price.
     /// Additional auction types can be defined by the exchange.
     AuctionPrice at;
@@ -786,11 +809,11 @@ public:
     /// A unique identifier for this impression within the context of the bid request.
     Core::String id;
     /// A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.
-    Core::Optional<Banner> banner = Banner{};
+    Core::Optional<Banner> banner;
     /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
-    Core::Optional<Video> video = Video{};
+    Core::Optional<Video> video;
     /// A Native object (Section 3.2.5); required if this impression is offered as a native ad opportunity.
-    Core::Optional<Native> native = Native{};
+    Core::Optional<Native> native;
     /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
     Core::String displaymanager;
@@ -835,13 +858,13 @@ public:
     Core::String id;
     /// Array of Imp objects (Section 3.2.2) representing the impressions offered. At least 1 Imp object is required.
     Core::Vector<Impression> imp;
-#if 0
     /// Details via a Site object (Section 3.2.6) about the publisher’s website.
     /// Only applicable and recommended for websites.
     Core::Optional<Site> site;
     /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e., non-browser applications).
     /// Only applicable and recommended for apps.
     Core::Optional<App> app;
+#if 0
     /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
     Core::Optional<Device> device;
     /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.

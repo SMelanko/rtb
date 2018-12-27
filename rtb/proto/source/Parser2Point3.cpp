@@ -52,81 +52,95 @@ void ExtVecObj(const Json::Object& j, Core::StringView field, T& data)
     }
 }
 
+void ExtContext(const Json::Object& j, Context& c)
+{
+    Json::ExtReqStr(j, "id", c.id);
+    Json::ExtStr(j, "name", c.name);
+    Json::ExtStr(j, "domain", c.domain);
+    Json::ExtVecStr(j, "cat", c.cat);
+    Json::ExtVecStr(j, "sectioncat", c.sectioncat);
+    Json::ExtVecStr(j, "pagecat", c.pagecat);
+    Json::ExtBool(j, "privacypolicy", c.privacypolicy);
+    Detail::ExtObj(j, "publisher", c.publisher);
+    Detail::ExtObj(j, "content", c.content);
+    Json::ExtStr(j, "keywords", c.keywords);
+}
+
 }
 
 Banner JsonWorker<Banner>::Parse(const Json::Object& j)
 {
-    Banner banner = {};
+    Banner b;
 
-    Detail::ExtSize(j, "w", banner.w);
-    Detail::ExtSize(j, "h", banner.h);
-    Json::ExtInt(j, "wmax", banner.wmax);
-    Json::ExtInt(j, "hmax", banner.hmax);
-    Json::ExtInt(j, "wmin", banner.wmin);
-    Json::ExtInt(j, "hmin", banner.hmin);
-    Json::ExtStr(j, "id", banner.id);
-    Json::ExtVecEnum(j, "btype", banner.btype);
-    Json::ExtVecEnum(j, "battr", banner.battr);
-    Json::ExtEnum(j, "pos", banner.pos);
-    Json::ExtVecStr(j, "mimes", banner.mimes);
-    Json::ExtEnum(j, "topframe", banner.topframe);
-    Json::ExtVecEnum(j, "expdir", banner.expdir);
-    Json::ExtVecEnum(j, "api", banner.api);
+    Detail::ExtSize(j, "w", b.w);
+    Detail::ExtSize(j, "h", b.h);
+    Json::ExtInt(j, "wmax", b.wmax);
+    Json::ExtInt(j, "hmax", b.hmax);
+    Json::ExtInt(j, "wmin", b.wmin);
+    Json::ExtInt(j, "hmin", b.hmin);
+    Json::ExtStr(j, "id", b.id);
+    Json::ExtVecEnum(j, "btype", b.btype);
+    Json::ExtVecEnum(j, "battr", b.battr);
+    Json::ExtEnum(j, "pos", b.pos);
+    Json::ExtVecStr(j, "mimes", b.mimes);
+    Json::ExtEnum(j, "topframe", b.topframe);
+    Json::ExtVecEnum(j, "expdir", b.expdir);
+    Json::ExtVecEnum(j, "api", b.api);
 
-    return banner;
+    return b;
 }
 
 Video JsonWorker<Video>::Parse(const Json::Object& j)
 {
-    Video video = {};
+    Video v;
 
-    Json::ExtVecStr(j, "mimes", video.mimes);
-    Json::ExtInt(j, "minduration", video.minduration);
-    Json::ExtInt(j, "maxduration", video.maxduration);
-    Json::ExtEnum(j, "protocol", video.protocol);
-    Json::ExtVecEnum(j, "protocols", video.protocols);
-    Json::ExtInt(j, "w", video.w);
-    Json::ExtInt(j, "h", video.h);
-    Json::ExtEnum(j, "startdelay", video.startdelay);
-    Json::ExtEnum(j, "linearity", video.linearity);
-    Json::ExtInt(j, "sequence", video.sequence);
-    Json::ExtVecEnum(j, "battr", video.battr);
-    Json::ExtInt(j, "maxextended", video.maxextended);
-    Json::ExtInt(j, "minbitrate", video.minbitrate);
-    Json::ExtInt(j, "maxbitrate", video.maxbitrate);
-    Json::ExtBool(j, "boxingallowed", video.boxingallowed);
-    Json::ExtVecEnum(j, "playbackmethod", video.playbackmethod);
-    Json::ExtVecEnum(j, "delivery", video.delivery);
-    Json::ExtEnum(j, "pos", video.pos);
-    Detail::ExtVecObj(j, "companionad", video.companionad);
-    Json::ExtVecEnum(j, "api", video.api);
-    Json::ExtVecEnum(j, "companiontype", video.companiontype);
+    Json::ExtVecStr(j, "mimes", v.mimes);
+    Json::ExtInt(j, "minduration", v.minduration);
+    Json::ExtInt(j, "maxduration", v.maxduration);
+    Json::ExtEnum(j, "protocol", v.protocol);
+    Json::ExtVecEnum(j, "protocols", v.protocols);
+    Json::ExtInt(j, "w", v.w);
+    Json::ExtInt(j, "h", v.h);
+    Json::ExtEnum(j, "startdelay", v.startdelay);
+    Json::ExtEnum(j, "linearity", v.linearity);
+    Json::ExtInt(j, "sequence", v.sequence);
+    Json::ExtVecEnum(j, "battr", v.battr);
+    Json::ExtInt(j, "maxextended", v.maxextended);
+    Json::ExtInt(j, "minbitrate", v.minbitrate);
+    Json::ExtInt(j, "maxbitrate", v.maxbitrate);
+    Json::ExtBool(j, "boxingallowed", v.boxingallowed);
+    Json::ExtVecEnum(j, "playbackmethod", v.playbackmethod);
+    Json::ExtVecEnum(j, "delivery", v.delivery);
+    Json::ExtEnum(j, "pos", v.pos);
+    Detail::ExtVecObj(j, "companionad", v.companionad);
+    Json::ExtVecEnum(j, "api", v.api);
+    Json::ExtVecEnum(j, "companiontype", v.companiontype);
 
-    return video;
+    return v;
 }
 
 Native JsonWorker<Native>::Parse(const Json::Object& j)
 {
-    Native native;
+    Native n;
 
-    Json::ExtReqStr(j, "request", native.request);
-    Json::ExtStr(j, "ver", native.ver);
-    Json::ExtVecEnum(j, "api", native.api);
-    Json::ExtVecEnum(j, "battr", native.battr);
+    Json::ExtReqStr(j, "request", n.request);
+    Json::ExtStr(j, "ver", n.ver);
+    Json::ExtVecEnum(j, "api", n.api);
+    Json::ExtVecEnum(j, "battr", n.battr);
 
-    return native;
+    return n;
 }
 
 Publisher JsonWorker<Publisher>::Parse(const Json::Object& j)
 {
-    Publisher pub;
+    Publisher p;
 
-    Json::ExtStr(j, "id", pub.id);
-    Json::ExtStr(j, "name", pub.name);
-    Json::ExtVecStr(j, "cat", pub.cat);
-    Json::ExtStr(j, "domain", pub.domain);
+    Json::ExtStr(j, "id", p.id);
+    Json::ExtStr(j, "name", p.name);
+    Json::ExtVecStr(j, "cat", p.cat);
+    Json::ExtStr(j, "domain", p.domain);
 
-    return pub;
+    return p;
 }
 
 Content JsonWorker<Content>::Parse(const Json::Object& j)
@@ -158,76 +172,83 @@ Content JsonWorker<Content>::Parse(const Json::Object& j)
 
 Site JsonWorker<Site>::Parse(const Json::Object& j)
 {
-    Site site;
+    Site s;
 
-    Json::ExtReqStr(j, "id", site.id);
-    Json::ExtStr(j, "name", site.name);
-    Json::ExtStr(j, "domain", site.domain);
-    Json::ExtVecStr(j, "cat", site.cat);
-    Json::ExtVecStr(j, "sectioncat", site.sectioncat);
-    Json::ExtVecStr(j, "pagecat", site.pagecat);
-    Json::ExtStr(j, "page", site.page);
-    Json::ExtStr(j, "ref", site.ref);
-    Json::ExtStr(j, "search", site.search);
-    Json::ExtBool(j, "mobile", site.mobile);
-    Json::ExtBool(j, "privacypolicy", site.privacypolicy);
-    Detail::ExtObj(j, "publisher", site.publisher);
-    Detail::ExtObj(j, "content", site.content);
-    Json::ExtStr(j, "keywords", site.keywords);
+    Detail::ExtContext(j, s);
+    Json::ExtStr(j, "page", s.page);
+    Json::ExtStr(j, "ref", s.ref);
+    Json::ExtStr(j, "search", s.search);
+    Json::ExtBool(j, "mobile", s.mobile);
 
-    return site;
+    return s;
+}
+
+App JsonWorker<App>::Parse(const Json::Object& j)
+{
+    App a;
+
+    Detail::ExtContext(j, a);
+    Json::ExtStr(j, "bundle", a.bundle);
+    Json::ExtStr(j, "storeurl", a.storeurl);
+    Json::ExtStr(j, "ver", a.ver);
+    Json::ExtBool(j, "paid", a.paid);
+
+    return a;
 }
 
 Deal JsonWorker<Deal>::Parse(const Json::Object& j)
 {
-    Deal deal = {};
+    Deal d;
 
-    Json::ExtReqStr(j, "id", deal.id);
-    Json::ExtDouble(j, "bidfloor", deal.bidfloor);
-    Json::ExtStr(j, "bidfloorcur", deal.bidfloorcur);
-    Json::ExtEnum(j, "at", deal.at);
-    Json::ExtVecStr(j, "wseat", deal.wseat);
-    Json::ExtVecStr(j, "wadomain", deal.wadomain);
+    Json::ExtReqStr(j, "id", d.id);
+    Json::ExtDouble(j, "bidfloor", d.bidfloor);
+    Json::ExtStr(j, "bidfloorcur", d.bidfloorcur);
+    Json::ExtEnum(j, "at", d.at);
+    Json::ExtVecStr(j, "wseat", d.wseat);
+    Json::ExtVecStr(j, "wadomain", d.wadomain);
 
-    return deal;
+    return d;
 }
 
 Pmp JsonWorker<Pmp>::Parse(const Json::Object& j)
 {
-    Pmp pmp = {};
+    Pmp p;
 
-    Json::ExtInt(j, "private_auction", pmp.private_auction);
-    Detail::ExtVecObj(j, "deals", pmp.deals);
+    Json::ExtInt(j, "private_auction", p.private_auction);
+    Detail::ExtVecObj(j, "deals", p.deals);
 
-    return pmp;
+    return p;
 }
 
 Impression JsonWorker<Impression>::Parse(const Json::Object& j)
 {
-    Impression imp = {};
+    Impression i;
 
-    Json::ExtReqStr(j, "id", imp.id);
-    Detail::ExtObj(j, "banner", *imp.banner);
-    Detail::ExtObj(j, "video", *imp.video);
-    Json::ExtStr(j, "displaymanager", imp.displaymanager);
-    Json::ExtStr(j, "displaymanagerver", imp.displaymanagerver);
-    Json::ExtInt(j, "instl", imp.instl);
-    Json::ExtStr(j, "tagid", imp.tagid);
-    Json::ExtDouble(j, "bidfloor", imp.bidfloor);
-    Json::ExtStr(j, "bidfloorcur", imp.bidfloorcur);
-    Json::ExtInt(j, "secure", imp.secure);
-    Json::ExtVecStr(j, "iframebuster", imp.iframebuster);
-    Detail::ExtObj(j, "pmp", imp.pmp);
+    Json::ExtReqStr(j, "id", i.id);
+    Detail::ExtObj(j, "banner", i.banner);
+    Detail::ExtObj(j, "video", i.video);
+    Detail::ExtObj(j, "native", i.native);
+    Json::ExtStr(j, "displaymanager", i.displaymanager);
+    Json::ExtStr(j, "displaymanagerver", i.displaymanagerver);
+    Json::ExtInt(j, "instl", i.instl);
+    Json::ExtStr(j, "tagid", i.tagid);
+    Json::ExtDouble(j, "bidfloor", i.bidfloor);
+    Json::ExtStr(j, "bidfloorcur", i.bidfloorcur);
+    Json::ExtInt(j, "secure", i.secure);
+    Json::ExtVecStr(j, "iframebuster", i.iframebuster);
+    Detail::ExtObj(j, "pmp", i.pmp);
 
-    return imp;
+    return i;
 }
 
 BidRequest JsonWorker<BidRequest>::Parse(const Json::Object& j)
 {
-    BidRequest br = {};
+    BidRequest br;
 
     Json::ExtReqStr(j, "id", br.id);
     Detail::ExtVecObj(j, "imp", br.imp);
+    Detail::ExtObj(j, "site", br.site);
+    Detail::ExtObj(j, "app", br.app);
     Json::ExtBool(j, "test", br.test);
     Json::ExtEnum(j, "at", br.at);
     Json::ExtInt(j, "tmax", br.tmax);

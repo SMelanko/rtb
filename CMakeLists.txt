@@ -5,6 +5,8 @@ project(rtb LANGUAGES CXX)
 option(ENABLE_TESTING "Run unit tests" ON)
 option(ENABLE_BENCHMARKING "Run benchmark tests" ON)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(conan)
