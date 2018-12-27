@@ -402,6 +402,20 @@ enum class AuctionPrice
 };
 
 /*
+ * SourceRelationship
+ */
+
+enum class SourceRelationship
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Indirect
+    INDIRECT = 0,
+    /// Direct.
+    DIRECT = 1
+};
+
+/*
  * 3.2.3 Object: Banner
  *
  * This object represents the most general type of impression. Although the term “banner” may have very specific meaning
@@ -626,9 +640,9 @@ public:
     /// Content season; typically for video content (e.g., “Season 3”).
     Core::String season;
     /// Details about the content Producer (Section 3.2.10).
-    Producer producer;
+    Core::Optional<Producer> producer;
     /// URL of the content, for buy-side contextualization or review.
-    Core::String url;
+    Core::String url; // TODO: URL
     /// Array of IAB content categories that describe the content producer. Refer to List 5.1.
     Core::Vector<Core::String> cat;
     /// Video quality per IAB’s classification. Refer to List 5.11.
@@ -646,7 +660,7 @@ public:
     /// 0 = not live, 1 = content is live (e.g., stream, live blog).
     Core::Bool livestream;
     /// 0 = indirect, 1 = direct.
-    Core::Bool sourcerelationship;
+    SourceRelationship sourcerelationship;
     /// Length of content in seconds; appropriate for video or audio.
     Core::Int len;
     /// Content language using ISO-639-1-alpha-2.
@@ -657,6 +671,35 @@ public:
 };
 
 /*
+ * Common data between a Site and App.
+ */
+
+struct Context
+{
+public:
+    /// Exchange-specific site/app ID.
+    Core::String id;
+    /// Site name (may be aliased at the publisher’s request).
+    Core::String name;
+    /// Domain of the site/app (e.g., “mysite.foo.com”).
+    Core::String domain;
+    /// Array of IAB content categories of the site/app. Refer to List 5.1.
+    Core::Vector<Core::String> cat;
+    /// Array of IAB content categories that describe the current section of the site/app.
+    Core::Vector<Core::String> sectioncat;
+    /// Array of IAB content categories that describe the current page or view of the site/app.
+    Core::Vector<Core::String> pagecat;
+    /// Indicates if the site/app has a privacy policy, where 0 = no, 1 = yes.
+    Core::Bool privacypolicy;
+    /// Details about the Publisher (Section 3.2.8) of the site/app.
+    Core::Optional<Publisher> publisher;
+    /// Details about the Content (Section 3.2.9) within the site/app.
+    Core::Optional<Content> content;
+    /// Comma separated list of keywords about the site/app.
+    Core::String keywords;
+};
+
+/*
  * 3.2.6 Object: Site
  *
  * This object should be included if the ad supported content is a website as opposed to
@@ -664,21 +707,9 @@ public:
  * Ataminimum,itisuseful to provide a site ID or page URL, but this is not strictly required.
  */
 
-struct Site
+struct Site : public Context
 {
 public:
-    /// Exchange-specific site ID.
-    Core::String id;
-    /// Site name (may be aliased at the publisher’s request).
-    Core::String name;
-    /// Domain of the site (e.g., “mysite.foo.com”).
-    Core::String domain;
-    /// Array of IAB content categories of the site. Refer to List 5.1.
-    Core::Vector<Core::String> cat;
-    /// Array of IAB content categories that describe the current section of the site.
-    Core::Vector<Core::String> sectioncat;
-    /// Array of IAB content categories that describe the current page or view of the site.
-    Core::Vector<Core::String> pagecat;
     /// URL of the page where the impression will be shown.
     Core::String page;
     /// Referrer URL that caused navigation to the current page.
@@ -687,14 +718,6 @@ public:
     Core::String search;
     /// Mobile-optimized signal, where 0 = no, 1 = yes.
     Core::Bool mobile;
-    /// Indicates if the site has a privacy policy, where 0 = no, 1 = yes.
-    Core::Bool privacypolicy;
-    /// Details about the Publisher (Section 3.2.8) of the site.
-    Publisher publisher;
-    /// Details about the Content (Section 3.2.9) within the site.
-    Content content;
-    /// Comma separated list of keywords about the site.
-    Core::String keywords;
 };
 
 /*

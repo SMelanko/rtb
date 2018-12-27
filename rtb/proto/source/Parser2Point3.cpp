@@ -148,7 +148,7 @@ Content JsonWorker<Content>::Parse(const Json::Object& j)
     Json::ExtEnum(j, "qagmediarating", c.qagmediarating);
     Json::ExtVecStr(j, "keywords", c.keywords);
     Json::ExtBool(j, "livestream", c.livestream);
-    Json::ExtBool(j, "sourcerelationship", c.sourcerelationship);
+    Json::ExtEnum(j, "sourcerelationship", c.sourcerelationship);
     Json::ExtInt(j, "len", c.len);
     Json::ExtStr(j, "language", c.language);
     Json::ExtBool(j, "embeddable", c.embeddable);
