@@ -1,16 +1,11 @@
-#include <gtest/gtest.h>
-
-#include <optional>
-#include <string>
-
-#include <rapidjson/document.h>
-
 #include <data/OpenRtb2Point3Sample.hpp>
 #include <core/json/Json.hpp>
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
 #include <proto/Parser2Point3.hpp>
+
+#include <gtest/gtest.h>
 
 TEST(BannerTest, Parse)
 {

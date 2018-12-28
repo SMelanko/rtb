@@ -1,6 +1,6 @@
 #include "data/OpenRtb2Point3Sample.hpp"
 
-#include <core/utils/StringAlgo.hpp>
+#include <core/utils/StrAlgo.hpp>
 
 namespace test::data
 {
@@ -36,7 +36,7 @@ core::String OpenRtb2Point3Sample::GetBanner()
         ]
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetVideo()
@@ -110,7 +110,7 @@ core::String OpenRtb2Point3Sample::GetVideo()
         ]
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetNative()
@@ -127,7 +127,7 @@ core::String OpenRtb2Point3Sample::GetNative()
         ]
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetApp()
@@ -150,7 +150,7 @@ core::String OpenRtb2Point3Sample::GetApp()
         "storeurl":"https://itunes.apple.com/id628677149"
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetDeal()
@@ -166,7 +166,7 @@ core::String OpenRtb2Point3Sample::GetDeal()
         }
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetPmp()
@@ -182,7 +182,7 @@ core::String OpenRtb2Point3Sample::GetPmp()
         ]
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetImpression()
@@ -202,7 +202,7 @@ core::String OpenRtb2Point3Sample::GetImpression()
         "bidfloor":0.5
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
@@ -268,7 +268,7 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
         ]
     })";
 
-    return core::utils::StringAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespace(str);
 }
 
 }

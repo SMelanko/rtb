@@ -2,10 +2,10 @@
 
 #include "core/stl/String.hpp"
 
-namespace core::utils
+namespace core
 {
 
-class StringAlgo
+class StrAlgo
 {
 public:
     /// Removes whitespace character(s) as classified by the currently installed C locale.

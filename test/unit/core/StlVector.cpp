@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include <core/stl/Vector.hpp>
+
+#include <gtest/gtest.h>
 
 TEST(StlVectorTest, Creation)
 {

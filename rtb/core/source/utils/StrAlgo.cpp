@@ -1,11 +1,11 @@
-#include "core/utils/StringAlgo.hpp"
+#include "core/utils/StrAlgo.hpp"
 
 #include <algorithm>
 
-namespace core::utils
+namespace core
 {
 
-core::String StringAlgo::RemoveWhitespace(core::String str)
+core::String StrAlgo::RemoveWhitespace(core::String str)
 {
     str.erase(std::remove_if(str.begin(), str.end(), std::isspace), str.end());
 

@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
-
 #include <core/json/Json.hpp>
 #include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
+
+#include <gtest/gtest.h>
 
 TEST(Json, ExtractBool)
 {
@@ -56,7 +56,7 @@ TEST(Json, ExtractDouble)
         try {
             json::ExtDouble(doc, "string", d);
         } catch (const std::exception& e) {
-            EXPECT_STREQ(e.what(), "Invalid type of \"string\" field, expect double");
+            EXPECT_STREQ(e.what(), "Invalid type of \"string\" field, expected double");
             throw;
         }
     }, std::runtime_error);
@@ -78,7 +78,7 @@ TEST(Json, ExtractInt)
         try {
             json::ExtInt(doc, "double", i);
         } catch (const std::exception& e) {
-            EXPECT_STREQ(e.what(), "Invalid type of \"double\" field, expect int");
+            EXPECT_STREQ(e.what(), "Invalid type of \"double\" field, expected int");
             throw;
         }
     }, std::runtime_error);
@@ -108,7 +108,7 @@ TEST(Json, ExtractRequiredString)
         try {
             json::ExtReqStr(doc, "int", val);
         } catch (const std::exception& e) {
-            EXPECT_STREQ(e.what(), "Invalid type of \"int\" field, expect string");
+            EXPECT_STREQ(e.what(), "Invalid type of \"int\" field, expected string");
             throw;
         }
     }, std::runtime_error);
