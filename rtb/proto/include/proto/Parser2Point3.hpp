@@ -2,6 +2,9 @@
 
 #include "proto/OpenRtb.hpp"
 
+namespace proto
+{
+
 template<class T>
 class JsonWorker
 {
@@ -90,3 +93,5 @@ class JsonWorker<BidRequest>
 public:
     static BidRequest Parse(const json::Object& j);
 };
+
+}

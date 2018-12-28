@@ -1,6 +1,9 @@
 #include "proto/Parser2Point3.hpp"
 
-namespace Detail
+namespace proto
+{
+
+namespace detail
 {
 
 template<class T>
@@ -61,8 +64,8 @@ void ExtContext(const json::Object& j, Context& c)
     json::ExtVecStr(j, "sectioncat", c.sectioncat);
     json::ExtVecStr(j, "pagecat", c.pagecat);
     json::ExtBool(j, "privacypolicy", c.privacypolicy);
-    Detail::ExtObj(j, "publisher", c.publisher);
-    Detail::ExtObj(j, "content", c.content);
+    detail::ExtObj(j, "publisher", c.publisher);
+    detail::ExtObj(j, "content", c.content);
     json::ExtStr(j, "keywords", c.keywords);
 }
 
@@ -72,8 +75,8 @@ Banner JsonWorker<Banner>::Parse(const json::Object& j)
 {
     Banner b;
 
-    Detail::ExtSize(j, "w", b.w);
-    Detail::ExtSize(j, "h", b.h);
+    detail::ExtSize(j, "w", b.w);
+    detail::ExtSize(j, "h", b.h);
     json::ExtInt(j, "wmax", b.wmax);
     json::ExtInt(j, "hmax", b.hmax);
     json::ExtInt(j, "wmin", b.wmin);
@@ -112,7 +115,7 @@ Video JsonWorker<Video>::Parse(const json::Object& j)
     json::ExtVecEnum(j, "playbackmethod", v.playbackmethod);
     json::ExtVecEnum(j, "delivery", v.delivery);
     json::ExtEnum(j, "pos", v.pos);
-    Detail::ExtVecObj(j, "companionad", v.companionad);
+    detail::ExtVecObj(j, "companionad", v.companionad);
     json::ExtVecEnum(j, "api", v.api);
     json::ExtVecEnum(j, "companiontype", v.companiontype);
 
@@ -152,7 +155,7 @@ Content JsonWorker<Content>::Parse(const json::Object& j)
     json::ExtStr(j, "title", c.title);
     json::ExtStr(j, "series", c.series);
     json::ExtStr(j, "season", c.season);
-    Detail::ExtObj(j, "producer", c.producer);
+    detail::ExtObj(j, "producer", c.producer);
     json::ExtStr(j, "url", c.url);
     json::ExtVecStr(j, "cat", c.cat);
     json::ExtEnum(j, "videoquality", c.videoquality);
@@ -174,7 +177,7 @@ Site JsonWorker<Site>::Parse(const json::Object& j)
 {
     Site s;
 
-    Detail::ExtContext(j, s);
+    detail::ExtContext(j, s);
     json::ExtStr(j, "page", s.page);
     json::ExtStr(j, "ref", s.ref);
     json::ExtStr(j, "search", s.search);
@@ -187,7 +190,7 @@ App JsonWorker<App>::Parse(const json::Object& j)
 {
     App a;
 
-    Detail::ExtContext(j, a);
+    detail::ExtContext(j, a);
     json::ExtStr(j, "bundle", a.bundle);
     json::ExtStr(j, "storeurl", a.storeurl);
     json::ExtStr(j, "ver", a.ver);
@@ -232,7 +235,7 @@ Pmp JsonWorker<Pmp>::Parse(const json::Object& j)
     Pmp p;
 
     json::ExtInt(j, "private_auction", p.private_auction);
-    Detail::ExtVecObj(j, "deals", p.deals);
+    detail::ExtVecObj(j, "deals", p.deals);
 
     return p;
 }
@@ -242,9 +245,9 @@ Impression JsonWorker<Impression>::Parse(const json::Object& j)
     Impression i;
 
     json::ExtReqStr(j, "id", i.id);
-    Detail::ExtObj(j, "banner", i.banner);
-    Detail::ExtObj(j, "video", i.video);
-    Detail::ExtObj(j, "native", i.native);
+    detail::ExtObj(j, "banner", i.banner);
+    detail::ExtObj(j, "video", i.video);
+    detail::ExtObj(j, "native", i.native);
     json::ExtStr(j, "displaymanager", i.displaymanager);
     json::ExtStr(j, "displaymanagerver", i.displaymanagerver);
     json::ExtInt(j, "instl", i.instl);
@@ -253,7 +256,7 @@ Impression JsonWorker<Impression>::Parse(const json::Object& j)
     json::ExtStr(j, "bidfloorcur", i.bidfloorcur);
     json::ExtInt(j, "secure", i.secure);
     json::ExtVecStr(j, "iframebuster", i.iframebuster);
-    Detail::ExtObj(j, "pmp", i.pmp);
+    detail::ExtObj(j, "pmp", i.pmp);
 
     return i;
 }
@@ -263,9 +266,9 @@ BidRequest JsonWorker<BidRequest>::Parse(const json::Object& j)
     BidRequest br;
 
     json::ExtReqStr(j, "id", br.id);
-    Detail::ExtVecObj(j, "imp", br.imp);
-    Detail::ExtObj(j, "site", br.site);
-    Detail::ExtObj(j, "app", br.app);
+    detail::ExtVecObj(j, "imp", br.imp);
+    detail::ExtObj(j, "site", br.site);
+    detail::ExtObj(j, "app", br.app);
     json::ExtBool(j, "test", br.test);
     json::ExtEnum(j, "at", br.at);
     json::ExtInt(j, "tmax", br.tmax);
@@ -276,4 +279,6 @@ BidRequest JsonWorker<BidRequest>::Parse(const json::Object& j)
     json::ExtVecStr(j, "badv", br.badv);
 
     return br;
+}
+
 }

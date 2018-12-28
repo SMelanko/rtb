@@ -5,6 +5,9 @@
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
 
+namespace proto
+{
+
 /*
  * 5.2 Banner Ad Types
  *
@@ -955,3 +958,5 @@ public:
     /// Unparseable fields get put here.
     json::Document unparseable;
 };
+
+}
