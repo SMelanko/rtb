@@ -13,22 +13,22 @@ namespace json
 using Document = rapidjson::Document;
 using Object = rapidjson::Value;
 
-json::Document Str2Json(Core::StringView str);
+json::Document Str2Json(core::StringView str);
 
 template<class T>
-void ExtBool(const json::Object& j, Core::StringView field, T& data)
+void ExtBool(const json::Object& j, core::StringView field, T& data)
 {
     auto name = field.data();
     if (j.HasMember(name)) {
         if (!j[name].IsInt() && !j[name].IsBool()) {
             throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected int/bool", field) };
         }
-        data = (j[name].IsInt()) ? static_cast<Core::Bool>(j[name].GetInt()) : j[name].GetBool();
+        data = (j[name].IsInt()) ? static_cast<core::Bool>(j[name].GetInt()) : j[name].GetBool();
     }
 }
 
 template<class T>
-void ExtDouble(const json::Object& j, Core::StringView field, T& data)
+void ExtDouble(const json::Object& j, core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsDouble()) {
@@ -39,7 +39,7 @@ void ExtDouble(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtEnum(const json::Object& j, Core::StringView field, T& data)
+void ExtEnum(const json::Object& j, core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsInt()) {
@@ -51,7 +51,7 @@ void ExtEnum(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtInt(const json::Object& j, Core::StringView field, T& data)
+void ExtInt(const json::Object& j, core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsInt()) {
@@ -62,7 +62,7 @@ void ExtInt(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtReqStr(const json::Object& j, Core::StringView field, T& data)
+void ExtReqStr(const json::Object& j, core::StringView field, T& data)
 {
     if (!j.HasMember(field.data())) {
         throw std::runtime_error{ fmt::format("Required \"{}\" field is missing", field) };
@@ -74,7 +74,7 @@ void ExtReqStr(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtStr(const json::Object& j, Core::StringView field, T& data)
+void ExtStr(const json::Object& j, core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
         if (!j[field.data()].IsString()) {
@@ -85,7 +85,7 @@ void ExtStr(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtVecEnum(const json::Object& j, Core::StringView field, T& data)
+void ExtVecEnum(const json::Object& j, core::StringView field, T& data)
 {
     auto name = field.data();
     if (j.HasMember(name) && j[name].IsArray()) {
@@ -100,7 +100,7 @@ void ExtVecEnum(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class C>
-void ExtVecStr(const json::Object& j, Core::StringView field, C& data)
+void ExtVecStr(const json::Object& j, core::StringView field, C& data)
 {
     auto name = field.data();
     if (j.HasMember(name) && j[name].IsArray()) {

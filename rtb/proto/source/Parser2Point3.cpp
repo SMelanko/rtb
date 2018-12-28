@@ -4,7 +4,7 @@ namespace Detail
 {
 
 template<class T>
-void ExtObj(const json::Object& j, Core::StringView field, T& data)
+void ExtObj(const json::Object& j, core::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -13,7 +13,7 @@ void ExtObj(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtObj(const json::Object& j, Core::StringView field, Core::Optional<T>& data)
+void ExtObj(const json::Object& j, core::StringView field, core::Optional<T>& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -22,7 +22,7 @@ void ExtObj(const json::Object& j, Core::StringView field, Core::Optional<T>& da
 }
 
 template<class T>
-void ExtSize(const json::Object& j, Core::StringView field, T& data)
+void ExtSize(const json::Object& j, core::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -38,7 +38,7 @@ void ExtSize(const json::Object& j, Core::StringView field, T& data)
 }
 
 template<class T>
-void ExtVecObj(const json::Object& j, Core::StringView field, T& data)
+void ExtVecObj(const json::Object& j, core::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {

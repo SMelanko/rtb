@@ -3,7 +3,7 @@
 #include <string>
 #include <string_view>
 
-namespace Core
+namespace core
 {
 
 using String = std::string;

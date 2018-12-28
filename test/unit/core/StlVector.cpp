@@ -4,7 +4,7 @@
 
 TEST(StlVectorTest, Creation)
 {
-    Core::Vector<int> v;
+    core::Vector<int> v;
     EXPECT_EQ(v.size(), 0);
     EXPECT_EQ(v.capacity(), 0);
 }

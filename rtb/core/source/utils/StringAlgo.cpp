@@ -2,10 +2,10 @@
 
 #include <algorithm>
 
-namespace Core::Utils
+namespace core::utils
 {
 
-Core::String StringAlgo::RemoveWhitespace(Core::String str)
+core::String StringAlgo::RemoveWhitespace(core::String str)
 {
     str.erase(std::remove_if(str.begin(), str.end(), std::isspace), str.end());
 

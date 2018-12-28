@@ -9,7 +9,7 @@
 #define LOG_TEST_DATA
 #undef LOG_TEST_DATA
 
-void Log(Core::StringView str)
+void Log(core::StringView str)
 {
 #ifdef LOG_TEST_DATA
     std::cerr << str << '\n';

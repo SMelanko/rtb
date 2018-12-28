@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Core
+namespace core
 {
 
 using Bool = bool;

@@ -2,7 +2,7 @@
 
 #include <optional>
 
-namespace Core
+namespace core
 {
 
 template<class T>

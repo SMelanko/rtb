@@ -8,7 +8,7 @@ TEST(Json, ExtractBool)
 {
     auto str = R"({"bool":1})";
     auto doc = json::Str2Json(str);
-    Core::Bool b;
+    core::Bool b;
     json::ExtBool(doc, "bool", b);
     EXPECT_TRUE(b);
     str = R"({"bool":false})";
@@ -32,7 +32,7 @@ TEST(Json, ExtractVectorEnum)
     enum class Color { RED = 1, GREEN = 2, BLUE = 3 };
     auto str = R"({"color":[1,2,3]})";
     auto doc = json::Str2Json(str);
-    Core::Vector<Color> color;
+    core::Vector<Color> color;
     json::ExtVecEnum(doc, "color", color);
     EXPECT_EQ(color.size(), 3);
     EXPECT_EQ(color[0], Color::RED);
@@ -45,7 +45,7 @@ TEST(Json, ExtractDouble)
     auto str = R"({"double":1.2})";
     auto doc = json::Str2Json(str);
     // Ok
-    Core::Double d;
+    core::Double d;
     json::ExtDouble(doc, "double", d);
     EXPECT_DOUBLE_EQ(d, 1.2);
     // Error.
@@ -67,7 +67,7 @@ TEST(Json, ExtractInt)
     auto str = R"({"int":1})";
     auto doc = json::Str2Json(str);
     // Ok
-    Core::Int i;
+    core::Int i;
     json::ExtInt(doc, "int", i);
     EXPECT_EQ(i, 1);
     // Error.
@@ -89,7 +89,7 @@ TEST(Json, ExtractRequiredString)
     auto str = R"({"field":"test"})";
     auto doc = json::Str2Json(str);
     // Ok.
-    Core::String val;
+    core::String val;
     json::ExtReqStr(doc, "field", val);
     EXPECT_EQ(val, "test");
     // Error.
@@ -119,11 +119,11 @@ TEST(Json, ExtractOptionalString)
     auto str = R"({"field":"test"})";
     auto doc = json::Str2Json(str);
     // Ok.
-    Core::String val1;
+    core::String val1;
     json::ExtStr(doc, "field", val1);
     EXPECT_EQ(val1, "test");
     // Must be ok as well.
-    Core::String val2;
+    core::String val2;
     json::ExtStr(doc, "field_", val2);
     EXPECT_EQ(val2, "");
 }
