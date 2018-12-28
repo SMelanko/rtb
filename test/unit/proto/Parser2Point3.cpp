@@ -15,7 +15,7 @@
 TEST(BannerTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetBanner();
-    const auto banner = JsonWorker<Banner>::Parse(Json::Str2Json(str));
+    const auto banner = JsonWorker<Banner>::Parse(json::Str2Json(str));
     EXPECT_EQ(banner.w.size(), 1);
     EXPECT_EQ(banner.w[0], 300);
     EXPECT_EQ(banner.h.size(), 1);
@@ -43,7 +43,7 @@ TEST(BannerTest, Parse)
 
 TEST(VideoTest, Parse) {
     const auto str = test::data::OpenRtb2Point3Sample::GetVideo();
-    const auto v = JsonWorker<Video>::Parse(Json::Str2Json(str));
+    const auto v = JsonWorker<Video>::Parse(json::Str2Json(str));
     EXPECT_EQ(v.w, 640);
     EXPECT_EQ(v.h, 480);
     EXPECT_EQ(v.pos, AdPosition::ABOVE);
@@ -104,7 +104,7 @@ TEST(VideoTest, Parse) {
 TEST(NativeTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetNative();
-    const auto n = JsonWorker<Native>::Parse(Json::Str2Json(str));
+    const auto n = JsonWorker<Native>::Parse(json::Str2Json(str));
     EXPECT_EQ(n.request, "...Native_spec_request_as_an_encoded_string...");
     EXPECT_EQ(n.ver, "1.0");
     EXPECT_EQ(n.api.size(), 1);
@@ -117,7 +117,7 @@ TEST(NativeTest, Parse)
 TEST(AppTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetApp();
-    const auto app = JsonWorker<App>::Parse(Json::Str2Json(str));
+    const auto app = JsonWorker<App>::Parse(json::Str2Json(str));
     EXPECT_EQ(app.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA");
     EXPECT_EQ(app.name, "Yahoo_Weather");
     EXPECT_EQ(app.cat.size(), 3);
@@ -139,7 +139,7 @@ TEST(AppTest, Parse)
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDeal();
-    const auto deal = JsonWorker<Deal>::Parse(Json::Str2Json(str));
+    const auto deal = JsonWorker<Deal>::Parse(json::Str2Json(str));
     EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
     EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
     EXPECT_EQ(deal.bidfloorcur, "USD");
@@ -151,7 +151,7 @@ TEST(DealTest, Parse)
 TEST(PmpTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetPmp();
-    const auto pmp = JsonWorker<Pmp>::Parse(Json::Str2Json(str));
+    const auto pmp = JsonWorker<Pmp>::Parse(json::Str2Json(str));
     EXPECT_EQ(pmp.private_auction, 1);
     EXPECT_EQ(pmp.deals.size(), 1);
     EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
@@ -163,7 +163,7 @@ TEST(PmpTest, Parse)
 TEST(ImpressionTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetImpression();
-    const auto imp = JsonWorker<Impression>::Parse(Json::Str2Json(str));
+    const auto imp = JsonWorker<Impression>::Parse(json::Str2Json(str));
     EXPECT_EQ(imp.id, "1");
     EXPECT_TRUE(imp.banner.has_value());
     EXPECT_EQ(imp.banner->w.size(), 1);
@@ -186,7 +186,7 @@ TEST(ImpressionTest, Parse)
 TEST(BidRequestTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
-    const auto br = JsonWorker<BidRequest>::Parse(Json::Str2Json(str));
+    const auto br = JsonWorker<BidRequest>::Parse(json::Str2Json(str));
     EXPECT_EQ(br.id, "IxexyLDIIk");
     {
         EXPECT_EQ(br.imp.size(), 1);

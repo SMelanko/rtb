@@ -1,11 +1,11 @@
 #include "core/json/Json.hpp"
 
-namespace Json
+namespace json
 {
 
-Json::Document Str2Json(Core::StringView str)
+json::Document Str2Json(Core::StringView str)
 {
-    Json::Document j;
+    json::Document j;
     j.Parse(str.data(), str.length());
     return j;
 }

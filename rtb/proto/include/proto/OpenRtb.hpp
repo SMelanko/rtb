@@ -893,7 +893,7 @@ public:
     Core::Vector<Core::String> badv;
     /// A Regs object (Section 3.2.16) that specifies any industry, legal,
     /// or governmental regulations in force for this request.
-    Core::Optional<Json::Document> regs;
+    Core::Optional<json::Document> regs;
     /// Unparseable fields get put here.
-    Json::Document unparseable;
+    json::Document unparseable;
 };
