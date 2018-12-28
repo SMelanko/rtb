@@ -190,6 +190,43 @@ core::String OpenRtb2Point3Sample::GetSite()
     return core::StrAlgo::RemoveWhitespace(str);
 }
 
+core::String OpenRtb2Point3Sample::GetGeo()
+{
+    auto str = R"({
+        "country":"USA",
+        "lat":35.012345,
+        "lon":-115.12345,
+        "city":"Los Angeles",
+        "metro":"803",
+        "region":"CA",
+        "zip":"90049"
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Sample::GetDevice()
+{
+    auto str = R"({
+        "ip":"64.124.253.1",
+        "ua":"Mozilla/5.0 (Mac; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20140420 Firefox/3.6.16",
+        "os":"OS X",
+        "flashver":"10.1",
+        "js":1,
+        "geo":{
+            "country":"USA",
+            "lat":35.012345,
+            "lon":-115.12345,
+            "city":"Los Angeles",
+            "metro":"803",
+            "region":"CA",
+            "zip":"90049"
+        }
+    })";
+
+    return str;
+}
+
 core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({

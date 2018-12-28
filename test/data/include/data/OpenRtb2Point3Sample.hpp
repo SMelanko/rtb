@@ -13,6 +13,8 @@ public:
     static core::String GetNative();
     static core::String GetApp();
     static core::String GetSite();
+    static core::String GetGeo();
+    static core::String GetDevice();
     static core::String GetDeal();
     static core::String GetPmp();
     static core::String GetImpression();

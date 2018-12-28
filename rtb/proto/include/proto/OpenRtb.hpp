@@ -403,6 +403,63 @@ enum class LocationType
 };
 
 /*
+ * 5.17 Device Type
+ *
+ * The following table lists the type of device from which the impression originated.
+ * OpenRTB version 2.2 of the specification added distinct values for Mobile and Tablet.
+ * It is recommended that any bidder adding support for 2.2 treat a value of 1
+ * as an acceptable alias of 4 & 5.
+ * This OpenRTB table has values derived from the IAB Quality Assurance Guidelines (QAG).
+ * Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
+ */
+
+enum class DeviceType
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Mobile/Tablet, Version 2.0.
+    MOBILE_OR_TABLET = 1,
+    /// Personal, Computer Version 2.0.
+    PC = 2,
+    /// Connected, TV Version 2.0.
+    TV = 3,
+    /// Phone, New for Version 2.2.
+    PHONE = 4,
+    /// Tablet New for Version 2.2.
+    TABLET = 5,
+    /// Connected Device, New for Version 2.2.
+    CONNECTED_DEVICE = 6,
+    /// Set Top Box, New for Version 2.2.
+    SET_TOP_BOX = 7
+};
+
+/*
+ * 5.18 Connection Type
+ *
+ * The following table lists the various options for the type of device connectivity.
+ */
+
+enum class ConnectionType
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Unknown.
+    UNKNOWN = 0,
+    /// Ethernet.
+    ETHERNET = 1,
+    /// WIFI.
+    WIFI = 2,
+    /// Cellular Network – Unknown Generation.
+    CELLULAR_UNKNOWN = 3,
+    /// Cellular Network – 2G.
+    CELLULAR_2G = 4,
+    /// Cellular Network – 3G.
+    CELLULAR_3G = 5,
+    /// Cellular Network – 4G.
+    CELLULAR_4G = 6
+};
+
+/*
  * Auction Price
  *
  * Optional override of the overall auction type of the bid request, where
@@ -423,7 +480,7 @@ enum class AuctionPrice
 };
 
 /*
- * SourceRelationship
+ * Source Relationship
  */
 
 enum class SourceRelationship
@@ -797,11 +854,84 @@ public:
     core::String metro;
     /// City using United Nations Code for Trade & Transport Locations.
     /// http://code.google.com/apis/adwords/docs/appendix/metrocodes.html
-    core::String metro;
+    core::String city;
     /// Zip or postal code.
     core::String zip;
     /// Local time as the number +/- of minutes from UTC.
     core::Int utcoffset;
+};
+
+/*
+ * 3.2.11 Object: Device
+ *
+ * This object provides information pertaining to the device through which the user is interacting.
+ * Device information includes its hardware, platform, location, and carrier data.
+ * The device can refer to a mobile handset, a desktop computer, set top box, or other digital device.
+ */
+
+struct Device
+{
+public:
+    /// Browser user agent string.
+    core::String ua;
+    /// Location of the device assumed to be the user’s current location
+    /// defined by a Geo object (Section 3.2.12).
+    core::Optional<Geo> geo;
+    /// Standard “Do Not Track” flag as set in the header by the browser,
+    /// where 0 = tracking is unrestricted, 1 = do not track.
+    core::Bool dnt;
+    /// “Limit Ad Tracking” signal commercially endorsed (e.g., iOS, Android),
+    /// where 0 = tracking is unrestricted, 1 = tracking must be limited per commercial guidelines.
+    core::Bool lmt;
+    /// IPv4 address closest to device.
+    core::String ip;
+    /// IP address closest to device as IPv6.
+    core::String ipv6;
+    /// The general type of device. Refer to List 5.17.
+    DeviceType devicetype;
+    /// Device make (e.g., “Apple”).
+    core::String make;
+    /// Device model (e.g., “iPhone”).
+    core::String model;
+    /// Device operating system (e.g., “iOS”).
+    core::String os;
+    /// Device operating system version (e.g., “3.1.2”).
+    core::String osv;
+    /// Hardware version of the device (e.g., “5S” for iPhone 5S).
+    core::String hwv;
+    /// Physical height of the screen in pixels.
+    core::Int h;
+    /// Physical width of the screen in pixels.
+    core::Int w;
+    /// Screen size as pixels per linear inch.
+    core::Int ppi;
+    /// The ratio of physical pixels to device independent pixels.
+    core::Double pxratio;
+    /// Support for JavaScript, where 0 = no, 1 = yes.
+    core::Bool js;
+    /// Version of Flash supported by the browser.
+    core::String flashver;
+    /// Browser language using ISO-639-1-alpha-2.
+    core::String language;
+    /// Carrier or ISP (e.g., “VERIZON”). “WIFI” is often used in mobile to indicate high bandwidth
+    /// (e.g., video friendly vs. cellular).
+    core::String carrier;
+    /// Network connection type. Refer to List 5.18.
+    ConnectionType connectiontype;
+    /// ID sanctioned for advertiser use in the clear (i.e., not hashed).
+    core::String ifa;
+    /// Hardware device ID (e.g., IMEI); hashed via SHA1.
+    core::String didsha1;
+    /// Hardware device ID (e.g., IMEI); hashed via MD5.
+    core::String didmd5;
+    /// Platform device ID (e.g., Android ID); hashed via SHA1.
+    core::String dpidsha1;
+    /// Platform device ID (e.g., Android ID); hashed via MD5.
+    core::String dpidmd5;
+    /// MAC address of the device; hashed via SHA1.
+    core::String macsha1;
+    /// MAC address of the device; hashed via MD5.
+    core::String macmd5;
 };
 
 /*

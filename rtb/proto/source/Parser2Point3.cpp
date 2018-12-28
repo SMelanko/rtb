@@ -19,7 +19,7 @@ template<class T>
 void ExtObj(const json::Object& j, core::StringView field, core::Optional<T>& data)
 {
     const auto fieldName = field.data();
-    if (j.HasMember(fieldName)) {
+    if (j.HasMember(fieldName) && j[fieldName].IsObject()) {
         data = JsonWorker<T>::Parse(j[fieldName]);
     }
 }
@@ -210,10 +210,47 @@ Geo JsonWorker<Geo>::Parse(const json::Object& j)
     json::ExtStr(j, "region", g.region);
     json::ExtStr(j, "regionfips104", g.regionfips104);
     json::ExtStr(j, "metro", g.metro);
+    json::ExtStr(j, "city", g.city);
     json::ExtStr(j, "zip", g.zip);
     json::ExtInt(j, "utcoffset", g.utcoffset);
 
     return g;
+}
+
+Device JsonWorker<Device>::Parse(const json::Object& j)
+{
+    Device d;
+
+    json::ExtStr(j, "ua", d.ua);
+    detail::ExtObj(j, "geo", d.geo);
+    json::ExtBool(j, "dnt", d.dnt);
+    json::ExtBool(j, "lmt", d.lmt);
+    json::ExtStr(j, "ip", d.ip);
+    json::ExtStr(j, "ipv6", d.ipv6);
+    json::ExtEnum(j, "devicetype", d.devicetype);
+    json::ExtStr(j, "make", d.make);
+    json::ExtStr(j, "model", d.model);
+    json::ExtStr(j, "os", d.os);
+    json::ExtStr(j, "osv", d.osv);
+    json::ExtStr(j, "hwv", d.hwv);
+    json::ExtInt(j, "h", d.h);
+    json::ExtInt(j, "w", d.w);
+    json::ExtInt(j, "ppi", d.ppi);
+    json::ExtDouble(j, "pxratio", d.pxratio);
+    json::ExtBool(j, "js", d.js);
+    json::ExtStr(j, "flashver", d.flashver);
+    json::ExtStr(j, "language", d.language);
+    json::ExtStr(j, "carrier", d.carrier);
+    json::ExtEnum(j, "connectiontype", d.connectiontype);
+    json::ExtStr(j, "ifa", d.ifa);
+    json::ExtStr(j, "didsha1", d.didsha1);
+    json::ExtStr(j, "didmd5", d.didmd5);
+    json::ExtStr(j, "dpidsha1", d.dpidsha1);
+    json::ExtStr(j, "dpidmd5", d.dpidmd5);
+    json::ExtStr(j, "macsha1", d.macsha1);
+    json::ExtStr(j, "macmd5", d.macmd5);
+
+    return d;
 }
 
 Deal JsonWorker<Deal>::Parse(const json::Object& j)

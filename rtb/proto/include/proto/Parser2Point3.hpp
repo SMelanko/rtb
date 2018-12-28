@@ -67,6 +67,13 @@ public:
 };
 
 template<>
+class JsonWorker<Device>
+{
+public:
+    static Device Parse(const json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:

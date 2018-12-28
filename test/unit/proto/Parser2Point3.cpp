@@ -20,20 +20,20 @@ TEST(BannerTest, Parse)
     EXPECT_EQ(banner.wmin, 240);
     EXPECT_EQ(banner.hmin, 200);
     EXPECT_EQ(banner.id, "p7mwtup3aep7c0io");
-    EXPECT_EQ(banner.pos, AdPosition::UNKNOWN);
+    EXPECT_EQ(banner.pos, proto::AdPosition::UNKNOWN);
     EXPECT_EQ(banner.btype.size(), 1);
-    EXPECT_EQ(banner.btype[0], BannerAdType::IFRAME);
+    EXPECT_EQ(banner.btype[0], proto::BannerAdType::IFRAME);
     EXPECT_EQ(banner.battr.size(), 1);
-    EXPECT_EQ(banner.battr[0], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(banner.battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
     EXPECT_EQ(banner.mimes.size(), 2);
     EXPECT_EQ(banner.mimes[0].type, "image/jpg");
     EXPECT_EQ(banner.mimes[1].type, "image/png");
-    EXPECT_EQ(banner.topframe, FramePosition::IFRAME);
+    EXPECT_EQ(banner.topframe, proto::FramePosition::IFRAME);
     EXPECT_EQ(banner.expdir.size(), 2);
-    EXPECT_EQ(banner.expdir[0], ExpandableDirection::RIGHT);
-    EXPECT_EQ(banner.expdir[1], ExpandableDirection::DOWN);
+    EXPECT_EQ(banner.expdir[0], proto::ExpandableDirection::RIGHT);
+    EXPECT_EQ(banner.expdir[1], proto::ExpandableDirection::DOWN);
     EXPECT_EQ(banner.api.size(), 1);
-    EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
+    EXPECT_EQ(banner.api[0], proto::ApiFramework::MRAID);
 }
 
 TEST(VideoTest, Parse) {
@@ -41,59 +41,59 @@ TEST(VideoTest, Parse) {
     const auto v = proto::JsonWorker<proto::Video>::Parse(json::Str2Json(str));
     EXPECT_EQ(v.w, 640);
     EXPECT_EQ(v.h, 480);
-    EXPECT_EQ(v.pos, AdPosition::ABOVE);
-    EXPECT_EQ(v.startdelay, VideoStartDelay::PRE_ROLL);
+    EXPECT_EQ(v.pos, proto::AdPosition::ABOVE);
+    EXPECT_EQ(v.startdelay, proto::VideoStartDelay::PRE_ROLL);
     EXPECT_EQ(v.minduration, 5);
     EXPECT_EQ(v.maxduration, 30);
     EXPECT_EQ(v.maxextended, 30);
     EXPECT_EQ(v.minbitrate, 300);
     EXPECT_EQ(v.maxbitrate, 1500);
     EXPECT_EQ(v.api.size(), 2);
-    EXPECT_EQ(v.api[0], ApiFramework::VPAID_1);
-    EXPECT_EQ(v.api[1], ApiFramework::VPAID_2);
+    EXPECT_EQ(v.api[0], proto::ApiFramework::VPAID_1);
+    EXPECT_EQ(v.api[1], proto::ApiFramework::VPAID_2);
     EXPECT_EQ(v.protocols.size(), 2);
-    EXPECT_EQ(v.protocols[0], VideoBidResponseProtocol::VAST2);
-    EXPECT_EQ(v.protocols[1], VideoBidResponseProtocol::VAST3);
+    EXPECT_EQ(v.protocols[0], proto::VideoBidResponseProtocol::VAST2);
+    EXPECT_EQ(v.protocols[1], proto::VideoBidResponseProtocol::VAST3);
     EXPECT_EQ(v.mimes.size(), 4);
     EXPECT_EQ(v.mimes[0].type, "video/x-flv");
     EXPECT_EQ(v.mimes[1].type, "video/mp4");
     EXPECT_EQ(v.mimes[2].type, "application/x-shockwave-flash");
     EXPECT_EQ(v.mimes[3].type, "application/javascript");
-    EXPECT_EQ(v.linearity, VideoLinearity::IN_STREAM);
+    EXPECT_EQ(v.linearity, proto::VideoLinearity::IN_STREAM);
     EXPECT_TRUE(v.boxingallowed);
     EXPECT_EQ(v.playbackmethod.size(), 2);
-    EXPECT_EQ(v.playbackmethod[0], VideoPlaybackMethod::AUTO_PLAY_SOUND_ON);
-    EXPECT_EQ(v.playbackmethod[1], VideoPlaybackMethod::CLICK_TO_PLAY);
+    EXPECT_EQ(v.playbackmethod[0], proto::VideoPlaybackMethod::AUTO_PLAY_SOUND_ON);
+    EXPECT_EQ(v.playbackmethod[1], proto::VideoPlaybackMethod::CLICK_TO_PLAY);
     EXPECT_EQ(v.delivery.size(), 1);
-    EXPECT_EQ(v.delivery[0], ContentDeliveryMethod::PROGRESSIVE);
+    EXPECT_EQ(v.delivery[0], proto::ContentDeliveryMethod::PROGRESSIVE);
     EXPECT_EQ(v.battr.size(), 2);
-    EXPECT_EQ(v.battr[0], CreativeAttribute::USER_INTERACTIVE);
-    EXPECT_EQ(v.battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(v.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+    EXPECT_EQ(v.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
     EXPECT_EQ(v.companionad.size(), 2);
     {
         EXPECT_EQ(v.companionad[0].id, "1234567893-1");
         EXPECT_EQ(v.companionad[0].w[0], 300);
         EXPECT_EQ(v.companionad[0].h[0], 250);
-        EXPECT_EQ(v.companionad[0].pos, AdPosition::ABOVE);
+        EXPECT_EQ(v.companionad[0].pos, proto::AdPosition::ABOVE);
         EXPECT_EQ(v.companionad[0].battr.size(), 2);
-        EXPECT_EQ(v.companionad[0].battr[0], CreativeAttribute::USER_INTERACTIVE);
-        EXPECT_EQ(v.companionad[0].battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+        EXPECT_EQ(v.companionad[0].battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+        EXPECT_EQ(v.companionad[0].battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
         EXPECT_EQ(v.companionad[0].expdir.size(), 2);
-        EXPECT_EQ(v.companionad[0].expdir[0], ExpandableDirection::RIGHT);
-        EXPECT_EQ(v.companionad[0].expdir[1], ExpandableDirection::DOWN);
+        EXPECT_EQ(v.companionad[0].expdir[0], proto::ExpandableDirection::RIGHT);
+        EXPECT_EQ(v.companionad[0].expdir[1], proto::ExpandableDirection::DOWN);
     }
     {
         EXPECT_EQ(v.companionad[1].id, "1234567893-2");
         EXPECT_EQ(v.companionad[1].w[0], 728);
         EXPECT_EQ(v.companionad[1].h[0], 90);
-        EXPECT_EQ(v.companionad[1].pos, AdPosition::ABOVE);
+        EXPECT_EQ(v.companionad[1].pos, proto::AdPosition::ABOVE);
         EXPECT_EQ(v.companionad[1].battr.size(), 2);
-        EXPECT_EQ(v.companionad[1].battr[0], CreativeAttribute::USER_INTERACTIVE);
-        EXPECT_EQ(v.companionad[1].battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+        EXPECT_EQ(v.companionad[1].battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+        EXPECT_EQ(v.companionad[1].battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
     }
     EXPECT_EQ(v.companiontype.size(), 2);
-    EXPECT_EQ(v.companiontype[0], VastCompanionType::STATIC_RESOURCE);
-    EXPECT_EQ(v.companiontype[1], VastCompanionType::HTML_RESOURCE);
+    EXPECT_EQ(v.companiontype[0], proto::VastCompanionType::STATIC_RESOURCE);
+    EXPECT_EQ(v.companiontype[1], proto::VastCompanionType::HTML_RESOURCE);
 }
 
 TEST(NativeTest, Parse)
@@ -103,10 +103,10 @@ TEST(NativeTest, Parse)
     EXPECT_EQ(n.request, "...Native_spec_request_as_an_encoded_string...");
     EXPECT_EQ(n.ver, "1.0");
     EXPECT_EQ(n.api.size(), 1);
-    EXPECT_EQ(n.api[0], ApiFramework::MRAID);
+    EXPECT_EQ(n.api[0], proto::ApiFramework::MRAID);
     EXPECT_EQ(n.battr.size(), 2);
-    EXPECT_EQ(n.battr[0], CreativeAttribute::USER_INTERACTIVE);
-    EXPECT_EQ(n.battr[1], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(n.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+    EXPECT_EQ(n.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
 }
 
 TEST(AppTest, Parse)
@@ -167,6 +167,41 @@ TEST(SiteTest, Parse)
     }
 }
 
+TEST(GeoTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetGeo();
+    const auto geo = proto::JsonWorker<proto::Geo>::Parse(json::Str2Json(str));
+    EXPECT_EQ(geo.country, "USA");
+    EXPECT_DOUBLE_EQ(geo.lat, 35.012345);
+    EXPECT_DOUBLE_EQ(geo.lon, -115.12345);
+    EXPECT_EQ(geo.city, "Los Angeles");
+    EXPECT_EQ(geo.metro, "803");
+    EXPECT_EQ(geo.region, "CA");
+    EXPECT_EQ(geo.zip, "90049");
+}
+
+TEST(DeviceTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetDevice();
+    const auto d = proto::JsonWorker<proto::Device>::Parse(json::Str2Json(str));
+    EXPECT_EQ(d.ip, "64.124.253.1");
+    EXPECT_EQ(d.ua, "Mozilla/5.0 (Mac; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20140420 Firefox/3.6.16");
+    EXPECT_EQ(d.os, "OS X");
+    EXPECT_EQ(d.flashver, "10.1");
+    EXPECT_TRUE(d.js);
+    {
+        EXPECT_TRUE(d.geo.has_value());
+        auto& geo = *d.geo;
+        EXPECT_EQ(geo.country, "USA");
+        EXPECT_DOUBLE_EQ(geo.lat, 35.012345);
+        EXPECT_DOUBLE_EQ(geo.lon, -115.12345);
+        EXPECT_EQ(geo.city, "Los Angeles");
+        EXPECT_EQ(geo.metro, "803");
+        EXPECT_EQ(geo.region, "CA");
+        EXPECT_EQ(geo.zip, "90049");
+    }
+}
+
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDeal();
@@ -174,7 +209,7 @@ TEST(DealTest, Parse)
     EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
     EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
     EXPECT_EQ(deal.bidfloorcur, "USD");
-    EXPECT_EQ(deal.at, AuctionPrice::FIRST_PRICE);
+    EXPECT_EQ(deal.at, proto::AuctionPrice::FIRST_PRICE);
     EXPECT_EQ(deal.wseat.size(), 0);
     EXPECT_EQ(deal.wadomain.size(), 0);
 }
@@ -188,7 +223,7 @@ TEST(PmpTest, Parse)
     EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
     EXPECT_DOUBLE_EQ(pmp.deals[0].bidfloor, 2.5);
     EXPECT_EQ(pmp.deals[0].bidfloorcur, "USD");
-    EXPECT_EQ(pmp.deals[0].at, AuctionPrice::SECOND_PRICE_PLUS);
+    EXPECT_EQ(pmp.deals[0].at, proto::AuctionPrice::SECOND_PRICE_PLUS);
 }
 
 TEST(ImpressionTest, Parse)
@@ -201,13 +236,13 @@ TEST(ImpressionTest, Parse)
     EXPECT_EQ(imp.banner->w[0], 728);
     EXPECT_EQ(imp.banner->h.size(), 1);
     EXPECT_EQ(imp.banner->h[0], 90);
-    EXPECT_EQ(imp.banner->pos, AdPosition::ABOVE);
+    EXPECT_EQ(imp.banner->pos, proto::AdPosition::ABOVE);
     EXPECT_EQ(imp.banner->btype.size(), 1);
-    EXPECT_EQ(imp.banner->btype[0], BannerAdType::IFRAME);
+    EXPECT_EQ(imp.banner->btype[0], proto::BannerAdType::IFRAME);
     EXPECT_EQ(imp.banner->battr.size(), 1);
-    EXPECT_EQ(imp.banner->battr[0], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(imp.banner->battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
     EXPECT_EQ(imp.banner->api.size(), 1);
-    EXPECT_EQ(imp.banner->api[0], ApiFramework::MRAID);
+    EXPECT_EQ(imp.banner->api[0], proto::ApiFramework::MRAID);
     EXPECT_EQ(imp.instl, 0);
     EXPECT_EQ(imp.tagid, "agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw");
     EXPECT_DOUBLE_EQ(imp.bidfloor, 0.5);
@@ -233,13 +268,13 @@ TEST(BidRequestTest, Parse)
             EXPECT_EQ(banner.w[0], 728);
             EXPECT_EQ(banner.h.size(), 1);
             EXPECT_EQ(banner.h[0], 90);
-            EXPECT_EQ(banner.pos, AdPosition::ABOVE);
+            EXPECT_EQ(banner.pos, proto::AdPosition::ABOVE);
             EXPECT_EQ(banner.btype.size(), 1);
-            EXPECT_EQ(banner.btype[0], BannerAdType::IFRAME);
+            EXPECT_EQ(banner.btype[0], proto::BannerAdType::IFRAME);
             EXPECT_EQ(banner.battr.size(), 1);
-            EXPECT_EQ(banner.battr[0], CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+            EXPECT_EQ(banner.battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
             EXPECT_EQ(banner.api.size(), 1);
-            EXPECT_EQ(banner.api[0], ApiFramework::MRAID);
+            EXPECT_EQ(banner.api[0], proto::ApiFramework::MRAID);
         }
     }
     {
@@ -262,7 +297,7 @@ TEST(BidRequestTest, Parse)
         }
         EXPECT_EQ(app.storeurl, "https://itunes.apple.com/id628677149");
     }
-    EXPECT_EQ(br.at, AuctionPrice::SECOND_PRICE_PLUS);
+    EXPECT_EQ(br.at, proto::AuctionPrice::SECOND_PRICE_PLUS);
     EXPECT_FALSE(br.test);
     EXPECT_FALSE(br.allimps);
     EXPECT_EQ(br.bcat.size(), 5);
