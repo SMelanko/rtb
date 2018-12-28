@@ -12,6 +12,7 @@ public:
     static core::String GetVideo();
     static core::String GetNative();
     static core::String GetApp();
+    static core::String GetSite();
     static core::String GetDeal();
     static core::String GetPmp();
     static core::String GetImpression();

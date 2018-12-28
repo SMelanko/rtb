@@ -123,12 +123,48 @@ TEST(AppTest, Parse)
     EXPECT_EQ(app.bundle, "628677149");
     {
         EXPECT_TRUE(app.publisher.has_value());
-        auto& pub = *app.publisher;
-        EXPECT_EQ(pub.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV");
-        EXPECT_EQ(pub.name, "yahoo");
-        EXPECT_EQ(pub.domain, "www.yahoo.com");
+        auto& p = *app.publisher;
+        EXPECT_EQ(p.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV");
+        EXPECT_EQ(p.name, "yahoo");
+        EXPECT_EQ(p.domain, "www.yahoo.com");
     }
     EXPECT_EQ(app.storeurl, "https://itunes.apple.com/id628677149");
+}
+
+TEST(SiteTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetSite();
+    const auto s = JsonWorker<Site>::Parse(json::Str2Json(str));
+    EXPECT_EQ(s.id, "1345135123");
+    EXPECT_EQ(s.name, "Site_ABCD");
+    EXPECT_EQ(s.domain, "siteabcd.com");
+    EXPECT_EQ(s.cat.size(), 2);
+    EXPECT_EQ(s.cat[0], "IAB2-1");
+    EXPECT_EQ(s.cat[1], "IAB2-2");
+    EXPECT_EQ(s.page, "http://siteabcd.com/page.htm");
+    EXPECT_EQ(s.ref, "http://referringsite.com/referringpage.htm");
+    EXPECT_TRUE(s.privacypolicy);
+    {
+        EXPECT_TRUE(s.publisher.has_value());
+        auto& p = *s.publisher;
+        EXPECT_EQ(p.id, "pub12345");
+        EXPECT_EQ(p.name, "Publisher_A");
+    }
+    {
+        EXPECT_TRUE(s.content.has_value());
+        auto& c = *s.content;
+        EXPECT_EQ(c.cat.size(), 1);
+        EXPECT_EQ(c.cat[0], "IAB2-2");
+        EXPECT_EQ(c.episode, 23);
+        EXPECT_EQ(c.id, "1234567");
+        EXPECT_EQ(c.keywords.size(), 3);
+        EXPECT_EQ(c.keywords[0], "keyword_a");
+        EXPECT_EQ(c.keywords[1], "keyword_b");
+        EXPECT_EQ(c.keywords[2], "keyword_c");
+        EXPECT_EQ(c.season, "2");
+        EXPECT_EQ(c.series, "All_About_Cars");
+        EXPECT_EQ(c.title, "Car_Show");
+    }
 }
 
 TEST(DealTest, Parse)

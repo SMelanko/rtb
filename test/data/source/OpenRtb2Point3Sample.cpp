@@ -153,6 +153,43 @@ core::String OpenRtb2Point3Sample::GetApp()
     return core::StrAlgo::RemoveWhitespace(str);
 }
 
+core::String OpenRtb2Point3Sample::GetSite()
+{
+    auto str = R"({
+        "id":"1345135123",
+        "name":"Site_ABCD",
+        "domain":"siteabcd.com",
+        "cat":[
+            "IAB2-1",
+            "IAB2-2"
+        ],
+        "page":"http://siteabcd.com/page.htm",
+        "ref":"http://referringsite.com/referringpage.htm",
+        "privacypolicy":true,
+        "publisher":{
+            "id":"pub12345",
+            "name":"Publisher_A"
+        },
+        "content":{
+            "cat":[
+                "IAB2-2"
+            ],
+            "episode":23,
+            "id":"1234567",
+            "keywords":[
+                "keyword_a",
+                "keyword_b",
+                "keyword_c"
+            ],
+            "season":"2",
+            "series":"All_About_Cars",
+            "title":"Car_Show"
+        }
+    })";
+
+    return core::StrAlgo::RemoveWhitespace(str);
+}
+
 core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({
