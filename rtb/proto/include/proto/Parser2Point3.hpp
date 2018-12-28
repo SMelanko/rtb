@@ -57,6 +57,13 @@ public:
 };
 
 template<>
+class JsonWorker<Geo>
+{
+public:
+    static Geo Parse(const json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:

@@ -196,6 +196,23 @@ App JsonWorker<App>::Parse(const json::Object& j)
     return a;
 }
 
+Geo JsonWorker<Geo>::Parse(const json::Object& j)
+{
+    Geo g;
+
+    json::ExtDouble(j, "lat", g.lat);
+    json::ExtDouble(j, "lon", g.lon);
+    json::ExtEnum(j, "type", g.type);
+    json::ExtStr(j, "country", g.country);
+    json::ExtStr(j, "region", g.region);
+    json::ExtStr(j, "regionfips104", g.regionfips104);
+    json::ExtStr(j, "metro", g.metro);
+    json::ExtStr(j, "zip", g.zip);
+    json::ExtInt(j, "utcoffset", g.utcoffset);
+
+    return g;
+}
+
 Deal JsonWorker<Deal>::Parse(const json::Object& j)
 {
     Deal d;

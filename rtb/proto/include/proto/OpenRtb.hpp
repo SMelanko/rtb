@@ -382,6 +382,24 @@ enum class MediaRating
 };
 
 /*
+ * 5.16 Location Type
+ *
+ * The following table lists the options to indicate how the geographic information was determined.
+ */
+
+enum class LocationType
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// GPS/Location Services.
+    GPS = 1,
+    /// IP Address.
+    IP_ADDRESS = 2,
+    /// User provided (e.g., registration data).
+    USER = 3 
+};
+
+/*
  * Auction Price
  *
  * Optional override of the overall auction type of the bid request, where
@@ -741,6 +759,46 @@ public:
     core::String ver;
     /// True if the application is a paid version, else - free.
     core::Bool paid;
+};
+
+/*
+ * 3.3.11 Geo Object
+ *
+ * This object encapsulates various methods for specifying a geographic location.
+ * When subordinate to a Device object, it indicates the location of the device which
+ * can also be interpreted as the user’s current location. When subordinate to a User object,
+ * it indicates the location of the user’s home base (i.e., not necessarily their current location).
+ * The lat/lon attributes should only be passed if they conform to the accuracy depicted
+ * in the type attribute. For example, the centroid of a geographic region such as postal code
+ * should not be passed.
+ */
+
+struct Geo
+{
+public:
+    /// Latitude from -90.0 to +90.0, where negative is south.
+    core::Double lat;
+    /// Longitude from -180.0 to +180.0, where negative is west.
+    core::Double lon;
+    /// Source of location data; recommended when passing lat/lon. Refer to List 5.16.
+    LocationType type;
+    /// Country code using ISO-3166-1-alpha-3.
+    core::String country;
+    /// Region code using ISO-3166-2; 2-letter state code if USA.
+    core::String region;
+    /// Region of a country using FIPS 10-4 notation. While OpenRTB supports this attribute,
+    /// it has been withdrawn by NIST in 2008.
+    core::String regionfips104;
+    /// Google metro code; similar to but not exactly Nielsen DMAs.
+    /// http://code.google.com/apis/adwords/docs/appendix/metrocodes.html
+    core::String metro;
+    /// City using United Nations Code for Trade & Transport Locations.
+    /// http://code.google.com/apis/adwords/docs/appendix/metrocodes.html
+    core::String metro;
+    /// Zip or postal code.
+    core::String zip;
+    /// Local time as the number +/- of minutes from UTC.
+    core::Int utcoffset;
 };
 
 /*
