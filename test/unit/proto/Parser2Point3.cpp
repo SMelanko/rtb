@@ -336,6 +336,13 @@ TEST(BidRequestTest, Parse)
         EXPECT_EQ(d.connectiontype, proto::ConnectionType::CELLULAR_UNKNOWN);
         EXPECT_EQ(d.devicetype, proto::DeviceType::MOBILE_OR_TABLET);
     }
+    {
+        EXPECT_TRUE(br.user.has_value());
+        auto& u = *br.user;
+        EXPECT_EQ(u.id, "ffffffd5135596709273b3a1a07e466ea2bf4fff");
+        EXPECT_EQ(u.yob, 1984);
+        EXPECT_EQ(u.gender, "M");
+    }
     EXPECT_EQ(br.at, proto::AuctionPrice::SECOND_PRICE_PLUS);
     EXPECT_FALSE(br.test);
     EXPECT_FALSE(br.allimps);

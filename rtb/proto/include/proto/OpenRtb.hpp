@@ -935,6 +935,81 @@ public:
 };
 
 /*
+ * 3.2.15 Object: Segment
+ *
+ * Segment objects are essentially key-value pairs that convey specific units of data
+ * about the user. The parent Data object is a collection of such values from a given
+ * data provider. The specific segment names and value options must be published by
+ * the exchange a priori to its bidders.
+ */
+
+struct Segment
+{
+public:
+    /// ID of the data segment specific to the data provider.
+    core::String id;
+    /// Name of the data segment specific to the data provider.
+    core::String name;
+    /// String representation of the data segment value.
+    core::String value;
+};
+
+/*
+ * 3.2.14 Object: Data
+ *
+ * The data and segment objects together allow additional data about the user to be specified.
+ * This data may be from multiple sources whether from the exchange itself or third party providers
+ * as specified by the id field. A bid request can mix data objects from multiple providers.
+ * The specific data providers in use should be published by the exchange a priori to its bidders.
+ */
+
+struct Data
+{
+public:
+    /// Exchange-specific ID for the data provider.
+    core::String id;
+    /// Exchange-specific name for the data provider.
+    core::String name;
+    /// Array of Segment (Section 3.2.15) objects that contain the actual data values.
+    core::Vector<Segment> segment;
+};
+
+
+/*
+ * 3.2.13 Object: User
+ *
+ * This object contains information known or derived about the human user of the device
+ * (i.e., the audience for advertising). The user id is an exchange artifact and may be subject
+ * to rotation or other privacy policies. However, this user ID must be stable long enough
+ * to serve reasonably as the basis for frequency capping and retargeting.
+ */
+
+struct User
+{
+public:
+    /// Exchange-specific ID for the user. At least one of id or buyer id is recommended.
+    core::String id;
+    /// Buyer-specific ID for the user as mapped by the exchange for thebuyer.
+    /// At least one of id or buyer id is recommended.
+    core::String buyerid;
+    /// Year of birth as a 4-digit integer.
+    core::Int yob;
+    /// Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown).
+    core::String gender;
+    /// Comma separated list of keywords, interests, or intent.
+    core::String keywords;
+    /// Optional feature to pass bidder data that was set in the exchange’s cookie.
+    /// The string must be in base85 cookie safe characters and be in any format.
+    /// Proper JSON encoding must be used to include “escaped” quotation marks.
+    core::String customdata;
+    /// Location of the user’s home base defined by a Geo object (Section 3.2.12).
+    /// This is not necessarily their current location.
+    core::Optional<Geo> geo;
+    /// Additional user data. Each Data object (Section3.2.14) represents a different data source.
+    core::Vector<Data> data;
+};
+
+/*
  * 3.2.18 Object: Deal
  *
  * This object constitutes a specific deal that was struck a priori between a buyer and a seller.
@@ -1057,10 +1132,8 @@ public:
     core::Optional<App> app;
     /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
     core::Optional<Device> device;
-#if 0
     /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.
     core::Optional<User> user;
-#endif
     /// Indicator of test mode in which auctions are not billable, where 0 (false) = live mode, 1 (true) = test mode.
     core::Bool test = false;
     /// Auction type, where 1 = First Price, 2 = Second Price Plus.

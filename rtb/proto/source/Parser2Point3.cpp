@@ -253,6 +253,44 @@ Device JsonWorker<Device>::Parse(const json::Object& j)
     return d;
 }
 
+Segment JsonWorker<Segment>::Parse(const json::Object& j)
+{
+    Segment s;
+
+    json::ExtStr(j, "id", s.id);
+    json::ExtStr(j, "name", s.name);
+    json::ExtStr(j, "value", s.value);
+
+    return s;
+}
+
+Data JsonWorker<Data>::Parse(const json::Object& j)
+{
+    Data d;
+
+    json::ExtStr(j, "id", d.id);
+    json::ExtStr(j, "name", d.name);
+    detail::ExtVecObj(j, "segment", d.segment);
+
+    return d;
+}
+
+User JsonWorker<User>::Parse(const json::Object& j)
+{
+    User u;
+
+    json::ExtStr(j, "id", u.id);
+    json::ExtStr(j, "buyerid", u.buyerid);
+    json::ExtInt(j, "yob", u.yob);
+    json::ExtStr(j, "gender", u.gender);
+    json::ExtStr(j, "keywords", u.keywords);
+    json::ExtStr(j, "customdata", u.customdata);
+    detail::ExtObj(j, "geo", u.geo);
+    detail::ExtVecObj(j, "data", u.data);
+
+    return u;
+}
+
 Deal JsonWorker<Deal>::Parse(const json::Object& j)
 {
     Deal d;
@@ -307,6 +345,7 @@ BidRequest JsonWorker<BidRequest>::Parse(const json::Object& j)
     detail::ExtObj(j, "site", br.site);
     detail::ExtObj(j, "app", br.app);
     detail::ExtObj(j, "device", br.device);
+    detail::ExtObj(j, "user", br.user);
     json::ExtBool(j, "test", br.test);
     json::ExtEnum(j, "at", br.at);
     json::ExtInt(j, "tmax", br.tmax);

@@ -74,6 +74,27 @@ public:
 };
 
 template<>
+class JsonWorker<Segment>
+{
+public:
+    static Segment Parse(const json::Object& j);
+};
+
+template<>
+class JsonWorker<Data>
+{
+public:
+    static Data Parse(const json::Object& j);
+};
+
+template<>
+class JsonWorker<User>
+{
+public:
+    static User Parse(const json::Object& j);
+};
+
+template<>
 class JsonWorker<Deal>
 {
 public:

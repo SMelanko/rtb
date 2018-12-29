@@ -359,6 +359,9 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
             "devicetype":1
         },
         "user":{
+            "id":"ffffffd5135596709273b3a1a07e466ea2bf4fff",
+            "yob":1984,
+            "gender":"M"
         },
         "at":2,
         "bcat":[
