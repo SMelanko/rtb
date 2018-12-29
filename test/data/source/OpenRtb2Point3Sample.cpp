@@ -208,11 +208,10 @@ core::String OpenRtb2Point3Sample::GetGeo()
 core::String OpenRtb2Point3Sample::GetDevice()
 {
     auto str = R"({
+        "dnt": 0,
         "ip":"64.124.253.1",
         "ua":"Mozilla/5.0 (Mac; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20140420 Firefox/3.6.16",
-        "os":"OS X",
         "flashver":"10.1",
-        "js":1,
         "geo":{
             "country":"USA",
             "lat":35.012345,
@@ -221,7 +220,18 @@ core::String OpenRtb2Point3Sample::GetDevice()
             "metro":"803",
             "region":"CA",
             "zip":"90049"
-        }
+        },
+        "dpidsha1":"AA000DFE74168477C70D291f574D344790E0BB11",
+        "dpidmd5":"AA003EABFB29E6F759F3BDAB34E50BB11",
+        "carrier":"310-410",
+        "language":"en",
+        "make":"Apple",
+        "model":"iPhone",
+        "os":"iOS",
+        "osv":"6.1",
+        "js":1,
+        "connectiontype":3,
+        "devicetype":1
     })";
 
     return str;
@@ -324,6 +334,29 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
             "storeurl":"https://itunes.apple.com/id628677149"
         },
         "device":{
+            "dnt":0,
+            "ua":"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3",
+            "ip":"123.145.167.189",
+            "geo":{
+                "country":"USA",
+                "lat":35.012345,
+                "lon":-115.12345,
+                "city":"Los Angeles",
+                "metro":"803",
+                "region":"CA",
+                "zip":"90049"
+            },
+            "dpidsha1":"AA000DFE74168477C70D291f574D344790E0BB11",
+            "dpidmd5":"AA003EABFB29E6F759F3BDAB34E50BB11",
+            "carrier":"310-410",
+            "language":"en",
+            "make":"Apple",
+            "model":"iPhone",
+            "os":"iOS",
+            "osv":"6.1",
+            "js":1,
+            "connectiontype":3,
+            "devicetype":1
         },
         "user":{
         },
@@ -342,7 +375,12 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return str;
+}
+
+core::String OpenRtb2Point3Sample::GetBrandscreenBidRequestBench()
+{
+    return core::StrAlgo::RemoveWhitespace(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
 }
 
 }

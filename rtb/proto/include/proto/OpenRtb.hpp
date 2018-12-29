@@ -1055,9 +1055,9 @@ public:
     /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e., non-browser applications).
     /// Only applicable and recommended for apps.
     core::Optional<App> app;
-#if 0
     /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
     core::Optional<Device> device;
+#if 0
     /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.
     core::Optional<User> user;
 #endif

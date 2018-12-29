@@ -66,6 +66,26 @@ void ParseSite(bench::State& state)
 }
 BENCH(ParseSite);
 
+void ParseGeo(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetGeo();
+    Log(str);
+    for (auto _ : state) {
+        auto g = proto::JsonWorker<proto::Geo>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(ParseGeo);
+
+void ParseDevice(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetDevice();
+    Log(str);
+    for (auto _ : state) {
+        auto d = proto::JsonWorker<proto::Device>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(ParseDevice);
+
 void ParseDeal(bench::State& state)
 {
     auto str = test::data::OpenRtb2Point3Sample::GetDeal();
@@ -98,7 +118,7 @@ BENCH(ParseImpression);
 
 void ParseBrandscreenBidRequest(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
+    auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench();
     Log(str);
     for (auto _ : state) {
         auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));

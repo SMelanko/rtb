@@ -184,11 +184,10 @@ TEST(DeviceTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDevice();
     const auto d = proto::JsonWorker<proto::Device>::Parse(json::Str2Json(str));
+    EXPECT_FALSE(d.dnt);
     EXPECT_EQ(d.ip, "64.124.253.1");
     EXPECT_EQ(d.ua, "Mozilla/5.0 (Mac; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20140420 Firefox/3.6.16");
-    EXPECT_EQ(d.os, "OS X");
     EXPECT_EQ(d.flashver, "10.1");
-    EXPECT_TRUE(d.js);
     {
         EXPECT_TRUE(d.geo.has_value());
         auto& geo = *d.geo;
@@ -200,6 +199,17 @@ TEST(DeviceTest, Parse)
         EXPECT_EQ(geo.region, "CA");
         EXPECT_EQ(geo.zip, "90049");
     }
+    EXPECT_EQ(d.dpidsha1, "AA000DFE74168477C70D291f574D344790E0BB11");
+    EXPECT_EQ(d.dpidmd5, "AA003EABFB29E6F759F3BDAB34E50BB11");
+    EXPECT_EQ(d.carrier, "310-410");
+    EXPECT_EQ(d.language, "en");
+    EXPECT_EQ(d.make, "Apple");
+    EXPECT_EQ(d.model, "iPhone");
+    EXPECT_EQ(d.os, "iOS");
+    EXPECT_EQ(d.osv, "6.1");
+    EXPECT_TRUE(d.js);
+    EXPECT_EQ(d.connectiontype, proto::ConnectionType::CELLULAR_UNKNOWN);
+    EXPECT_EQ(d.devicetype, proto::DeviceType::MOBILE_OR_TABLET);
 }
 
 TEST(DealTest, Parse)
@@ -296,6 +306,35 @@ TEST(BidRequestTest, Parse)
             EXPECT_EQ(pub.domain, "www.yahoo.com");
         }
         EXPECT_EQ(app.storeurl, "https://itunes.apple.com/id628677149");
+    }
+    {
+        EXPECT_TRUE(br.device.has_value());
+        auto& d = *br.device;
+        EXPECT_FALSE(d.dnt);
+        EXPECT_EQ(d.ua, "Mozilla/5.0 (iPhone; CPU iPhone OS 6_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3");
+        EXPECT_EQ(d.ip, "123.145.167.189");
+        {
+            EXPECT_TRUE(d.geo.has_value());
+            auto& geo = *d.geo;
+            EXPECT_EQ(geo.country, "USA");
+            EXPECT_DOUBLE_EQ(geo.lat, 35.012345);
+            EXPECT_DOUBLE_EQ(geo.lon, -115.12345);
+            EXPECT_EQ(geo.city, "Los Angeles");
+            EXPECT_EQ(geo.metro, "803");
+            EXPECT_EQ(geo.region, "CA");
+            EXPECT_EQ(geo.zip, "90049");
+        }
+        EXPECT_EQ(d.dpidsha1, "AA000DFE74168477C70D291f574D344790E0BB11");
+        EXPECT_EQ(d.dpidmd5, "AA003EABFB29E6F759F3BDAB34E50BB11");
+        EXPECT_EQ(d.carrier, "310-410");
+        EXPECT_EQ(d.language, "en");
+        EXPECT_EQ(d.make, "Apple");
+        EXPECT_EQ(d.model, "iPhone");
+        EXPECT_EQ(d.os, "iOS");
+        EXPECT_EQ(d.osv, "6.1");
+        EXPECT_TRUE(d.js);
+        EXPECT_EQ(d.connectiontype, proto::ConnectionType::CELLULAR_UNKNOWN);
+        EXPECT_EQ(d.devicetype, proto::DeviceType::MOBILE_OR_TABLET);
     }
     EXPECT_EQ(br.at, proto::AuctionPrice::SECOND_PRICE_PLUS);
     EXPECT_FALSE(br.test);

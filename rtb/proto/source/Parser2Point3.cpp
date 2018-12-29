@@ -306,6 +306,7 @@ BidRequest JsonWorker<BidRequest>::Parse(const json::Object& j)
     detail::ExtVecObj(j, "imp", br.imp);
     detail::ExtObj(j, "site", br.site);
     detail::ExtObj(j, "app", br.app);
+    detail::ExtObj(j, "device", br.device);
     json::ExtBool(j, "test", br.test);
     json::ExtEnum(j, "at", br.at);
     json::ExtInt(j, "tmax", br.tmax);

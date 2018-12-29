@@ -19,6 +19,7 @@ public:
     static core::String GetPmp();
     static core::String GetImpression();
     static core::String GetBrandscreenBidRequest();
+    static core::String GetBrandscreenBidRequestBench();
 };
 
 }
