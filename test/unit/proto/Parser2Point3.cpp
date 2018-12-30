@@ -1,9 +1,9 @@
-#include <data/OpenRtb2Point3Sample.hpp>
 #include <core/json/Json.hpp>
 #include <core/stl/String.hpp>
 #include <core/stl/Vector.hpp>
 #include <core/Type.hpp>
 #include <proto/Parser2Point3.hpp>
+#include <test/data/OpenRtb2Point3Sample.hpp>
 
 #include <gtest/gtest.h>
 

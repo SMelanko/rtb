@@ -1,8 +1,7 @@
 #include "Bench.hpp"
 
-#include <core/stl/String.hpp>
-#include <data/OpenRtb2Point3Sample.hpp>
 #include <proto/Parser2Point3.hpp>
+#include <test/data/OpenRtb2Point3Sample.hpp>
 
 #include <iostream>
 

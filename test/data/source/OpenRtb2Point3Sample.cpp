@@ -1,4 +1,4 @@
-#include "data/OpenRtb2Point3Sample.hpp"
+#include "test/data/OpenRtb2Point3Sample.hpp"
 
 #include <core/utils/StrAlgo.hpp>
 
