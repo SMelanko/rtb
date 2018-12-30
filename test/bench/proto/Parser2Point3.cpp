@@ -15,113 +15,76 @@ void Log(core::StringView str)
 #endif
 }
 
+#define PERFORM_BENCH(unit) \
+    const auto str = test::data::OpenRtb2Point3Sample::Get ## unit(); \
+    Log(str); \
+    for (auto _ : state) { \
+        auto dummy = proto::JsonWorker<proto::unit>::Parse(json::Str2Json(str)); \
+    }
+
 void ParseBanner(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetBanner();
-    Log(str);
-    for (auto _ : state) {
-        auto b = proto::JsonWorker<proto::Banner>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Banner)
 }
 BENCH(ParseBanner);
 
 void ParseVideo(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetVideo();
-    Log(str);
-    for (auto _ : state) {
-        auto v = proto::JsonWorker<proto::Video>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Video)
 }
 BENCH(ParseVideo);
 
 void ParseNative(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetNative();
-    Log(str);
-    for (auto _ : state) {
-        auto n = proto::JsonWorker<proto::Native>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Native)
 }
 BENCH(ParseNative);
 
 void ParseApp(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetApp();
-    Log(str);
-    for (auto _ : state) {
-        auto a = proto::JsonWorker<proto::App>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(App)
 }
 BENCH(ParseApp);
 
 void ParseSite(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetSite();
-    Log(str);
-    for (auto _ : state) {
-        auto s = proto::JsonWorker<proto::Site>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Site)
 }
 BENCH(ParseSite);
 
 void ParseGeo(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetGeo();
-    Log(str);
-    for (auto _ : state) {
-        auto g = proto::JsonWorker<proto::Geo>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Geo)
 }
 BENCH(ParseGeo);
 
 void ParseDevice(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetDevice();
-    Log(str);
-    for (auto _ : state) {
-        auto d = proto::JsonWorker<proto::Device>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Device)
 }
 BENCH(ParseDevice);
 
 void ParseUser(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetUser();
-    Log(str);
-    for (auto _ : state) {
-        auto d = proto::JsonWorker<proto::User>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(User)
 }
 BENCH(ParseUser);
 
 void ParseDeal(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetDeal();
-    Log(str);
-    for (auto _ : state) {
-        auto deal = proto::JsonWorker<proto::Deal>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Deal)
 }
 BENCH(ParseDeal);
 
 void ParsePmp(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetPmp();
-    Log(str);
-    for (auto _ : state) {
-        auto pmp = proto::JsonWorker<proto::Pmp>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Pmp)
 }
 BENCH(ParsePmp);
 
 void ParseImpression(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetImpression();
-    Log(str);
-    for (auto _ : state) {
-        auto imp = proto::JsonWorker<proto::Impression>::Parse(json::Str2Json(str));
-    }
+    PERFORM_BENCH(Impression)
 }
 BENCH(ParseImpression);
 
