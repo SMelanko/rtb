@@ -13,7 +13,7 @@ namespace detail
 using Mock = test::data::OpenRtb2Point3Sample;
 
 template<class T>
-T PrepareUnit(const core::String& str)
+[[nodiscard]] constexpr T PrepareUnit(const core::String& str)
 {
     return proto::JsonWorker<T>::Parse(json::Str2Json(str));
 }
