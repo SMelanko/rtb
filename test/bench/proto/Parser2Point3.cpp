@@ -8,6 +8,9 @@
 #define LOG_TEST_DATA
 #undef LOG_TEST_DATA
 
+namespace detail
+{
+
 void Log(core::StringView str)
 {
 #ifdef LOG_TEST_DATA
@@ -15,9 +18,11 @@ void Log(core::StringView str)
 #endif
 }
 
+}
+
 #define PERFORM_BENCH(unit) \
     const auto str = test::data::OpenRtb2Point3Sample::Get ## unit(); \
-    Log(str); \
+    detail::Log(str); \
     for (auto _ : state) { \
         auto dummy = proto::JsonWorker<proto::unit>::Parse(json::Str2Json(str)); \
     }
@@ -91,7 +96,7 @@ BENCH(ParseImpression);
 void ParseBrandscreenBidRequest(bench::State& state)
 {
     auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench();
-    Log(str);
+    detail::Log(str);
     for (auto _ : state) {
         auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
     }
