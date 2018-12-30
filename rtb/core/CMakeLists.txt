@@ -2,9 +2,14 @@ cmake_minimum_required(VERSION 3.10)
 
 project(core LANGUAGES CXX)
 
+file(GLOB_RECURSE ${PROJECT_NAME}_INCLUDE "include/*.hpp")
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "source/*.cpp")
 
+source_group("include" FILES ${${PROJECT_NAME}_INCLUDE})
+source_group("source" FILES ${${PROJECT_NAME}_SOURCE})
+
 add_library(${PROJECT_NAME} STATIC
+    ${${PROJECT_NAME}_INCLUDE}
     ${${PROJECT_NAME}_SOURCE}
 )
 
