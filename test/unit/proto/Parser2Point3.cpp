@@ -7,38 +7,50 @@
 
 #include <gtest/gtest.h>
 
-TEST(BannerTest, Parse)
+namespace detail
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetBanner();
-    const auto banner = proto::JsonWorker<proto::Banner>::Parse(json::Str2Json(str));
-    EXPECT_EQ(banner.w.size(), 1);
-    EXPECT_EQ(banner.w[0], 300);
-    EXPECT_EQ(banner.h.size(), 1);
-    EXPECT_EQ(banner.h[0], 250);
-    EXPECT_EQ(banner.wmax, 640);
-    EXPECT_EQ(banner.hmax, 320);
-    EXPECT_EQ(banner.wmin, 240);
-    EXPECT_EQ(banner.hmin, 200);
-    EXPECT_EQ(banner.id, "p7mwtup3aep7c0io");
-    EXPECT_EQ(banner.pos, proto::AdPosition::UNKNOWN);
-    EXPECT_EQ(banner.btype.size(), 1);
-    EXPECT_EQ(banner.btype[0], proto::BannerAdType::IFRAME);
-    EXPECT_EQ(banner.battr.size(), 1);
-    EXPECT_EQ(banner.battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
-    EXPECT_EQ(banner.mimes.size(), 2);
-    EXPECT_EQ(banner.mimes[0].type, "image/jpg");
-    EXPECT_EQ(banner.mimes[1].type, "image/png");
-    EXPECT_EQ(banner.topframe, proto::FramePosition::IFRAME);
-    EXPECT_EQ(banner.expdir.size(), 2);
-    EXPECT_EQ(banner.expdir[0], proto::ExpandableDirection::RIGHT);
-    EXPECT_EQ(banner.expdir[1], proto::ExpandableDirection::DOWN);
-    EXPECT_EQ(banner.api.size(), 1);
-    EXPECT_EQ(banner.api[0], proto::ApiFramework::MRAID);
+
+using Mock = test::data::OpenRtb2Point3Sample;
+
+template<class T>
+T PrepareUnit(const core::String& str)
+{
+    return proto::JsonWorker<T>::Parse(json::Str2Json(str));
 }
 
-TEST(VideoTest, Parse) {
-    const auto str = test::data::OpenRtb2Point3Sample::GetVideo();
-    const auto v = proto::JsonWorker<proto::Video>::Parse(json::Str2Json(str));
+}
+
+TEST(BannerTest, Parse)
+{
+    const auto b = detail::PrepareUnit<proto::Banner>(detail::Mock::GetBanner());
+    EXPECT_EQ(b.w.size(), 1);
+    EXPECT_EQ(b.w[0], 300);
+    EXPECT_EQ(b.h.size(), 1);
+    EXPECT_EQ(b.h[0], 250);
+    EXPECT_EQ(b.wmax, 640);
+    EXPECT_EQ(b.hmax, 320);
+    EXPECT_EQ(b.wmin, 240);
+    EXPECT_EQ(b.hmin, 200);
+    EXPECT_EQ(b.id, "p7mwtup3aep7c0io");
+    EXPECT_EQ(b.pos, proto::AdPosition::UNKNOWN);
+    EXPECT_EQ(b.btype.size(), 1);
+    EXPECT_EQ(b.btype[0], proto::BannerAdType::IFRAME);
+    EXPECT_EQ(b.battr.size(), 1);
+    EXPECT_EQ(b.battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_EQ(b.mimes.size(), 2);
+    EXPECT_EQ(b.mimes[0].type, "image/jpg");
+    EXPECT_EQ(b.mimes[1].type, "image/png");
+    EXPECT_EQ(b.topframe, proto::FramePosition::IFRAME);
+    EXPECT_EQ(b.expdir.size(), 2);
+    EXPECT_EQ(b.expdir[0], proto::ExpandableDirection::RIGHT);
+    EXPECT_EQ(b.expdir[1], proto::ExpandableDirection::DOWN);
+    EXPECT_EQ(b.api.size(), 1);
+    EXPECT_EQ(b.api[0], proto::ApiFramework::MRAID);
+}
+
+TEST(VideoTest, Parse)
+{
+    const auto v = detail::PrepareUnit<proto::Video>(detail::Mock::GetVideo());
     EXPECT_EQ(v.w, 640);
     EXPECT_EQ(v.h, 480);
     EXPECT_EQ(v.pos, proto::AdPosition::ABOVE);
@@ -98,8 +110,7 @@ TEST(VideoTest, Parse) {
 
 TEST(NativeTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetNative();
-    const auto n = proto::JsonWorker<proto::Native>::Parse(json::Str2Json(str));
+    const auto n = detail::PrepareUnit<proto::Native>(detail::Mock::GetNative());
     EXPECT_EQ(n.request, "...Native_spec_request_as_an_encoded_string...");
     EXPECT_EQ(n.ver, "1.0");
     EXPECT_EQ(n.api.size(), 1);
@@ -111,8 +122,7 @@ TEST(NativeTest, Parse)
 
 TEST(AppTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetApp();
-    const auto app = proto::JsonWorker<proto::App>::Parse(json::Str2Json(str));
+    const auto app = detail::PrepareUnit<proto::App>(detail::Mock::GetApp());
     EXPECT_EQ(app.id, "agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA");
     EXPECT_EQ(app.name, "Yahoo_Weather");
     EXPECT_EQ(app.cat.size(), 3);
@@ -133,8 +143,7 @@ TEST(AppTest, Parse)
 
 TEST(SiteTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetSite();
-    const auto s = proto::JsonWorker<proto::Site>::Parse(json::Str2Json(str));
+    const auto s = detail::PrepareUnit<proto::Site>(detail::Mock::GetSite());
     EXPECT_EQ(s.id, "1345135123");
     EXPECT_EQ(s.name, "Site_ABCD");
     EXPECT_EQ(s.domain, "siteabcd.com");
@@ -169,8 +178,7 @@ TEST(SiteTest, Parse)
 
 TEST(GeoTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetGeo();
-    const auto geo = proto::JsonWorker<proto::Geo>::Parse(json::Str2Json(str));
+    const auto geo = detail::PrepareUnit<proto::Geo>(detail::Mock::GetGeo());
     EXPECT_EQ(geo.country, "USA");
     EXPECT_DOUBLE_EQ(geo.lat, 35.012345);
     EXPECT_DOUBLE_EQ(geo.lon, -115.12345);
@@ -182,8 +190,7 @@ TEST(GeoTest, Parse)
 
 TEST(DeviceTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetDevice();
-    const auto d = proto::JsonWorker<proto::Device>::Parse(json::Str2Json(str));
+    const auto d = detail::PrepareUnit<proto::Device>(detail::Mock::GetDevice());
     EXPECT_FALSE(d.dnt);
     EXPECT_EQ(d.ip, "64.124.253.1");
     EXPECT_EQ(d.ua, "Mozilla/5.0 (Mac; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20140420 Firefox/3.6.16");
@@ -214,8 +221,7 @@ TEST(DeviceTest, Parse)
 
 TEST(UserTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetUser();
-    const auto user = proto::JsonWorker<proto::User>::Parse(json::Str2Json(str));
+    const auto user = detail::PrepareUnit<proto::User>(detail::Mock::GetUser());
     EXPECT_EQ(user.id, "456789876567897654678987656789");
     EXPECT_EQ(user.buyerid, "545678765467876567898765678987654");
     {
@@ -237,8 +243,7 @@ TEST(UserTest, Parse)
 
 TEST(DealTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetDeal();
-    const auto deal = proto::JsonWorker<proto::Deal>::Parse(json::Str2Json(str));
+    const auto deal = detail::PrepareUnit<proto::Deal>(detail::Mock::GetDeal());
     EXPECT_EQ(deal.id, "1452f.eadb4.7aaa");
     EXPECT_DOUBLE_EQ(deal.bidfloor, 5.3);
     EXPECT_EQ(deal.bidfloorcur, "USD");
@@ -249,8 +254,7 @@ TEST(DealTest, Parse)
 
 TEST(PmpTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetPmp();
-    const auto pmp = proto::JsonWorker<proto::Pmp>::Parse(json::Str2Json(str));
+    const auto pmp = detail::PrepareUnit<proto::Pmp>(detail::Mock::GetPmp());
     EXPECT_EQ(pmp.private_auction, 1);
     EXPECT_EQ(pmp.deals.size(), 1);
     EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
@@ -261,8 +265,7 @@ TEST(PmpTest, Parse)
 
 TEST(ImpressionTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetImpression();
-    const auto imp = proto::JsonWorker<proto::Impression>::Parse(json::Str2Json(str));
+    const auto imp = detail::PrepareUnit<proto::Impression>(detail::Mock::GetImpression());
     EXPECT_EQ(imp.id, "1");
     EXPECT_TRUE(imp.banner.has_value());
     EXPECT_EQ(imp.banner->w.size(), 1);
@@ -284,8 +287,7 @@ TEST(ImpressionTest, Parse)
 
 TEST(BidRequestTest, Parse)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequest();
-    const auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    const auto br = detail::PrepareUnit<proto::BidRequest>(detail::Mock::GetBrandscreenBidRequest());
     EXPECT_EQ(br.id, "IxexyLDIIk");
     {
         EXPECT_EQ(br.imp.size(), 1);
