@@ -8,14 +8,18 @@
 namespace proto
 {
 
-/*
- * 5.2 Banner Ad Types
- *
- * The following table indicates the types of ads that can be accepted by the exchange unless restricted
- * by publisher site settings.
+/**************************************************************************************************
+ * Enumerated Lists Specification
  */
 
-enum class BannerAdType
+/**
+ * 5.2 Banner Ad Types
+ *
+ * The following table indicates the types of ads that can be accepted by the exchange
+ * unless restricted by publisher site settings.
+ */
+
+enum class BannerAdType : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -23,20 +27,20 @@ enum class BannerAdType
     XHTML_TEXT = 1,
     /// XHTML Banner Ad (usually mobile).
     XHTML_BANNER = 2,
-    /// JavaScript Ad; must be valid XHTML (i.e., Script Tags Included).
+    /// JavaScript Ad. Must be valid XHTML (i.e., script tags included).
     JAVASCRIPT = 3,
     /// Iframe.
     IFRAME = 4
 };
 
-/*
+/**
  * 5.3 Creative Attributes
  *
- * The following table specifies a standard list of creative attributes that can describe an ad being served
- * or serve as restrictions of thereof.
+ * The following table specifies a standard list of creative attributes that can describe
+ * an ad being served or serve as restrictions of thereof.
  */
 
-enum class CreativeAttribute
+enum class CreativeAttribute : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -74,16 +78,16 @@ enum class CreativeAttribute
     AD_CAN_BE_SKIPPED = 16
 };
 
-/*
+/**
  * 5.4 Ad Position
  *
- * The following table specifies the position of the ad as a relative measure of visibility or prominence.
- * This OpenRTB table has values derived from the IAB Quality Assurance Guidelines (QAG). Practitioners
- * should keep in sync with updates to the QAG values as published on IAB.net. Values “3” – “6” apply to
- * apps per the mobile addendum to QAG version 1.5.
+ * The following table specifies the position of the ad as a relative measure of visibility or
+ * prominence. This OpenRTB table has values derived from the IAB Quality Assurance Guidelines
+ * (QAG). Practitioners should keep in sync with updates to the QAG values as published on
+ * IAB.net. Values “3” – “6” apply to apps per the mobile addendum to QAG version 1.5.
  */
 
-enum class AdPosition
+enum class AdPosition : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -105,47 +109,14 @@ enum class AdPosition
     FULLSCREEN = 7
 };
 
-/*
- * A media type (formerly known as MIME type) is a two-part identifier for file formats and format contents
- * transmitted on the Internet. For example, application/javascript.
- */
-
-struct MimeType
-{
-public:
-    explicit MimeType(core::String type = "")
-        : type{ std::move(type) }
-    {
-    }
-
-public:
-    core::String type;
-};
-
-/*
- * Frame Position
- *
- * Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.
- */
-
-enum class FramePosition
-{
-    /// Not explicitly specified.
-    NONE = -1,
-    /// Iframe.
-    IFRAME = 0,
-    /// Top frame.
-    TOP_FRAME = 1
-};
-
-/*
+/**
  * 5.5 Expandable Direction
  *
- * The following table lists the directions in which an expandable ad may expand, given the positioning of
- * the ad unit on the page and constraints imposed by the content.
+ * The following table lists the directions in which an expandable ad may expand,
+ * given the positioning of the ad unit on the page and constraints imposed by the content.
  */
 
-enum class ExpandableDirection
+enum class ExpandableDirection : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -161,16 +132,17 @@ enum class ExpandableDirection
     FULLSCREEN = 5
 };
 
-/*
+/**
  * 5.6 API Frameworks
  *
- * The following table is a list of API frameworks supported by the publisher. Note that MRAID-1 is
- * a subset of MRAID-2. In OpenRTB 2.1 and prior, value “3” was “MRAID”. However, not all MRAID capable
- * APIs understand MRAID-2 features and as such the only safe interpretation of value “3” is MRAID-1.
- * In OpenRTB 2.2, this was made explicit and MRAID-2 has been added as value “5”.
+ * The following table is a list of API frameworks supported by the publisher. Note that
+ * MRAID-1 is a subset of MRAID-2. In OpenRTB 2.1 and prior, value “3” was “MRAID”. However,
+ * not all MRAID capable APIs understand MRAID-2 features and as such the only safe
+ * interpretation of value “3” is MRAID-1. In OpenRTB 2.2, this was made explicit and
+ * MRAID-2 has been added as value “5”.
  */
 
-enum class ApiFramework
+enum class ApiFramework : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -186,22 +158,24 @@ enum class ApiFramework
     MRAID2 = 5
 };
 
-/*
+/**
  * 5.7 Video Linearity
  *
  * The following table indicates the options for video linearity. “In-stream” or “linear” video
  * refers to pre-roll, post-roll, or mid-roll video ads where the user is forced to watch ad
  * in order to see the video content. “Overlay” or “non-linear” refer to ads that are shown
- * on top of the video content.
+ * on top of the video content.\n
  * This field is optional. The following is the interpretation of the bidder based upon the presence
  * or absence of the field in the bid request:
- *  - If no value is set, any ad (linear or not) can be present in the response.
- *  - If a value is set, only ads of the corresponding type can be present in the response.
- * Note to the reader: This OpenRTB table has values derived from the IAB Quality Assurance Guidelines
- * (QAG). Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
+ *  - If no value is set, any ad (linear or not) can be present in the response.\n
+ *  - If a value is set, only ads of the corresponding type can be present in the response.\n
+ * \remark
+ * Note to the reader: This OpenRTB table has values derived from the IAB Quality Assurance
+ * Guidelines (QAG). Practitioners should keep in sync with updates to the QAG values
+ * as published on IAB.net.
  */
 
-enum class VideoLinearity
+enum class VideoLinearity : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -211,14 +185,14 @@ enum class VideoLinearity
     OVERLAY = 2
 };
 
-/*
+/**
  * 5.8 Video Bid Response Protocols
  *
  * The following table lists the options for video bid response protocols that
  * could be supported by an exchange.
  */
 
-enum class VideoBidResponseProtocol
+enum class VideoBidResponseProtocol : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -236,13 +210,13 @@ enum class VideoBidResponseProtocol
     VAST3_WRAPPER = 6
 };
 
-/*
+/**
  * 5.9 Video Playback Methods
  *
  * The following table lists the various video playback methods.
  */
 
-enum class VideoPlaybackMethod
+enum class VideoPlaybackMethod : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -259,11 +233,12 @@ enum class VideoPlaybackMethod
 /*
  * 5.10 Video Start Delay
  *
- * The following table lists the various options for the video start delay. If the start delay value
- * is greater than 0, then the position is mid-roll and the value indicates the start delay.
+ * The following table lists the various options for the video start delay.
+ * If the start delay value is greater than 0, then the position is mid-roll
+ * and the value indicates the start delay.
  */
 
-enum class VideoStartDelay
+enum class VideoStartDelay : int8_t
 {
     /// Not explicitly specified.
     NONE = -3,
@@ -276,14 +251,14 @@ enum class VideoStartDelay
     /// > 0, Mid-Roll (value indicates start delay in second).
 };
 
-/*
+/**
  * 5.11 Video Quality
  *
  * The following table lists the options for the video quality.
  * These values are defined by the IAB – http://www.iab.net/media/file/long-form-video-final.pdf.
  */
 
-enum class VideoQuality
+enum class VideoQuality : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -297,14 +272,14 @@ enum class VideoQuality
     USER_GENERATED = 3
 };
 
-/*
+/**
  * 5.12 VAST Companion Types
  *
  * The following table lists the options to indicate markup types allowed for video companion ads.
- * This table is derived from IAB VAST 2.0+. Refer to www.iab.net/vast/ for more information.
+ * This table is derived from IAB VAST 2.0+. Refer to https://www.iab.net/vast/ for more info.
  */
 
-enum class VastCompanionType
+enum class VastCompanionType : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -316,13 +291,13 @@ enum class VastCompanionType
     IFRAME_RESOURCE = 3
 };
 
-/*
+/**
  * 5.13 Content Delivery Methods
  *
  * The following table lists the various options for the delivery of video content.
  */
 
-enum class ContentDeliveryMethod
+enum class ContentDeliveryMethod : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -332,16 +307,16 @@ enum class ContentDeliveryMethod
     PROGRESSIVE = 2
 };
 
-/*
+/**
  * 5.14 Content Context
  *
  * The following table lists the various options for indicating the type of content
- * in which the impression will appear.
+ * in which the impression will appear.\n
  * This OpenRTB table has values derived from the IAB Quality Assurance Guidelines (QAG).
  * Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
  */
 
-enum class ContentContext
+enum class ContentContext : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -365,14 +340,14 @@ enum class ContentContext
     UNKNOWN = 7
 };
 
-/*
+/**
  * 5.15 QAG Media Ratings
  *
  * The following table lists the media ratings used in describing content based on
  * the QAG categorization. Refer to http://www.iab.net/ne_guidelines for more information.
  */
 
-enum class MediaRating
+enum class MediaRating : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -384,13 +359,13 @@ enum class MediaRating
     MATURE = 3
 };
 
-/*
+/**
  * 5.16 Location Type
  *
  * The following table lists the options to indicate how the geographic information was determined.
  */
 
-enum class LocationType
+enum class LocationType : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -402,18 +377,18 @@ enum class LocationType
     USER = 3 
 };
 
-/*
+/**
  * 5.17 Device Type
  *
- * The following table lists the type of device from which the impression originated.
+ * The following table lists the type of device from which the impression originated.\n
  * OpenRTB version 2.2 of the specification added distinct values for Mobile and Tablet.
  * It is recommended that any bidder adding support for 2.2 treat a value of 1
- * as an acceptable alias of 4 & 5.
+ * as an acceptable alias of 4 & 5.\n
  * This OpenRTB table has values derived from the IAB Quality Assurance Guidelines (QAG).
  * Practitioners should keep in sync with updates to the QAG values as published on IAB.net.
  */
 
-enum class DeviceType
+enum class DeviceType : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -433,13 +408,13 @@ enum class DeviceType
     SET_TOP_BOX = 7
 };
 
-/*
+/**
  * 5.18 Connection Type
  *
  * The following table lists the various options for the type of device connectivity.
  */
 
-enum class ConnectionType
+enum class ConnectionType : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -459,15 +434,14 @@ enum class ConnectionType
     CELLULAR_4G = 6
 };
 
-/*
+/**
  * Auction Price
  *
- * Optional override of the overall auction type of the bid request, where
- * 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed
- * upon deal price. Additional auction types can be defined by the exchange.
+ * Optional override of the overall auction type of the bid request.
+ * Additional auction types can be defined by the exchange.
  */
 
-enum class AuctionPrice
+enum class AuctionPrice : int8_t
 {
     /// Not explicitly specified.
     NONE = -1,
@@ -479,7 +453,42 @@ enum class AuctionPrice
     DEAL_PRICE = 3
 };
 
-/*
+/**
+ * Frame Position
+ *
+ * Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.
+ */
+
+enum class FramePosition : int8_t
+{
+    /// Not explicitly specified.
+    NONE = -1,
+    /// Iframe.
+    IFRAME = 0,
+    /// Top frame.
+    TOP_FRAME = 1
+};
+
+/**
+ * Mime type
+ *
+ * A media type (formerly known as MIME type) is a two-part identifier for file formats and
+ * format contents transmitted on the Internet. For example, application/javascript.
+ */
+
+struct MimeType
+{
+public:
+    explicit MimeType(core::String type = "")
+    : type{ std::move(type) }
+    {
+    }
+    
+public:
+    core::String type;
+};
+
+/**
  * Source Relationship
  */
 
@@ -493,18 +502,24 @@ enum class SourceRelationship
     DIRECT = 1
 };
 
-/*
+/**************************************************************************************************
+ * Bid Request Specification
+ */
+
+/**
  * 3.2.3 Object: Banner
  *
- * This object represents the most general type of impression. Although the term “banner” may have very specific meaning
- * in other contexts, here it can be many things including a simple static image, an expandable ad unit, or even
- * in-banner video (refer to the Video object in Section 3.2.4 for the more generalized and full featured video ad units).
- * An array of Banner objects can also appear within the Video to describe optional companion ads defined in the VAST
- * specification.
- * The presence of a Banner as a subordinate of the Imp object indicates that this impression is offered as a banner
- * type impression. At the publisher’s discretion, that same impression may also be offered as video and/or native by
- * also including as Imp subordinates the Video and/or Native objects, respectively. However, any given bid for
- * the impression must conform to one of the offered types.
+ * This object represents the most general type of impression. Although the term “banner” may have
+ * very specific meaning in other contexts, here it can be many things including a simple static
+ * image, an expandable ad unit, or even in-banner video (refer to the Video object in
+ * Section 3.2.4 for the more generalized and full featured video ad units). An array of Banner
+ * objects can also appear within the Video to describe optional companion ads defined in the VAST
+ * specification.\n
+ * The presence of a Banner as a subordinate of the Imp object indicates that this impression is
+ * offered as a banner type impression. At the publisher’s discretion, that same impression may
+ * also be offered as video and/or native by also including as Imp subordinates the Video and/or
+ * Native objects, respectively. However, any given bid for the impression must conform to one
+ * of the offered types.
  */
 
 struct Banner
@@ -528,8 +543,10 @@ public:
     /// Minimum height of the impression in pixels. If included along with an h value
     /// then h should be interpreted as a recommended or preferred height.
     core::Int hmin;
-    /// Unique identifier for this banner object. Recommended when Banner objects are used with a Video object
-    /// (Section 3.2.4) to represent an array of companion ads. Values usually start at 1 and increase with each object;
+    /// Unique identifier for this banner object.
+    /// Recommended when Banner objects are used with a Video object
+    /// (Section 3.2.4) to represent an array of companion ads.
+    /// Values usually start at 1 and increase with each object;
     /// should be unique within an impression.
     core::String id;
     /// Blocked banner ad types.
@@ -538,26 +555,26 @@ public:
     core::Vector<CreativeAttribute> battr;
     /// Ad position on screen.
     AdPosition pos;
-    /// Content MIME types supported. Popular MIME types may include “application/x-shockwave-flash”,
-    /// “image/jpg”, and “image/gif”.
+    /// Content MIME types supported. Popular MIME types may include
+    /// “application/x-shockwave-flash”, “image/jpg”, and “image/gif”.
     core::Vector<MimeType> mimes;
     /// Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.
     FramePosition topframe;
     /// Directions in which the banner may expand.
     core::Vector<ExpandableDirection> expdir;
-    /// Core::Vector of supported API frameworks for this impression. If an API is not explicitly Core::Vectored,
+    /// List of supported API frameworks for this impression. If an API is not explicitly listed,
     /// it is assumed not to be supported.
     core::Vector<ApiFramework> api;
 };
 
-/*
+/**
  * 3.2.4 Object: Video
  *
  * This object represents an in-stream video impression. Many of the fields are non-essential
  * for minimally viable transactions, but are included to offer fine control when needed.
  * Video in OpenRTB generally assumes compliance with the VAST standard. As such,
  * the notion of companion ads is supported by optionally including an array of Banner objects
- * (refer to the Banner object in Section 3.2.3) that define these companion ads.
+ * (refer to the Banner object in Section 3.2.3) that define these companion ads.\n
  * The presence of a Video as a subordinate of the Imp object indicates that this impression is
  * offered as a video type impression. At the publisher’s discretion, that same impression may
  * also be offered as banner and/or native by also including as Imp subordinates the Banner and/or
@@ -607,7 +624,8 @@ public:
     /// Maximum bit rate in Kbps. Exchange may set this dynamically or universally
     /// across their set of publishers.
     core::Int maxbitrate;
-    /// Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes.
+    /// Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed,
+    /// where 0 = no, 1 = yes.
     core::Bool boxingallowed = true;
     /// Allowed playback methods. If none specified, assume all are allowed. Refer to List 5.9.
     core::Vector<VideoPlaybackMethod> playbackmethod;
@@ -626,18 +644,18 @@ public:
     core::Vector<VastCompanionType> companiontype;
 };
 
-/*
+/**
  * 3.2.5 Object: Native
  *
  * This object represents a native type impression. Native ad units are intended to blend seamlessly
  * into the surrounding content (e.g., a sponsored Twitter or Facebook post). As such, the response
- * must be well-structured to afford the publisher fine-grained control over rendering.
+ * must be well-structured to afford the publisher fine-grained control over rendering.\n
  * The Native Subcommittee has developed a companion specification to OpenRTB called
  * the Native Ad Specification. It defines the request parameters and response markup
  * structure of native ad units. This object provides the means of transporting request parameters
  * as an opaque string so that the specific parameters can evolve separately under the auspices of
  * the Native Ad Specification. Similarly, the ad markup served will be structured according
- * to that specification.
+ * to that specification.\n
  * The presence of a Native as a subordinate of the Imp object indicates that this impression is
  * offered as a native type impression. At the publisher’s discretion, that same impression
  * may also be offered as banner and/or video by also including as Imp subordinates the Banner
@@ -660,7 +678,7 @@ public:
     core::Vector<CreativeAttribute> battr;
 };
 
-/*
+/**
  * 3.2.8 Object: Publisher
  *
  * This object describes the publisher of the media in which the ad will be displayed.
@@ -680,24 +698,25 @@ public:
     core::String domain;
 };
 
-/*
+/**
  * 3.2.10 Object: Producer
  *
  * This object defines the producer of the content in which the ad will be shown.
  * This is particularly useful when the content is syndicated and may be distributed through
- * different publishers and thus when the producer and publisher are not necessarily the same entity.
+ * different publishers and thus when the producer and publisher are not necessarily
+ * the same entity.
  */
 
 using Producer = Publisher;
 
-/*
+/**
  * 3.2.9 Object: Content
  *
  * This object describes the content in which the impression will appear, which may be syndicated
  * or non-syndicated content. This object may be useful when syndicated content contains impressions
  * and does not necessarily match the publisher’s general content. The exchange might or might not
  * have knowledge of the page where the content is running, as a result of the syndication method.
- * For example might be a video impression embedded in an iframe on an unknown web property or device.
+ * For example might be a video impression embedded in an iframe on unknown web property or device.
  */
 
 struct Content
@@ -712,7 +731,7 @@ public:
     /// Non-Video Example: “Why an Antarctic Glacier Is Melting So Quickly” (Time magazine article).
     core::String title;
     /// Content series.
-    /// Video Examples: “The Office” (TV), “Star Wars” (movie), or “Arby ‘N’ The Chief” (made for web).
+    /// Video Examples: “The Office” (TV), “Star Wars” (movie), or “Arby ‘N’ The Chief” (web).
     /// Non-Video Example: “Ecocentric” (Time Magazine blog).
     core::String series;
     /// Content season; typically for video content (e.g., “Season 3”).
@@ -748,7 +767,7 @@ public:
     core::Bool embeddable;
 };
 
-/*
+/**
  * Common data between a Site and App.
  */
 
@@ -777,7 +796,7 @@ public:
     core::String keywords;
 };
 
-/*
+/**
  * 3.2.6 Object: Site
  *
  * This object should be included if the ad supported content is a website as opposed to
@@ -798,7 +817,7 @@ public:
     core::Bool mobile;
 };
 
-/*
+/**
  * 3.2.7 Object: App
  *
  * This object should be included if the ad supported content is a non-browser application
@@ -821,13 +840,14 @@ public:
     core::Bool paid;
 };
 
-/*
+/**
  * 3.3.11 Geo Object
  *
  * This object encapsulates various methods for specifying a geographic location.
  * When subordinate to a Device object, it indicates the location of the device which
  * can also be interpreted as the user’s current location. When subordinate to a User object,
- * it indicates the location of the user’s home base (i.e., not necessarily their current location).
+ * it indicates the location of the user’s home base
+ * (i.e., not necessarily their current location).\n
  * The lat/lon attributes should only be passed if they conform to the accuracy depicted
  * in the type attribute. For example, the centroid of a geographic region such as postal code
  * should not be passed.
@@ -861,7 +881,7 @@ public:
     core::Int utcoffset;
 };
 
-/*
+/**
  * 3.2.11 Object: Device
  *
  * This object provides information pertaining to the device through which the user is interacting.
@@ -934,7 +954,7 @@ public:
     core::String macmd5;
 };
 
-/*
+/**
  * 3.2.15 Object: Segment
  *
  * Segment objects are essentially key-value pairs that convey specific units of data
@@ -954,7 +974,7 @@ public:
     core::String value;
 };
 
-/*
+/**
  * 3.2.14 Object: Data
  *
  * The data and segment objects together allow additional data about the user to be specified.
@@ -975,7 +995,7 @@ public:
 };
 
 
-/*
+/**
  * 3.2.13 Object: User
  *
  * This object contains information known or derived about the human user of the device
@@ -1009,7 +1029,7 @@ public:
     core::Vector<Data> data;
 };
 
-/*
+/**
  * 3.2.18 Object: Deal
  *
  * This object constitutes a specific deal that was struck a priori between a buyer and a seller.
@@ -1024,49 +1044,51 @@ public:
     core::String id;
     /// Minimum bid for this impression expressed in CPM.
     core::Double bidfloor = 0.0;
-    /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder
-    /// if this is allowed by the exchange.
+    /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency
+    /// returned by bidder if this is allowed by the exchange.
     core::String bidfloorcur = "USD";
-    /// Optional override of the overall auction type of the bid request, where
-    /// 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed upon deal price.
+    /// Optional override of the overall auction type of the bid request.
     /// Additional auction types can be defined by the exchange.
     AuctionPrice at;
-    /// WhiteCore::Vector of buyer seats allowed to bid on this deal. Seat IDs must be communicated between bidders and
-    /// the exchange a priori. Omission implies no seat restrictions.
+    /// WhiteCore::Vector of buyer seats allowed to bid on this deal. Seat IDs must be communicated
+    /// between bidders and the exchange a priori. Omission implies no seat restrictions.
     core::Vector<core::String> wseat;
     /// Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal.
     /// Omission implies no advertiser restrictions.
     core::Vector<core::String> wadomain;
 };
 
-/*
+/**
  * 3.2.17 Object: Pmp
  *
- * This object is the private marketplace container for direct deals between buyers and sellers that may
- * pertain to this impression. The actual deals are represented as a collection of Deal objects. Refer to
- * Section 7.2 for more details.
+ * This object is the private marketplace container for direct deals between buyers and sellers
+ * that may pertain to this impression. The actual deals are represented as a collection of
+ * Deal objects. Refer to Section 7.2 for more details.
  */
 
 struct Pmp
 {
 public:
-    /// Indicator of auction eligibility to seats named in the Direct Deals object,
-    /// where 0 = all bids are accepted, 1 = bids are restricted to the deals specified and the terms thereof.
+    /// Indicator of auction eligibility to seats named in the Direct Deals object, where
+    /// 0 = all bids are accepted, 1 = bids are restricted to the deals specified and
+    /// the terms thereof.
     core::Int private_auction;
-    /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable to this impression.
+    /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable
+    /// to this impression.
     core::Vector<Deal> deals;
 };
 
-/*
+/**
  * 3.2.2 Object: Imp
  *
- * This object describes an ad placement or impression being auctioned. A single bid request can include
- * multiple Imp objects, a use case for which might be an exchange that supports selling all ad positions on
- * a given page. Each Imp object has a required ID so that bids can reference them individually.
- * The presence of Banner (Section 3.2.3), Video (Section 3.2.4), and/or Native (Section 3.2.5) objects
- * subordinate to the Imp object indicates the type of impression being offered. The publisher can choose
- * one such type which is the typical case or mix them at their discretion. However, any given bid for the
- * impression must conform to one of the offered types.
+ * This object describes an ad placement or impression being auctioned. A single bid request can
+ * include multiple Imp objects, a use case for which might be an exchange that supports selling
+ * all ad positions on a given page. Each Imp object has a required ID so that bids can reference
+ * them individually.\n
+ * The presence of Banner (Section 3.2.3), Video (Section 3.2.4), and/or Native (Section 3.2.5)
+ * objects subordinate to the Imp object indicates the type of impression being offered.
+ * The publisher can choose one such type which is the typical case or mix them at their discretion.
+ * However, any given bid for the impression must conform to one of the offered types.
  */
 
 struct Impression
@@ -1105,16 +1127,18 @@ public:
     core::Optional<Pmp> pmp;
 };
 
-/*
+/**
  * 3.2.1 Object: BidRequest
  *
- * The top-level bid request object contains a globally unique bid request or auction ID. This id attribute
- * is required as is at least one impression object (Section 3.2.2). Other attributes in this top-level object
- * establish rules and restrictions that apply to all impressions being offered.
- * There are also several subordinate objects that provide detailed data to potential buyers. Among these are
- * the Site and App objects, which describe the type of published media in which the impression(s) appear.
- * These objects are highly recommended, but only one applies to a given bid request depending on
- * whether the media is browser-based web content or a non-browser application, respectively.
+ * The top-level bid request object contains a globally unique bid request or auction ID. This ID
+ * attribute is required as is at least one impression object (Section 3.2.2). Other attributes
+ * in this top-level object establish rules and restrictions that apply to all impressions being
+ * offered.\n
+ * There are also several subordinate objects that provide detailed data to potential buyers.
+ * Among these are the Site and App objects, which describe the type of published media in which
+ * the impression(s) appear. These objects are highly recommended, but only one applies to
+ * a given bid request depending on whether the media is browser-based web content or
+ * a non-browser application, respectively.
  */
 
 struct BidRequest
@@ -1122,31 +1146,38 @@ struct BidRequest
 public:
     /// Unique ID of the bid request, provided by the exchange.
     core::String id;
-    /// Array of Imp objects (Section 3.2.2) representing the impressions offered. At least 1 Imp object is required.
+    /// Array of Imp objects (Section 3.2.2) representing the impressions offered.
+    /// At least 1 Imp object is required.
     core::Vector<Impression> imp;
     /// Details via a Site object (Section 3.2.6) about the publisher’s website.
     /// Only applicable and recommended for websites.
     core::Optional<Site> site;
-    /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e., non-browser applications).
-    /// Only applicable and recommended for apps.
+    /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e.,
+    /// non-browser applications). Only applicable and recommended for apps.
     core::Optional<App> app;
-    /// Details via a Device object (Section 3.2.11) about the user’s device to which the impression will be delivered.
+    /// Details via a Device object (Section 3.2.11) about the user’s device to which
+    /// the impression will be delivered.
     core::Optional<Device> device;
-    /// Details via a User object (Section 3.2.13) about the human user of the device; the advertising audience.
+    /// Details via a User object (Section 3.2.13) about the human user of the device;
+    /// the advertising audience.
     core::Optional<User> user;
-    /// Indicator of test mode in which auctions are not billable, where 0 (false) = live mode, 1 (true) = test mode.
+    /// Indicator of test mode in which auctions are not billable, where
+    /// 0 (false) = live mode, 1 (true) = test mode.
     core::Bool test = false;
     /// Auction type, where 1 = First Price, 2 = Second Price Plus.
     /// Exchange-specific auction types can be defined using values greater than 500.
     AuctionPrice at = AuctionPrice::SECOND_PRICE_PLUS;
-    /// Maximum time in milliseconds to submit a bid to avoid timeout. This value is commonly communicated offline.
+    /// Maximum time in milliseconds to submit a bid to avoid timeout.
+    /// This value is commonly communicated offline.
     core::Int tmax;
     /// Whitelist of buyer seats allowed to bid on this impression.
-    /// Seat IDs must be communicated between bidders and the exchange a priori. Omission implies no seat restrictions.
+    /// Seat IDs must be communicated between bidders and the exchange a priori.
+    /// Omission implies no seat restrictions.
     core::Vector<core::String> wseat;
-    /// Flag to indicate if Exchange can verify that the impressions offered represent all of the impressions available
-    /// in context (e.g., all on the web page, all video spots such as pre/mid/post roll) to support road-blocking.
-    /// 0 = no or unknown, 1 = yes, the impressions offered represent all that are available.
+    /// Flag to indicate if Exchange can verify that the impressions offered represent all
+    /// of the impressions available in context (e.g., all on the web page, all video spots
+    /// such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes,
+    /// the impressions offered represent all that are available.
     core::Bool allimps = false;
     /// Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes.
     /// Recommended only if the exchange accepts multiple currencies.
