@@ -15,6 +15,7 @@ public:
     static core::String GetSite();
     static core::String GetGeo();
     static core::String GetDevice();
+    static core::String GetUser();
     static core::String GetDeal();
     static core::String GetPmp();
     static core::String GetImpression();

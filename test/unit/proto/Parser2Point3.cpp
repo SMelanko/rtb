@@ -212,6 +212,29 @@ TEST(DeviceTest, Parse)
     EXPECT_EQ(d.devicetype, proto::DeviceType::MOBILE_OR_TABLET);
 }
 
+TEST(UserTest, Parse)
+{
+    const auto str = test::data::OpenRtb2Point3Sample::GetUser();
+    const auto user = proto::JsonWorker<proto::User>::Parse(json::Str2Json(str));
+    EXPECT_EQ(user.id, "456789876567897654678987656789");
+    EXPECT_EQ(user.buyerid, "545678765467876567898765678987654");
+    {
+        EXPECT_EQ(user.data.size(), 1);
+        auto& data = user.data[0];
+        EXPECT_EQ(data.id, "6");
+        EXPECT_EQ(data.name, "Data_Provider_1");
+        {
+            EXPECT_EQ(data.segment.size(), 2);
+            auto& segment0 = data.segment[0];
+            EXPECT_EQ(segment0.id, "12341318394918");
+            EXPECT_EQ(segment0.name, "auto_intenders");
+            auto& segment1 = data.segment[1];
+            EXPECT_EQ(segment1.id, "1234131839491234");
+            EXPECT_EQ(segment1.name, "auto_enthusiasts");
+        }
+    }
+}
+
 TEST(DealTest, Parse)
 {
     const auto str = test::data::OpenRtb2Point3Sample::GetDeal();

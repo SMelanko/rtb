@@ -237,6 +237,32 @@ core::String OpenRtb2Point3Sample::GetDevice()
     return str;
 }
 
+core::String OpenRtb2Point3Sample::GetUser()
+{
+    auto str = R"({
+        "id":"456789876567897654678987656789",
+        "buyerid":"545678765467876567898765678987654",
+        "data":[
+            {
+                "id":"6",
+                "name":"Data_Provider_1",
+                "segment":[
+                    {
+                        "id":"12341318394918",
+                        "name":"auto_intenders"
+                    },
+                    {
+                        "id":"1234131839491234",
+                        "name":"auto_enthusiasts"
+                    }
+                ]
+            }
+        ]
+    })";
+
+    return core::StrAlgo::RemoveWhitespace(str);
+}
+
 core::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({
