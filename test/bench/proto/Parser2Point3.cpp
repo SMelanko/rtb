@@ -85,6 +85,16 @@ void ParseDevice(bench::State& state)
 }
 BENCH(ParseDevice);
 
+void ParseUser(bench::State& state)
+{
+    auto str = test::data::OpenRtb2Point3Sample::GetUser();
+    Log(str);
+    for (auto _ : state) {
+        auto d = proto::JsonWorker<proto::User>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(ParseUser);
+
 void ParseDeal(bench::State& state)
 {
     auto str = test::data::OpenRtb2Point3Sample::GetDeal();
