@@ -10,8 +10,15 @@ add_executable(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU")
+    target_compile_options(${PROJECT_NAME}
+        PRIVATE
+            -Wall -Wextra -Werror -pedantic -pedantic-errors -fPIC
+    )
+endif ()
+
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        ${CONAN_LIBS}
+        CONAN_PKG::gtest
         rtb::core
 )
