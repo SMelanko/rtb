@@ -7,7 +7,8 @@ namespace core
 
 core::String StrAlgo::RemoveWhitespace(core::String str)
 {
-    str.erase(std::remove_if(str.begin(), str.end(), std::isspace), str.end());
+    constexpr auto isspace = [](const unsigned char c) { return std::isspace(c); };
+    str.erase(std::remove_if(str.begin(), str.end(), isspace), str.end());
 
     return str;
 }
