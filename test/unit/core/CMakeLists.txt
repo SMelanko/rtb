@@ -19,6 +19,6 @@ endif ()
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        CONAN_PKG::gtest
+        ${CONAN_LIBS}
         rtb::core
 )
