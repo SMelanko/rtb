@@ -1,4 +1,4 @@
-#include "test/data/OpenRtb2Point3Sample.hpp"
+#include "test/data/BidRequest2Point3.hpp"
 
 #include <core/utils/StrAlgo.hpp>
 
@@ -410,6 +410,246 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
 core::String OpenRtb2Point3Sample::GetBrandscreenBidRequestBench()
 {
     return core::StrAlgo::RemoveWhitespace(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
+}
+
+core::String OpenRtb2Point3Spec::GetSimpleBanner()
+{
+    auto str = R"({
+        "id":"80ce30c53c16e6ede735f123ef6e32361bfc7b22",
+        "at":1,
+        "cur":[
+            "USD"
+        ],
+        "imp":[
+            {
+                "id":"1",
+                "bidfloor":0.03,
+                "banner":{
+                    "w":300,
+                    "h":250,
+                    "pos":0
+                }
+            }
+        ],
+        "site":{
+            "id":"102855",
+            "cat":[
+                "IAB3-1"
+            ],
+            "domain":"www.foobar.com",
+            "page":"http://www.foobar.com/1234.html",
+            "publisher":{
+                "id":"8953",
+                "name":"foobar.com",
+                "cat":[
+                    "IAB3-1"
+                ],
+                "domain":"foobar.com"
+            }
+        },
+        "device":{
+            "ua":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
+            "ip":"123.145.167.10"
+        },
+        "user":{
+            "id":"55816b39711f9b5acf3b90e313ed29e51665623f"
+        }
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Spec::GetExpandableCreative()
+{
+    auto str = R"({
+        "id":"123456789316e6ede735f123ef6e32361bfc7b22",
+        "at":2,
+        "cur":[
+            "USD"
+        ],
+        "imp":[
+            {
+                "id":"1",
+                "bidfloor":0.003,
+                "iframebuster":[
+                    "vendor1.com",
+                    "vendor2.com"
+                ],
+                "banner":{
+                    "w":300,
+                    "h":250,
+                    "pos":0,
+                    "battr":[
+                        13
+                    ],
+                    "expdir":[
+                        2,
+                        4
+                    ]
+                }
+            }
+        ],
+        "site":{
+            "id":"102855",
+            "cat":[
+                "IAB3-1"
+            ],
+            "domain":"www.foobar.com",
+            "page":"http://www.foobar.com/1234.html",
+            "publisher":{
+                "id":"8953",
+                "name":"foobar.com",
+                "cat":[
+                    "IAB3-1"
+                ],
+                "domain":"foobar.com"
+            }
+        },
+        "device":{
+            "ua":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
+            "ip":"123.145.167.10"
+        },
+        "user":{
+            "id":"55816b39711f9b5acf3b90e313ed29e51665623f",
+            "buyerid":"545678765467876567898765678987654",
+            "data":[
+                {
+                    "id":"6",
+                    "name":"Data Provider 1",
+                    "segment":[
+                        {
+                            "id":"12341318394918",
+                            "name":"auto intenders"
+                        },
+                        {
+                            "id":"1234131839491234",
+                            "name":"auto enthusiasts"
+                        },
+                        {
+                            "id":"23423424",
+                            "name":"data-provider1-age",
+                            "value":"30-40"
+                        }
+                    ]
+                }
+            ]
+        }
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Spec::GetMobile()
+{
+    auto str = R"({
+        "id":"IxexyLDIIk",
+        "at":2,
+        "bcat":[
+            "IAB25",
+            "IAB7-39",
+            "IAB8-18",
+            "IAB8-5",
+            "IAB9-9"
+        ],
+        "badv":[
+            "apple.com",
+            "go-text.me",
+            "heywire.com"
+        ],
+        "imp":[
+            {
+                "id":"1",
+                "bidfloor":0.5,
+                "instl":0,
+                "tagid":"agltb3B1Yi1pbmNyDQsSBFNpdGUY7fD0FAw",
+                "banner":{
+                    "w":728,
+                    "h":90,
+                    "pos":1,
+                    "btype":[
+                        4
+                    ],
+                    "battr":[
+                        14
+                    ],
+                    "api":[
+                        3
+                    ]
+                }
+            }
+        ],
+        "app":{
+            "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA",
+            "name":"Yahoo Weather",
+            "cat":[
+                "IAB15",
+                "IAB15-10"
+            ],
+            "ver":"1.0.2",
+            "bundle":"com.yahoo.wxapp",
+            "storeurl":"https://itunes.apple.com/id628677149",
+            "publisher":{
+                "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfTUCV",
+                "name":"yahoo",
+                "domain":"www.yahoo.com"
+            }
+        },
+        "device":{
+            "dnt":0,
+            "ua":"Mozilla/5.0 (iPhone; CPU iPhone OS 6_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3",
+            "ip":"123.145.167.189",
+            "ifa":"AA000DFE74168477C70D291f574D344790E0BB11",
+            "carrier":"VERIZON",
+            "language":"en",
+            "make":"Apple",
+            "model":"iPhone",
+            "os":"iOS",
+            "osv":"6.1",
+            "js":1,
+            "connectiontype":3,
+            "devicetype":1,
+            "geo":{
+                "lat":35.012345,
+                "lon":-115.12345,
+                "country":"USA",
+                "metro":"803",
+                "region":"CA",
+                "city":"Los Angeles",
+                "zip":"90049"
+            }
+        },
+        "user":{
+            "id":"ffffffd5135596709273b3a1a07e466ea2bf4fff",
+            "yob":1984,
+            "gender":"M"
+        }
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Spec::GetVideo()
+{
+    auto str = R"({
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Spec::GetPmpWithDirectDeal()
+{
+    auto str = R"({
+    })";
+
+    return str;
+}
+
+core::String OpenRtb2Point3Spec::GetNativeAd()
+{
+    auto str = R"({
+    })";
+
+    return str;
 }
 
 }

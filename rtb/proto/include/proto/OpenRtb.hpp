@@ -1109,7 +1109,7 @@ public:
     /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
     core::String displaymanagerver;
     /// 1 = the ad is interstitial or full screen, 0 = not interstitial.
-    core::Int instl = 0;
+    core::Bool instl = 0;
     /// Identifier for specific ad placement or ad tag that was used to initiate the auction.
     /// This can be useful for debugging of any issues, or for Core::Optimization by the buyer.
     core::String tagid;

@@ -325,7 +325,7 @@ Impression JsonWorker<Impression>::Parse(const json::Object& j)
     detail::ExtObj(j, "native", i.native);
     json::ExtStr(j, "displaymanager", i.displaymanager);
     json::ExtStr(j, "displaymanagerver", i.displaymanagerver);
-    json::ExtInt(j, "instl", i.instl);
+    json::ExtBool(j, "instl", i.instl);
     json::ExtStr(j, "tagid", i.tagid);
     json::ExtDouble(j, "bidfloor", i.bidfloor);
     json::ExtStr(j, "bidfloorcur", i.bidfloorcur);

@@ -1,7 +1,7 @@
 #include "Bench.hpp"
 
 #include <proto/Parser2Point3.hpp>
-#include <test/data/OpenRtb2Point3Sample.hpp>
+#include <test/data/BidRequest2Point3.hpp>
 
 #include <iostream>
 
