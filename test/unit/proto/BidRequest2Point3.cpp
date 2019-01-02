@@ -613,6 +613,141 @@ TEST(OpenRtb2Point3Spec, Mobile)
     }
 }
 
+TEST(OpenRtb2Point3Spec, Video)
+{
+    const auto br = detail::PrepareUnit<proto::BidRequest>(detail::SpecMock::GetVideo());
+    EXPECT_EQ(br.id, "1234567893");
+    EXPECT_EQ(br.at, proto::AuctionPrice::SECOND_PRICE_PLUS);
+    EXPECT_EQ(br.tmax, 120);
+    {
+        EXPECT_EQ(br.imp.size(), 1);
+        const auto& imp = br.imp[0];
+        EXPECT_EQ(imp.id, "1");
+        EXPECT_DOUBLE_EQ(imp.bidfloor, 0.03);
+        {
+            EXPECT_TRUE(imp.video.has_value());
+            const auto& video = *imp.video;
+            EXPECT_EQ(video.w, 640);
+            EXPECT_EQ(video.h, 480);
+            EXPECT_EQ(video.pos, proto::AdPosition::ABOVE);
+            EXPECT_EQ(video.startdelay, proto::VideoStartDelay::PRE_ROLL);
+            EXPECT_EQ(video.minduration, 5);
+            EXPECT_EQ(video.maxduration, 30);
+            EXPECT_EQ(video.maxextended, 30);
+            EXPECT_EQ(video.minbitrate, 300);
+            EXPECT_EQ(video.maxbitrate, 1500);
+            EXPECT_EQ(video.api.size(), 2);
+            EXPECT_EQ(video.api[0], proto::ApiFramework::VPAID_1);
+            EXPECT_EQ(video.api[1], proto::ApiFramework::VPAID_2);
+            EXPECT_EQ(video.protocols.size(), 2);
+            EXPECT_EQ(video.protocols[0], proto::VideoBidResponseProtocol::VAST2);
+            EXPECT_EQ(video.protocols[1], proto::VideoBidResponseProtocol::VAST3);
+            EXPECT_EQ(video.mimes.size(), 4);
+            EXPECT_EQ(video.mimes[0].type, "video/x-flv");
+            EXPECT_EQ(video.mimes[1].type, "video/mp4");
+            EXPECT_EQ(video.mimes[2].type, "application/x-shockwave-flash");
+            EXPECT_EQ(video.mimes[3].type, "application/javascript");
+            EXPECT_EQ(video.linearity, proto::VideoLinearity::IN_STREAM);
+            EXPECT_TRUE(video.boxingallowed);
+            EXPECT_EQ(video.playbackmethod.size(), 2);
+            EXPECT_EQ(video.playbackmethod[0], proto::VideoPlaybackMethod::AUTO_PLAY_SOUND_ON);
+            EXPECT_EQ(video.playbackmethod[1], proto::VideoPlaybackMethod::CLICK_TO_PLAY);
+            EXPECT_EQ(video.delivery.size(), 1);
+            EXPECT_EQ(video.delivery[0], proto::ContentDeliveryMethod::PROGRESSIVE);
+            EXPECT_EQ(video.battr.size(), 2);
+            EXPECT_EQ(video.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+            EXPECT_EQ(video.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+            EXPECT_EQ(video.companionad.size(), 2);
+            const auto& comp0 = video.companionad[0];
+            EXPECT_EQ(comp0.id, "1234567893-1");
+            EXPECT_EQ(comp0.w[0], 300);
+            EXPECT_EQ(comp0.h[0], 250);
+            EXPECT_EQ(comp0.pos, proto::AdPosition::ABOVE);
+            EXPECT_EQ(comp0.battr.size(), 2);
+            EXPECT_EQ(comp0.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+            EXPECT_EQ(comp0.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+            EXPECT_EQ(comp0.expdir.size(), 2);
+            EXPECT_EQ(comp0.expdir[0], proto::ExpandableDirection::RIGHT);
+            EXPECT_EQ(comp0.expdir[1], proto::ExpandableDirection::DOWN);
+            const auto& comp1 = video.companionad[1];
+            EXPECT_EQ(comp1.id, "1234567893-2");
+            EXPECT_EQ(comp1.w[0], 728);
+            EXPECT_EQ(comp1.h[0], 90);
+            EXPECT_EQ(comp1.pos, proto::AdPosition::ABOVE);
+            EXPECT_EQ(comp1.battr.size(), 2);
+            EXPECT_EQ(comp1.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+            EXPECT_EQ(comp1.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+            EXPECT_EQ(video.companiontype.size(), 2);
+            EXPECT_EQ(video.companiontype[0], proto::VastCompanionType::STATIC_RESOURCE);
+            EXPECT_EQ(video.companiontype[1], proto::VastCompanionType::HTML_RESOURCE);
+        }
+        {
+            EXPECT_EQ(site.id, "1345135123");
+            EXPECT_EQ(site.name, "Site ABCD");
+            EXPECT_EQ(site.domain, "siteabcd.com");
+            EXPECT_EQ(site.cat.size(), 2);
+            EXPECT_EQ(site.cat[0], "IAB2-1");
+            EXPECT_EQ(site.cat[1], "IAB2-2");
+            EXPECT_EQ(site.page, "http://siteabcd.com/page.htm");
+            EXPECT_EQ(site.ref, "http://referringsite.com/referringpage.htm");
+            EXPECT_TRUE(site.privacypolicy);
+            {
+                EXPECT_TRUE(site.publisher.has_value());
+                const auto& pub = *site.publisher;
+                EXPECT_EQ(pub.id, "pub12345");
+                EXPECT_EQ(pub.name, "Publisher A");
+            }
+            {
+                EXPECT_TRUE(site.content.has_value());
+                const auto& content = *site.content;
+                EXPECT_EQ(content.id, "1234567");
+                EXPECT_EQ(content.series, "All About Cars");
+                EXPECT_EQ(content.season, "2");
+                EXPECT_EQ(content.episode, 23);
+                EXPECT_EQ(content.cat.size(), 1);
+                EXPECT_EQ(content.title, "Car Show");
+                EXPECT_EQ(content.cat.size(), 1);
+                EXPECT_EQ(content.cat[0], "IAB2-2");
+                EXPECT_EQ(content.keywords.size(), 3);
+                EXPECT_EQ(content.keywords[0], "keyword-a");
+                EXPECT_EQ(content.keywords[1], "keyword-b");
+                EXPECT_EQ(content.keywords[2], "keyword-c");
+            }
+        }
+        {
+            EXPECT_TRUE(br.device.has_value());
+            const auto& device = *br.device;
+            EXPECT_FALSE(device.dnt);
+            EXPECT_EQ(device.ip, "64.124.253.1");
+            EXPECT_EQ(device.ua, "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16");
+            EXPECT_EQ(device.os, "OS X");
+            EXPECT_EQ(device.flashver, "10.1");
+            EXPECT_TRUE(device.js);
+        }
+        {
+            EXPECT_TRUE(br.user.has_value());
+            const auto& user = *br.user;
+            EXPECT_EQ(user.id, "456789876567897654678987656789");
+            EXPECT_EQ(user.buyerid, "545678765467876567898765678987654");
+            {
+                EXPECT_EQ(user.data.size(), 1);
+                const auto& data = user.data[0];
+                EXPECT_EQ(data.id, "6");
+                EXPECT_EQ(data.name, "Data Provider 1");
+                {
+                    EXPECT_EQ(data.segment.size(), 2);
+                    const auto& seg0 = data.segment[0];
+                    EXPECT_EQ(seg0.id, "12341318394918");
+                    EXPECT_EQ(seg0.name, "auto intenders");
+                    const auto& seg1 = data.segment[1];
+                    EXPECT_EQ(seg1.id, "1234131839491234");
+                    EXPECT_EQ(seg1.name, "auto enthusiasts");
+                }
+            }
+        }
+    }
+}
+
 int main(int argc, char* argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);
