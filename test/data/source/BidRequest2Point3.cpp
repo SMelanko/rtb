@@ -36,7 +36,7 @@ core::String OpenRtb2Point3Sample::GetBanner()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetVideo()
@@ -110,7 +110,7 @@ core::String OpenRtb2Point3Sample::GetVideo()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetNative()
@@ -127,7 +127,7 @@ core::String OpenRtb2Point3Sample::GetNative()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetApp()
@@ -150,7 +150,7 @@ core::String OpenRtb2Point3Sample::GetApp()
         "storeurl":"https://itunes.apple.com/id628677149"
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetSite()
