@@ -682,6 +682,8 @@ TEST(OpenRtb2Point3Spec, Video)
             EXPECT_EQ(video.companiontype[1], proto::VastCompanionType::HTML_RESOURCE);
         }
         {
+            EXPECT_TRUE(br.site.has_value());
+            const auto& site = *br.site;
             EXPECT_EQ(site.id, "1345135123");
             EXPECT_EQ(site.name, "Site ABCD");
             EXPECT_EQ(site.domain, "siteabcd.com");

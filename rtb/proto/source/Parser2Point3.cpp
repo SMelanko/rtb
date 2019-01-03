@@ -1,5 +1,7 @@
 #include "proto/Parser2Point3.hpp"
 
+#include <core/utils/StrAlgo.hpp>
+
 namespace proto
 {
 
@@ -55,6 +57,14 @@ void ExtVecObj(const json::Object& j, core::StringView field, T& data)
     }
 }
 
+template<class T>
+void ExtKeywords(const json::Object& j, T& unit)
+{
+    core::String keywords;
+    json::ExtStr(j, "keywords", keywords);
+    unit.keywords = core::StrAlgo::Split(keywords);
+}
+
 void ExtContext(const json::Object& j, Context& c)
 {
     json::ExtReqStr(j, "id", c.id);
@@ -66,7 +76,7 @@ void ExtContext(const json::Object& j, Context& c)
     json::ExtBool(j, "privacypolicy", c.privacypolicy);
     detail::ExtObj(j, "publisher", c.publisher);
     detail::ExtObj(j, "content", c.content);
-    json::ExtStr(j, "keywords", c.keywords);
+    ExtKeywords(j, c);
 }
 
 }
@@ -163,7 +173,7 @@ Content JsonWorker<Content>::Parse(const json::Object& j)
     json::ExtStr(j, "contentrating", c.contentrating);
     json::ExtStr(j, "userrating", c.userrating);
     json::ExtEnum(j, "qagmediarating", c.qagmediarating);
-    json::ExtVecStr(j, "keywords", c.keywords);
+    detail::ExtKeywords(j, c);
     json::ExtBool(j, "livestream", c.livestream);
     json::ExtEnum(j, "sourcerelationship", c.sourcerelationship);
     json::ExtInt(j, "len", c.len);
@@ -283,7 +293,7 @@ User JsonWorker<User>::Parse(const json::Object& j)
     json::ExtStr(j, "buyerid", u.buyerid);
     json::ExtInt(j, "yob", u.yob);
     json::ExtStr(j, "gender", u.gender);
-    json::ExtStr(j, "keywords", u.keywords);
+    detail::ExtKeywords(j, u);
     json::ExtStr(j, "customdata", u.customdata);
     detail::ExtObj(j, "geo", u.geo);
     detail::ExtVecObj(j, "data", u.data);

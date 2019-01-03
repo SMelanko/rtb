@@ -183,7 +183,7 @@ core::String OpenRtb2Point3Sample::GetSite()
         }
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetGeo()
@@ -256,7 +256,7 @@ core::String OpenRtb2Point3Sample::GetUser()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetDeal()
@@ -272,7 +272,7 @@ core::String OpenRtb2Point3Sample::GetDeal()
         }
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetPmp()
@@ -288,7 +288,7 @@ core::String OpenRtb2Point3Sample::GetPmp()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetImpression()
@@ -308,7 +308,7 @@ core::String OpenRtb2Point3Sample::GetImpression()
         "bidfloor":0.5
     })";
 
-    return core::StrAlgo::RemoveWhitespace(str);
+    return core::StrAlgo::RemoveWhitespaces(str);
 }
 
 core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
@@ -405,7 +405,7 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
 
 core::String OpenRtb2Point3Sample::GetBrandscreenBidRequestBench()
 {
-    return core::StrAlgo::RemoveWhitespace(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
+    return core::StrAlgo::RemoveWhitespaces(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
 }
 
 core::String OpenRtb2Point3Spec::GetSimpleBanner()
@@ -740,7 +740,7 @@ core::String OpenRtb2Point3Spec::GetVideo()
         },
         "user":{
             "id":"456789876567897654678987656789",
-            "buyeruid":"545678765467876567898765678987654",
+            "buyerid":"545678765467876567898765678987654",
             "data":[
                 {
                     "id":"6",
