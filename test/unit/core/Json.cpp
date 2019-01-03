@@ -56,7 +56,7 @@ TEST(Json, ExtractDouble)
         try {
             json::ExtDouble(doc, "string", d);
         } catch (const std::exception& e) {
-            EXPECT_STREQ(e.what(), "Invalid type of \"string\" field, expected double");
+            EXPECT_STREQ(e.what(), "Invalid type of \"string\" field, expected number");
             throw;
         }
     }, std::runtime_error);

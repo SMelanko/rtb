@@ -31,8 +31,8 @@ template<class T>
 void ExtDouble(const json::Object& j, core::StringView field, T& data)
 {
     if (j.HasMember(field.data())) {
-        if (!j[field.data()].IsDouble()) {
-            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected double", field) };
+        if (!j[field.data()].IsNumber()) {
+            throw std::runtime_error{ fmt::format("Invalid type of \"{}\" field, expected number", field) };
         }
         data = j[field.data()].GetDouble();
     }

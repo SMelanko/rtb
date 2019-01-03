@@ -256,7 +256,7 @@ TEST(DealTest, Parse)
 TEST(PmpTest, Parse)
 {
     const auto pmp = detail::PrepareUnit<proto::Pmp>(detail::SampleMock::GetPmp());
-    EXPECT_EQ(pmp.private_auction, 1);
+    EXPECT_TRUE(pmp.private_auction);
     EXPECT_EQ(pmp.deals.size(), 1);
     EXPECT_EQ(pmp.deals[0].id, "DX-1985-010A");
     EXPECT_DOUBLE_EQ(pmp.deals[0].bidfloor, 2.5);
@@ -747,6 +747,83 @@ TEST(OpenRtb2Point3Spec, Video)
                 }
             }
         }
+    }
+}
+
+TEST(OpenRtb2Point3Spec, PmpWithDirectDeal)
+{
+    const auto br = detail::PrepareUnit<proto::BidRequest>(detail::SpecMock::GetPmpWithDirectDeal());
+    EXPECT_EQ(br.id, "80ce30c53c16e6ede735f123ef6e32361bfc7b22");
+    EXPECT_EQ(br.at, proto::AuctionPrice::FIRST_PRICE);
+    EXPECT_EQ(br.cur.size(), 1);
+    EXPECT_EQ(br.cur[0], "USD");
+    EXPECT_EQ(br.imp.size(), 1);
+    {
+        const auto& imp = br.imp[0];
+        EXPECT_EQ(imp.id, "1");
+        EXPECT_EQ(imp.bidfloor, 0.03);
+        {
+            EXPECT_TRUE(imp.banner.has_value());
+            const auto& banner = *imp.banner;
+            EXPECT_EQ(banner.w.size(), 1);
+            EXPECT_EQ(banner.w[0], 300);
+            EXPECT_EQ(banner.h.size(), 1);
+            EXPECT_EQ(banner.h[0], 250);
+            EXPECT_EQ(banner.pos, proto::AdPosition::UNKNOWN);
+        }
+        {
+            EXPECT_TRUE(imp.pmp.has_value());
+            const auto& pmp = *imp.pmp;
+            EXPECT_TRUE(pmp.private_auction);
+            EXPECT_EQ(pmp.deals.size(), 2);
+            {
+                const auto& deal = pmp.deals[0];
+                EXPECT_EQ(deal.id, "AB-Agency1-0001");
+                EXPECT_EQ(deal.at, proto::AuctionPrice::FIRST_PRICE);
+                EXPECT_DOUBLE_EQ(deal.bidfloor, 2.5);
+                EXPECT_EQ(deal.bidfloorcur, "USD");
+                EXPECT_EQ(deal.wseat.size(), 1);
+                EXPECT_EQ(deal.wseat[0], "Agency1");
+            }
+            {
+                const auto& deal = pmp.deals[1];
+                EXPECT_EQ(deal.id, "XY-Agency2-0001");
+                EXPECT_EQ(deal.at, proto::AuctionPrice::SECOND_PRICE_PLUS);
+                EXPECT_DOUBLE_EQ(deal.bidfloor, 2);
+                EXPECT_EQ(deal.bidfloorcur, "USD");
+                EXPECT_EQ(deal.wseat.size(), 1);
+                EXPECT_EQ(deal.wseat[0], "Agency2");
+            }
+        }
+    }
+    {
+        EXPECT_TRUE(br.site.has_value());
+        const auto& site = *br.site;
+        EXPECT_EQ(site.id, "102855");
+        EXPECT_EQ(site.domain, "www.foobar.com");
+        EXPECT_EQ(site.cat.size(), 1);
+        EXPECT_EQ(site.cat[0], "IAB3-1");
+        EXPECT_EQ(site.page, "http://www.foobar.com/1234.html");
+        {
+            EXPECT_TRUE(site.publisher.has_value());
+            const auto& pub = *site.publisher;
+            EXPECT_EQ(pub.id, "8953");
+            EXPECT_EQ(pub.name, "foobar.com");
+            EXPECT_EQ(pub.cat.size(), 1);
+            EXPECT_EQ(pub.cat[0], "IAB3-1");
+            EXPECT_EQ(pub.domain, "foobar.com");
+        }
+    }
+    {
+        EXPECT_TRUE(br.device.has_value());
+        const auto& device = *br.device;
+        EXPECT_EQ(device.ua, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2");
+        EXPECT_EQ(device.ip, "123.145.167.10");
+    }
+    {
+        EXPECT_TRUE(br.user.has_value());
+        const auto& user = *br.user;
+        EXPECT_EQ(user.id, "55816b39711f9b5acf3b90e313ed29e51665623f");
     }
 }
 

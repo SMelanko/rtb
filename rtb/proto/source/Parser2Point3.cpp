@@ -319,7 +319,7 @@ Pmp JsonWorker<Pmp>::Parse(const json::Object& j)
 {
     Pmp p;
 
-    json::ExtInt(j, "private_auction", p.private_auction);
+    json::ExtBool(j, "private_auction", p.private_auction);
     detail::ExtVecObj(j, "deals", p.deals);
 
     return p;

@@ -1072,7 +1072,7 @@ public:
     /// Indicator of auction eligibility to seats named in the Direct Deals object, where
     /// 0 = all bids are accepted, 1 = bids are restricted to the deals specified and
     /// the terms thereof.
-    core::Int private_auction;
+    core::Bool private_auction;
     /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable
     /// to this impression.
     core::Vector<Deal> deals;
