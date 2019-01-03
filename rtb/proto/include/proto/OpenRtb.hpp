@@ -1096,17 +1096,22 @@ struct Impression
 public:
     /// A unique identifier for this impression within the context of the bid request.
     core::String id;
-    /// A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.
+    /// A Banner object (Section 3.2.3);
+    /// required if this impression is offered as a banner ad opportunity.
     core::Optional<Banner> banner;
-    /// A Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.
+    /// A Video object (Section 3.2.4);
+    /// required if this impression is offered as a video ad opportunity.
     core::Optional<Video> video;
-    /// A Native object (Section 3.2.5); required if this impression is offered as a native ad opportunity.
+    /// A Native object (Section 3.2.5);
+    /// required if this impression is offered as a native ad opportunity.
     core::Optional<Native> native;
-    /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically video or mobile).
-    /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
+    /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad
+    /// (typically video or mobile). Used by some ad servers to customize ad code by partner.
+    /// Recommended for video and/or apps.
     core::String displaymanager;
-    /// Version of ad mediation partner, SDK technology or player responsible for rendering ad (typically video or mobile).
-    /// Used by some ad servers to customize ad code by partner. Recommended for video and/or apps.
+    /// Version of ad mediation partner, SDK technology or player responsible for rendering ad
+    /// (typically video or mobile). Used by some ad servers to customize ad code by partner.
+    /// Recommended for video and/or apps.
     core::String displaymanagerver;
     /// 1 = the ad is interstitial or full screen, 0 = not interstitial.
     core::Bool instl = 0;
@@ -1115,15 +1120,18 @@ public:
     core::String tagid;
     /// Minimum bid for this impression expressed in CPM.
     core::Double bidfloor = 0.0;
-    /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder
+    /// Currency specified using ISO-4217 alpha codes.
+    /// This may be different from bid currency returned by bidder
     /// if this is allowed by the exchange.
     core::String bidfloorcur = "USD";
-    /// Flag to indicate if the impression requires secure HTTPS URL creative assets and markup, where
-    /// 0 = non-secure, 1 = secure. If omitted, the secure state is unknown, but non-secure HTTP support can be assumed.
+    /// Flag to indicate if the impression requires secure HTTPS URL creative assets and markup,
+    /// where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown,
+    /// but non-secure HTTP support can be assumed.
     core::Int secure;
     /// Array of exchange-specific names of supported iframe busters.
     core::Vector<core::String> iframebuster;
-    /// A Pmp object (Section 3.2.17) containing any private marketplace deals in effect for this impression.
+    /// A Pmp object (Section 3.2.17) containing any private marketplace deals
+    /// in effect for this impression.
     core::Optional<Pmp> pmp;
 };
 

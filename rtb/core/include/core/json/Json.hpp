@@ -114,4 +114,4 @@ void ExtVecStr(const json::Object& j, core::StringView field, C& data)
     }
 }
 
-}
+} // namespace json

@@ -10,4 +10,4 @@ json::Document Str2Json(core::StringView str)
     return j;
 }
 
-}
+} // namespace json
