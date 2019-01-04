@@ -3,8 +3,10 @@
 # Configure build variables.
 BUILD_MODE=Debug
 BUILD_ARCH=x64
-BUILD_DIR=../build/xcode-${BUILD_ARCH}-${BUILD_MODE}
+GENERATOR_VER="Xcode"
 ENABLE_TESTING=TRUE
+
+CMAKE_GENERATOR="$GENERATOR_VER"
 
 # Color configuration.
 COLOR_OFF='\033[0m'
@@ -12,11 +14,11 @@ COLOR_RED='\033[0;31m'
 COLOR_GREEN='\033[0;32m'
 
 PrintInfoMsg() {
-    printf "${COLOR_GREEN} >> $1 ${COLOR_OFF}\n"
+    printf "$COLOR_GREEN >> $1 $COLOR_OFF\n"
 }
 
 PrintErrorMsg() {
-    printf "${COLOR_RED} >> $1 ${COLOR_OFF}\n"
+    printf "$COLOR_RED >> $1 $COLOR_OFF\n"
 }
 
 CheckError() {
@@ -27,14 +29,15 @@ CheckError() {
 }
 
 PrintInfoMsg "Creating a build directory..."
-mkdir -p ${BUILD_DIR}
+BUILD_DIR=../build/${GENERATOR_VER//[[:blank:]]/}-$BUILD_ARCH-$BUILD_MODE
+mkdir -p $BUILD_DIR
 CheckError "Failed to make the build directory."
 
-cd ${BUILD_DIR}
+cd $BUILD_DIR
 
 PrintInfoMsg "[CMake] Generating the project..."
 cmake \
-    -G Xcode \
+    -G "$CMAKE_GENERATOR" \
     -DCMAKE_BUILD_TYPE=$BUILD_MODE \
     ../..
 CheckError "[CMake] Failed to generate the project."
