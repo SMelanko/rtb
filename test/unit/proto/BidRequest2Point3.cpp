@@ -757,8 +757,8 @@ TEST(OpenRtb2Point3Spec, PmpWithDirectDeal)
     EXPECT_EQ(br.at, proto::AuctionPrice::FIRST_PRICE);
     EXPECT_EQ(br.cur.size(), 1);
     EXPECT_EQ(br.cur[0], "USD");
-    EXPECT_EQ(br.imp.size(), 1);
     {
+        EXPECT_EQ(br.imp.size(), 1);
         const auto& imp = br.imp[0];
         EXPECT_EQ(imp.id, "1");
         EXPECT_EQ(imp.bidfloor, 0.03);
@@ -803,6 +803,61 @@ TEST(OpenRtb2Point3Spec, PmpWithDirectDeal)
         EXPECT_EQ(site.domain, "www.foobar.com");
         EXPECT_EQ(site.cat.size(), 1);
         EXPECT_EQ(site.cat[0], "IAB3-1");
+        EXPECT_EQ(site.page, "http://www.foobar.com/1234.html");
+        {
+            EXPECT_TRUE(site.publisher.has_value());
+            const auto& pub = *site.publisher;
+            EXPECT_EQ(pub.id, "8953");
+            EXPECT_EQ(pub.name, "foobar.com");
+            EXPECT_EQ(pub.cat.size(), 1);
+            EXPECT_EQ(pub.cat[0], "IAB3-1");
+            EXPECT_EQ(pub.domain, "foobar.com");
+        }
+    }
+    {
+        EXPECT_TRUE(br.device.has_value());
+        const auto& device = *br.device;
+        EXPECT_EQ(device.ua, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2");
+        EXPECT_EQ(device.ip, "123.145.167.10");
+    }
+    {
+        EXPECT_TRUE(br.user.has_value());
+        const auto& user = *br.user;
+        EXPECT_EQ(user.id, "55816b39711f9b5acf3b90e313ed29e51665623f");
+    }
+}
+
+TEST(OpenRtb2Point3Spec, NativeAd)
+{
+    const auto br = detail::PrepareUnit<proto::BidRequest>(detail::SpecMock::GetNativeAd());
+    EXPECT_EQ(br.id, "33ce30c53c16e6ede735f123ef6e32361bfc7b22");
+    EXPECT_EQ(br.at, proto::AuctionPrice::FIRST_PRICE);
+    EXPECT_EQ(br.cur.size(), 1);
+    EXPECT_EQ(br.cur[0], "USD");
+    {
+        EXPECT_EQ(br.imp.size(), 1);
+        const auto& imp = br.imp[0];
+        EXPECT_EQ(imp.id, "1");
+        EXPECT_EQ(imp.bidfloor, 0.03);
+        {
+            EXPECT_TRUE(imp.native.has_value());
+            const auto& native = *imp.native;
+            EXPECT_EQ(native.request, "...Native Spec request as an encoded string...");
+            EXPECT_EQ(native.ver, "1.0");
+            EXPECT_EQ(native.api.size(), 1);
+            EXPECT_EQ(native.api[0], proto::ApiFramework::MRAID);
+            EXPECT_EQ(native.battr.size(), 2);
+            EXPECT_EQ(native.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
+            EXPECT_EQ(native.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+        }
+    }
+    {
+        EXPECT_TRUE(br.site.has_value());
+        const auto& site = *br.site;
+        EXPECT_EQ(site.id, "102855");
+        EXPECT_EQ(site.cat.size(), 1);
+        EXPECT_EQ(site.cat[0], "IAB3-1");
+        EXPECT_EQ(site.domain, "www.foobar.com");
         EXPECT_EQ(site.page, "http://www.foobar.com/1234.html");
         {
             EXPECT_TRUE(site.publisher.has_value());
