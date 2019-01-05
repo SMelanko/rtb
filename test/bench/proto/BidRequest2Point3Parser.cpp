@@ -27,78 +27,138 @@ void Log(core::StringView str)
         auto dummy = proto::JsonWorker<proto::unit>::Parse(json::Str2Json(str)); \
     }
 
-void ParseBanner(bench::State& state)
+void BannerSample(bench::State& state)
 {
     PERFORM_BENCH(Banner)
 }
-BENCH(ParseBanner);
+BENCH(BannerSample);
 
-void ParseVideo(bench::State& state)
+void VideoSample(bench::State& state)
 {
     PERFORM_BENCH(Video)
 }
-BENCH(ParseVideo);
+BENCH(VideoSample);
 
-void ParseNative(bench::State& state)
+void NativeSample(bench::State& state)
 {
     PERFORM_BENCH(Native)
 }
-BENCH(ParseNative);
+BENCH(NativeSample);
 
-void ParseApp(bench::State& state)
+void AppSample(bench::State& state)
 {
     PERFORM_BENCH(App)
 }
-BENCH(ParseApp);
+BENCH(AppSample);
 
-void ParseSite(bench::State& state)
+void SiteSample(bench::State& state)
 {
     PERFORM_BENCH(Site)
 }
-BENCH(ParseSite);
+BENCH(SiteSample);
 
-void ParseGeo(bench::State& state)
+void GeoSample(bench::State& state)
 {
     PERFORM_BENCH(Geo)
 }
-BENCH(ParseGeo);
+BENCH(GeoSample);
 
-void ParseDevice(bench::State& state)
+void DeviceSample(bench::State& state)
 {
     PERFORM_BENCH(Device)
 }
-BENCH(ParseDevice);
+BENCH(DeviceSample);
 
-void ParseUser(bench::State& state)
+void UserSample(bench::State& state)
 {
     PERFORM_BENCH(User)
 }
-BENCH(ParseUser);
+BENCH(UserSample);
 
-void ParseDeal(bench::State& state)
+void DealSample(bench::State& state)
 {
     PERFORM_BENCH(Deal)
 }
-BENCH(ParseDeal);
+BENCH(DealSample);
 
-void ParsePmp(bench::State& state)
+void PmpSample(bench::State& state)
 {
     PERFORM_BENCH(Pmp)
 }
-BENCH(ParsePmp);
+BENCH(PmpSample);
 
-void ParseImpression(bench::State& state)
+void ImpressionSample(bench::State& state)
 {
     PERFORM_BENCH(Impression)
 }
-BENCH(ParseImpression);
+BENCH(ImpressionSample);
 
-void ParseBrandscreenBidRequest(bench::State& state)
+void BrandscreenBidRequest(bench::State& state)
 {
-    auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench();
+    const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench();
     detail::Log(str);
     for (auto _ : state) {
         auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
     }
 }
-BENCH(ParseBrandscreenBidRequest);
+BENCH(BrandscreenBidRequest);
+
+void BannerSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetSimpleBanner();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(BannerSpec);
+
+void ExpandableCreativeSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetExpandableCreative();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(ExpandableCreativeSpec);
+
+void MobileSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetMobile();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(MobileSpec);
+
+void VideoSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetVideo();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(VideoSpec);
+
+void PmpWithDirectDealSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetPmpWithDirectDeal();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(PmpWithDirectDealSpec);
+
+void NativeAdSpec(bench::State& state)
+{
+    const auto str = test::data::OpenRtb2Point3Spec::GetNativeAd();
+    detail::Log(str);
+    for (auto _ : state) {
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
+    }
+}
+BENCH(NativeAdSpec);
