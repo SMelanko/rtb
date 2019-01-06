@@ -4,6 +4,7 @@
 #include <test/data/BidRequest2Point3.hpp>
 
 #include <iostream>
+#include <core/utils/StrAlgo.hpp>
 
 #define LOG_TEST_DATA
 #undef LOG_TEST_DATA
@@ -25,6 +26,14 @@ void Log(core::StringView str)
     detail::Log(str); \
     for (auto _ : state) { \
         auto dummy = proto::JsonWorker<proto::unit>::Parse(json::Str2Json(str)); \
+    }
+
+#define PERFORM_SPEC_BENCH(unit) \
+    const auto str = core::StrAlgo::RemoveWhitespaces( \
+        test::data::OpenRtb2Point3Spec::Get ## unit()); \
+    detail::Log(str); \
+    for (auto _ : state) { \
+        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str)); \
     }
 
 void BannerSample(bench::State& state)
@@ -95,7 +104,8 @@ BENCH(ImpressionSample);
 
 void BrandscreenBidRequest(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench();
+    const auto str = core::StrAlgo::RemoveWhitespaces(
+        test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench());
     detail::Log(str);
     for (auto _ : state) {
         auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
@@ -105,60 +115,36 @@ BENCH(BrandscreenBidRequest);
 
 void BannerSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetSimpleBanner();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(SimpleBanner);
 }
 BENCH(BannerSpec);
 
 void ExpandableCreativeSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetExpandableCreative();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(ExpandableCreative);
 }
 BENCH(ExpandableCreativeSpec);
 
 void MobileSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetMobile();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(Mobile);
 }
 BENCH(MobileSpec);
 
 void VideoSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetVideo();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(Video);
 }
 BENCH(VideoSpec);
 
 void PmpWithDirectDealSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetPmpWithDirectDeal();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(PmpWithDirectDeal);
 }
 BENCH(PmpWithDirectDealSpec);
 
 void NativeAdSpec(bench::State& state)
 {
-    const auto str = test::data::OpenRtb2Point3Spec::GetNativeAd();
-    detail::Log(str);
-    for (auto _ : state) {
-        auto br = proto::JsonWorker<proto::BidRequest>::Parse(json::Str2Json(str));
-    }
+    PERFORM_SPEC_BENCH(NativeAd);
 }
 BENCH(NativeAdSpec);
