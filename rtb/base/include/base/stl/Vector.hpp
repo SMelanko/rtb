@@ -2,10 +2,10 @@
 
 #include <vector>
 
-namespace core
+namespace base
 {
 
 template<class T>
 using Vector = std::vector<T>;
 
-}
+} // namespace base

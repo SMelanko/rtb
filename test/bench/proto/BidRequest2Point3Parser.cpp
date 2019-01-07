@@ -1,10 +1,10 @@
 #include "Bench.hpp"
 
+#include <base/utils/StrAlgo.hpp>
 #include <proto/Parser2Point3.hpp>
 #include <test/data/BidRequest2Point3.hpp>
 
 #include <iostream>
-#include <core/utils/StrAlgo.hpp>
 
 #define LOG_TEST_DATA
 #undef LOG_TEST_DATA
@@ -12,7 +12,7 @@
 namespace detail
 {
 
-void Log(core::StringView str)
+void Log(base::StringView str)
 {
 #ifdef LOG_TEST_DATA
     std::cerr << str << '\n';
@@ -29,7 +29,7 @@ void Log(core::StringView str)
     }
 
 #define PERFORM_SPEC_BENCH(unit) \
-    const auto str = core::StrAlgo::RemoveWhitespaces( \
+    const auto str = base::StrAlgo::RemoveWhitespaces( \
         test::data::OpenRtb2Point3Spec::Get ## unit()); \
     detail::Log(str); \
     for (auto _ : state) { \
@@ -104,7 +104,7 @@ BENCH(ImpressionSample);
 
 void BrandscreenBidRequest(bench::State& state)
 {
-    const auto str = core::StrAlgo::RemoveWhitespaces(
+    const auto str = base::StrAlgo::RemoveWhitespaces(
         test::data::OpenRtb2Point3Sample::GetBrandscreenBidRequestBench());
     detail::Log(str);
     for (auto _ : state) {

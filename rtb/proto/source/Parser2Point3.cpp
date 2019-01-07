@@ -1,6 +1,6 @@
 #include "proto/Parser2Point3.hpp"
 
-#include <core/utils/StrAlgo.hpp>
+#include <base/utils/StrAlgo.hpp>
 
 namespace proto
 {
@@ -9,7 +9,7 @@ namespace detail
 {
 
 template<class T>
-void ExtObj(const json::Object& j, core::StringView field, T& data)
+void ExtObj(const json::Object& j, base::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -18,7 +18,7 @@ void ExtObj(const json::Object& j, core::StringView field, T& data)
 }
 
 template<class T>
-void ExtObj(const json::Object& j, core::StringView field, core::Optional<T>& data)
+void ExtObj(const json::Object& j, base::StringView field, base::Optional<T>& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName) && j[fieldName].IsObject()) {
@@ -27,7 +27,7 @@ void ExtObj(const json::Object& j, core::StringView field, core::Optional<T>& da
 }
 
 template<class T>
-void ExtSize(const json::Object& j, core::StringView field, T& data)
+void ExtSize(const json::Object& j, base::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -43,7 +43,7 @@ void ExtSize(const json::Object& j, core::StringView field, T& data)
 }
 
 template<class T>
-void ExtVecObj(const json::Object& j, core::StringView field, T& data)
+void ExtVecObj(const json::Object& j, base::StringView field, T& data)
 {
     const auto fieldName = field.data();
     if (j.HasMember(fieldName)) {
@@ -60,9 +60,9 @@ void ExtVecObj(const json::Object& j, core::StringView field, T& data)
 template<class T>
 void ExtKeywords(const json::Object& j, T& unit)
 {
-    core::String keywords;
+    base::String keywords;
     json::ExtStr(j, "keywords", keywords);
-    unit.keywords = core::StrAlgo::Split(keywords);
+    unit.keywords = base::StrAlgo::Split(keywords);
 }
 
 void ExtContext(const json::Object& j, Context& c)

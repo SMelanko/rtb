@@ -1,7 +1,7 @@
-#include <core/json/Json.hpp>
-#include <core/stl/String.hpp>
-#include <core/stl/Vector.hpp>
-#include <core/Type.hpp>
+#include <base/json/Json.hpp>
+#include <base/stl/String.hpp>
+#include <base/stl/Vector.hpp>
+#include <base/Type.hpp>
 #include <proto/Parser2Point3.hpp>
 #include <test/data/BidRequest2Point3.hpp>
 
@@ -14,7 +14,7 @@ using SampleMock = test::data::OpenRtb2Point3Sample;
 using SpecMock = test::data::OpenRtb2Point3Spec;
 
 template<class T>
-[[nodiscard]] constexpr T PrepareUnit(const core::String& str)
+[[nodiscard]] constexpr T PrepareUnit(const base::String& str)
 {
     return proto::JsonWorker<T>::Parse(json::Str2Json(str));
 }

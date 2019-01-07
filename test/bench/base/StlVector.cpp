@@ -1,6 +1,6 @@
-#include "StlVector.hpp"
+#include "Bench.hpp"
 
-#include <core/stl/Vector.hpp>
+#include <base/stl/Vector.hpp>
 
 #include <boost/pool/pool_alloc.hpp>
 
@@ -9,7 +9,7 @@ static constexpr size_t Size = 1000;
 void PushBackIntStlAllocator(benchmark::State& state)
 {
     for (auto _ : state) {
-        core::Vector<int> v;
+        base::Vector<int> v;
         v.reserve(Size);
         for (size_t i = 0; i < Size; ++i) {
             v.push_back(i);

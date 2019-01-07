@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(benchmark-core LANGUAGES CXX)
+project(benchmark-base LANGUAGES CXX)
 
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "*.cpp")
 
@@ -15,5 +15,5 @@ target_link_libraries(${PROJECT_NAME}
         CONAN_PKG::google-benchmark
         CONAN_PKG::boost
         CONAN_PKG::range-v3
-        rtb::core
+        rtb::base
 )

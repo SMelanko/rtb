@@ -29,18 +29,18 @@ conan_cmake_run(CONANFILE conanfile.txt
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_subdirectory(rtb/core)
+add_subdirectory(rtb/base)
 add_subdirectory(rtb/proto)
 
 if (ENABLE_TESTING)
     include(CTest)
     enable_testing()
-    add_subdirectory(test/unit/core)
+    add_subdirectory(test/unit/base)
     add_subdirectory(test/unit/proto)
 endif ()
 
 if (ENABLE_BENCHMARKING)
     add_subdirectory(test/data)
-    add_subdirectory(test/bench/core)
+    add_subdirectory(test/bench/base)
     add_subdirectory(test/bench/proto)
 endif ()

@@ -1,6 +1,9 @@
 #include "Bench.hpp"
 
-#include <core/utils/StrAlgo.hpp>
+#include <base/stl/String.hpp>
+#include <base/stl/Vector.hpp>
+
+#include <sstream>
 
 #include <boost/algorithm/string.hpp>
 
@@ -9,13 +12,13 @@
 namespace detail
 {
 
-const core::String str = "one,two,three,four,five,six,seven,eight,nine,ten";
+const base::String str = "one,two,three,four,five,six,seven,eight,nine,ten";
 
-core::Vector<core::String> SplitStlVer(const core::String& str, const char delimiter)
+base::Vector<base::String> SplitStlVer(const base::String& str, const char delimiter)
 {
-    core::Vector<core::String> result;
+    base::Vector<base::String> result;
     std::stringstream input{ str };
-    core::String item;
+    base::String item;
 
     while (std::getline(input, item, delimiter)) {
         if (item.size()) {
@@ -35,7 +38,7 @@ core::Vector<core::String> SplitStlVer(const core::String& str, const char delim
 void SplitStrStlVer(bench::State& state)
 {
     for (auto _ : state) {
-        [[maybe_unused]] const auto result = core::StrAlgo::Split(detail::str, ',');
+        [[maybe_unused]] const auto result = detail::SplitStlVer(detail::str, ',');
     }
 }
 BENCH(SplitStrStlVer);
@@ -43,7 +46,7 @@ BENCH(SplitStrStlVer);
 void SplitStrBoostVer(bench::State& state)
 {
     for (auto _ : state) {
-        core::Vector<core::String> result;
+        base::Vector<base::String> result;
         boost::split(result, detail::str, boost::is_any_of(","));
     }
 }

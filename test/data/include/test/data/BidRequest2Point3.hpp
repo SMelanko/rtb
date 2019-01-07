@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/stl/String.hpp>
+#include <base/stl/String.hpp>
 
 namespace test::data
 {
@@ -12,19 +12,19 @@ namespace test::data
 class OpenRtb2Point3Sample
 {
 public:
-    static core::String GetBanner();
-    static core::String GetVideo();
-    static core::String GetNative();
-    static core::String GetApp();
-    static core::String GetSite();
-    static core::String GetGeo();
-    static core::String GetDevice();
-    static core::String GetUser();
-    static core::String GetDeal();
-    static core::String GetPmp();
-    static core::String GetImpression();
-    static core::String GetBrandscreenBidRequest();
-    static core::String GetBrandscreenBidRequestBench();
+    static base::String GetBanner();
+    static base::String GetVideo();
+    static base::String GetNative();
+    static base::String GetApp();
+    static base::String GetSite();
+    static base::String GetGeo();
+    static base::String GetDevice();
+    static base::String GetUser();
+    static base::String GetDeal();
+    static base::String GetPmp();
+    static base::String GetImpression();
+    static base::String GetBrandscreenBidRequest();
+    static base::String GetBrandscreenBidRequestBench();
 };
 
 /**
@@ -43,21 +43,21 @@ public:
      * Following is a basic example of a bid request for a banner ad.
      * Some optional parameters are included in this example.
      */
-    static core::String GetSimpleBanner();
+    static base::String GetSimpleBanner();
     /**
      * \brief Returns an example of Expandable Creative bid request.
      *
      * This example builds the first and adds parameters to describe support for
      * an expandable creative, and passes data about the user from “Data Provider 1”.
      */
-    static core::String GetExpandableCreative();
+    static base::String GetExpandableCreative();
     /**
      * \brief Returns an example of Mobile bid request.
      *
      * This example uses a device object to reflect a mobile device, and an app object
      * to reflect a request from a mobile application.
      */
-    static core::String GetMobile();
+    static base::String GetMobile();
     /**
      * \brief Returns an example of Video bid request.
      *
@@ -78,14 +78,14 @@ public:
      *   Flash supports both VPAID 1.0 and 2.0.
      * - companiontype: Indicates only static or HTML resources are allowed.
      */
-    static core::String GetVideo();
+    static base::String GetVideo();
     /**
      * \brief Returns an example of PMP with a direct deal bid request.
      *
      * Following is a basic example of a bid request for a banner ad with a direct deal.
      * Some optional parameters are included in this example.
      */
-    static core::String GetPmpWithDirectDeal();
+    static base::String GetPmpWithDirectDeal();
     /**
      * \brief Returns an example of Native bid request.
      *
@@ -94,7 +94,7 @@ public:
      * contains an encoded string of a native ad request that conforms to the Native Specification,
      * specifically version 1.0 as indicated by the ver attribute.
      */
-    static core::String GetNativeAd();
+    static base::String GetNativeAd();
 };
 
 }

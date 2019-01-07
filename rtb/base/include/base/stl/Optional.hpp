@@ -2,10 +2,10 @@
 
 #include <optional>
 
-namespace core
+namespace base
 {
 
 template<class T>
 using Optional = std::optional<T>;
 
-}
+} // namespace base

@@ -1,14 +1,13 @@
-#include "core/utils/StrAlgo.hpp"
+#include "base/utils/StrAlgo.hpp"
 
 #include <algorithm>
-#include <sstream>
 
 #include <range/v3/view/split.hpp>
 
-namespace core
+namespace base
 {
 
-core::String StrAlgo::RemoveWhitespaces(core::String str)
+base::String StrAlgo::RemoveWhitespaces(base::String str)
 {
     constexpr auto isspace = [](const unsigned char c) { return std::isspace(c); };
     str.erase(std::remove_if(str.begin(), str.end(), isspace), str.end());
@@ -16,9 +15,9 @@ core::String StrAlgo::RemoveWhitespaces(core::String str)
     return str;
 }
 
-core::Vector<core::String> StrAlgo::Split(const core::String& str, const char delimiter)
+base::Vector<base::String> StrAlgo::Split(const base::String& str, const char delimiter)
 {
     return ranges::view::split(str, delimiter);
 }
 
-}
+} // namespace base

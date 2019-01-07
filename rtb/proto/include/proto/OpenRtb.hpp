@@ -1,9 +1,9 @@
 #pragma once
 
-#include <core/json/Json.hpp>
-#include <core/stl/Optional.hpp>
-#include <core/stl/String.hpp>
-#include <core/stl/Vector.hpp>
+#include <base/json/Json.hpp>
+#include <base/stl/Optional.hpp>
+#include <base/stl/String.hpp>
+#include <base/stl/Vector.hpp>
 
 namespace proto
 {
@@ -479,13 +479,13 @@ enum class FramePosition : int8_t
 struct MimeType
 {
 public:
-    explicit MimeType(core::String type = "")
+    explicit MimeType(base::String type = "")
     : type{ std::move(type) }
     {
     }
     
 public:
-    core::String type;
+    base::String type;
 };
 
 /**
@@ -527,44 +527,44 @@ struct Banner
 public:
     /// Width of the impression in pixels. If neither wmin nor wmax are specified,
     /// this value is an exact width requirement. Otherwise it is a preferred width.
-    core::Vector<core::Int> w;
+    base::Vector<base::Int> w;
     /// Height of the impression in pixels. If neither hmin nor hmax are specified,
     /// this value is an exact height requirement. Otherwise it is a preferred height.
-    core::Vector<core::Int> h;
+    base::Vector<base::Int> h;
     /// Maximum width of the impression in pixels. If included along with a w value
     /// then w should be interpreted as a recommended or preferred width.
-    core::Int wmax;
+    base::Int wmax;
     /// Maximum height of the impression in pixels. If included along with an h value
     /// then h should be interpreted as a recommended or preferred height.
-    core::Int hmax;
+    base::Int hmax;
     /// Minimum width of the impression in pixels. If included along with a w value
     /// then w should be interpreted as a recommended or preferred width.
-    core::Int wmin;
+    base::Int wmin;
     /// Minimum height of the impression in pixels. If included along with an h value
     /// then h should be interpreted as a recommended or preferred height.
-    core::Int hmin;
+    base::Int hmin;
     /// Unique identifier for this banner object.
     /// Recommended when Banner objects are used with a Video object
     /// (Section 3.2.4) to represent an array of companion ads.
     /// Values usually start at 1 and increase with each object;
     /// should be unique within an impression.
-    core::String id;
+    base::String id;
     /// Blocked banner ad types.
-    core::Vector<BannerAdType> btype;
+    base::Vector<BannerAdType> btype;
     /// Blocked creative attributes.
-    core::Vector<CreativeAttribute> battr;
+    base::Vector<CreativeAttribute> battr;
     /// Ad position on screen.
     AdPosition pos;
     /// Content MIME types supported. Popular MIME types may include
     /// “application/x-shockwave-flash”, “image/jpg”, and “image/gif”.
-    core::Vector<MimeType> mimes;
+    base::Vector<MimeType> mimes;
     /// Indicates if the banner is in the top frame as opposed to an iframe, where 0 = no, 1 = yes.
     FramePosition topframe;
     /// Directions in which the banner may expand.
-    core::Vector<ExpandableDirection> expdir;
+    base::Vector<ExpandableDirection> expdir;
     /// List of supported API frameworks for this impression. If an API is not explicitly listed,
     /// it is assumed not to be supported.
-    core::Vector<ApiFramework> api;
+    base::Vector<ApiFramework> api;
 };
 
 /**
@@ -587,21 +587,21 @@ struct Video
 public:
     /// Content MIME types supported. Popular MIME types may include “video/x-ms-wmv” for
     /// Windows Media and “video/x-flv” for Flash Video.
-    core::Vector<MimeType> mimes;
+    base::Vector<MimeType> mimes;
     /// Minimum video ad duration in seconds.
-    core::Int minduration;
+    base::Int minduration;
     /// Maximum video ad duration in seconds.
-    core::Int maxduration;
+    base::Int maxduration;
     /// Supported video bid response protocol. Refer to List 5.8. At least one supported protocol
     /// must be specified in either the protocol or protocols attribute.
     VideoBidResponseProtocol protocol;
     /// Array of supported video bid response protocols. Refer to List 5.8. At least one
     /// supported protocol must be specified in either the protocol or protocols attribute.
-    core::Vector<VideoBidResponseProtocol> protocols;
+    base::Vector<VideoBidResponseProtocol> protocols;
     /// Width of the video player in pixels.
-    core::Int w;
+    base::Int w;
     /// Height of the video player in pixels.
-    core::Int h;
+    base::Int h;
     /// Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
     /// Refer to List 5.10 for additional generic values.
     VideoStartDelay startdelay;
@@ -610,38 +610,38 @@ public:
     VideoLinearity linearity;
     /// If multiple ad impressions are offered in the same bid request, the sequence number
     /// will allow for the coordinated delivery of multiple creatives.
-    core::Int sequence;
+    base::Int sequence;
     /// Blocked creative attributes. Refer to List 5.3.
-    core::Vector<CreativeAttribute> battr;
+    base::Vector<CreativeAttribute> battr;
     /// Maximum extended video ad duration if extension is allowed.
     /// If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no
     /// time limit imposed. If greater than 0, then the value represents the number of seconds
     /// of extended play supported beyond the maxduration value.
-    core::Int maxextended = 0;
+    base::Int maxextended = 0;
     /// Minimum bit rate in Kbps. Exchange may set this dynamically or universally
     /// across their set of publishers.
-    core::Int minbitrate;
+    base::Int minbitrate;
     /// Maximum bit rate in Kbps. Exchange may set this dynamically or universally
     /// across their set of publishers.
-    core::Int maxbitrate;
+    base::Int maxbitrate;
     /// Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed,
     /// where 0 = no, 1 = yes.
-    core::Bool boxingallowed = true;
+    base::Bool boxingallowed = true;
     /// Allowed playback methods. If none specified, assume all are allowed. Refer to List 5.9.
-    core::Vector<VideoPlaybackMethod> playbackmethod;
+    base::Vector<VideoPlaybackMethod> playbackmethod;
     /// Supported delivery methods (e.g., streaming, progressive).
     /// If none specified, assume all are supported. Refer to List 5.13.
-    core::Vector<ContentDeliveryMethod> delivery;
+    base::Vector<ContentDeliveryMethod> delivery;
     /// Ad position on screen. Refer to List 5.4.
     AdPosition pos;
     /// Array of Banner objects (Section 3.2.3) if companion ads are available.
-    core::Vector<Banner> companionad;
+    base::Vector<Banner> companionad;
     /// List of supported API frameworks for this impression. Refer to List 5.6.
     /// If an API is not explicitly listed, it is assumed not to be supported.
-    core::Vector<ApiFramework> api;
+    base::Vector<ApiFramework> api;
     /// Supported VAST companion ad types. Refer to List 5.12. Recommended
     /// if companion Banner objects are included via the companionad array.
-    core::Vector<VastCompanionType> companiontype;
+    base::Vector<VastCompanionType> companiontype;
 };
 
 /**
@@ -667,15 +667,15 @@ struct Native
 {
 public:
     /// Request payload complying with the Native Ad Specification.
-    core::String request;
+    base::String request;
     /// Version of the Native Ad Specification to which request complies;
     /// highly recommended for efficient parsing.
-    core::String ver;
+    base::String ver;
     /// List of supported API frameworks for this impression. Refer to List 5.6.
     /// If an API is not explicitly listed, it is assumed not to be supported.
-    core::Vector<ApiFramework> api;
+    base::Vector<ApiFramework> api;
     /// Blocked creative attributes. Refer to List 5.3.
-    core::Vector<CreativeAttribute> battr;
+    base::Vector<CreativeAttribute> battr;
 };
 
 /**
@@ -689,13 +689,13 @@ struct Publisher
 {
 public:
     /// Exchange-specific publisher ID.
-    core::String id;
+    base::String id;
     /// Publisher name (may be aliased at the publisher’s request).
-    core::String name;
+    base::String name;
     /// Array of IAB content categories that describe the publisher. Refer to List 5.1.
-    core::Vector<core::String> cat;
+    base::Vector<base::String> cat;
     /// Highest level domain of the publisher (e.g., “publisher.com”).
-    core::String domain;
+    base::String domain;
 };
 
 /**
@@ -723,48 +723,48 @@ struct Content
 {
 public:
     /// ID uniquely identifying the content.
-    core::String id;
+    base::String id;
     /// Episode number (typically applies to video content).
-    core::Int episode;
+    base::Int episode;
     /// Content title.
     /// Video Examples: “Search Committee” (TV), “A New Hope” (movie), or “Endgame” (made for web).
     /// Non-Video Example: “Why an Antarctic Glacier Is Melting So Quickly” (Time magazine article).
-    core::String title;
+    base::String title;
     /// Content series.
     /// Video Examples: “The Office” (TV), “Star Wars” (movie), or “Arby ‘N’ The Chief” (web).
     /// Non-Video Example: “Ecocentric” (Time Magazine blog).
-    core::String series;
+    base::String series;
     /// Content season; typically for video content (e.g., “Season 3”).
-    core::String season;
+    base::String season;
     /// Details about the content Producer (Section 3.2.10).
-    core::Optional<Producer> producer;
+    base::Optional<Producer> producer;
     /// URL of the content, for buy-side contextualization or review.
-    core::String url; // TODO: URL
+    base::String url; // TODO: URL
     /// Array of IAB content categories that describe the content producer. Refer to List 5.1.
-    core::Vector<core::String> cat;
+    base::Vector<base::String> cat;
     /// Video quality per IAB’s classification. Refer to List 5.11.
     VideoQuality videoquality;
     /// Type of content (game, video, text, etc.). Refer to List 5.14.
     ContentContext context;
     /// Content rating (e.g., MPAA).
-    core::String contentrating;
+    base::String contentrating;
     /// User rating of the content (e.g., number of stars, likes, etc.).
-    core::String userrating;
+    base::String userrating;
     /// Media rating per QAG guidelines. Refer to List 5.15.
     MediaRating qagmediarating;
     /// Comma separated list of keywords describing the content.
-    core::Vector<core::String> keywords;
+    base::Vector<base::String> keywords;
     /// 0 = not live, 1 = content is live (e.g., stream, live blog).
-    core::Bool livestream;
+    base::Bool livestream;
     /// 0 = indirect, 1 = direct.
     SourceRelationship sourcerelationship;
     /// Length of content in seconds; appropriate for video or audio.
-    core::Int len;
+    base::Int len;
     /// Content language using ISO-639-1-alpha-2.
-    core::String language;
+    base::String language;
     /// Indicator of whether or not the content is embeddable (e.g., an embeddable video player),
     /// where 0 = no, 1 = yes.
-    core::Bool embeddable;
+    base::Bool embeddable;
 };
 
 /**
@@ -775,25 +775,25 @@ struct Context
 {
 public:
     /// Exchange-specific site/app ID.
-    core::String id;
+    base::String id;
     /// Site name (may be aliased at the publisher’s request).
-    core::String name;
+    base::String name;
     /// Domain of the site/app (e.g., “mysite.foo.com”).
-    core::String domain;
+    base::String domain;
     /// Array of IAB content categories of the site/app. Refer to List 5.1.
-    core::Vector<core::String> cat;
+    base::Vector<base::String> cat;
     /// Array of IAB content categories that describe the current section of the site/app.
-    core::Vector<core::String> sectioncat;
+    base::Vector<base::String> sectioncat;
     /// Array of IAB content categories that describe the current page or view of the site/app.
-    core::Vector<core::String> pagecat;
+    base::Vector<base::String> pagecat;
     /// Indicates if the site/app has a privacy policy, where 0 = no, 1 = yes.
-    core::Bool privacypolicy;
+    base::Bool privacypolicy;
     /// Details about the Publisher (Section 3.2.8) of the site/app.
-    core::Optional<Publisher> publisher;
+    base::Optional<Publisher> publisher;
     /// Details about the Content (Section 3.2.9) within the site/app.
-    core::Optional<Content> content;
+    base::Optional<Content> content;
     /// Comma separated list of keywords about the site/app.
-    core::Vector<core::String> keywords;
+    base::Vector<base::String> keywords;
 };
 
 /**
@@ -808,13 +808,13 @@ struct Site : public Context
 {
 public:
     /// URL of the page where the impression will be shown.
-    core::String page;
+    base::String page;
     /// Referrer URL that caused navigation to the current page.
-    core::String ref;
+    base::String ref;
     /// Search string that caused navigation to the current page.
-    core::String search;
+    base::String search;
     /// Mobile-optimized signal, where 0 = no, 1 = yes.
-    core::Bool mobile;
+    base::Bool mobile;
 };
 
 /**
@@ -831,13 +831,13 @@ struct App : public Context
 public:
     /// Application bundle or package name (e.g., com.foo.mygame);
     /// intended to be a unique ID across exchanges.
-    core::String bundle;
+    base::String bundle;
     /// Application store URL for an installed app; for QAG 1.5 compliance.
-    core::String storeurl;
+    base::String storeurl;
     /// Application version.
-    core::String ver;
+    base::String ver;
     /// True if the application is a paid version, else - free.
-    core::Bool paid;
+    base::Bool paid;
 };
 
 /**
@@ -857,28 +857,28 @@ struct Geo
 {
 public:
     /// Latitude from -90.0 to +90.0, where negative is south.
-    core::Double lat;
+    base::Double lat;
     /// Longitude from -180.0 to +180.0, where negative is west.
-    core::Double lon;
+    base::Double lon;
     /// Source of location data; recommended when passing lat/lon. Refer to List 5.16.
     LocationType type;
     /// Country code using ISO-3166-1-alpha-3.
-    core::String country;
+    base::String country;
     /// Region code using ISO-3166-2; 2-letter state code if USA.
-    core::String region;
+    base::String region;
     /// Region of a country using FIPS 10-4 notation. While OpenRTB supports this attribute,
     /// it has been withdrawn by NIST in 2008.
-    core::String regionfips104;
+    base::String regionfips104;
     /// Google metro code; similar to but not exactly Nielsen DMAs.
     /// http://code.google.com/apis/adwords/docs/appendix/metrocodes.html
-    core::String metro;
+    base::String metro;
     /// City using United Nations Code for Trade & Transport Locations.
     /// http://code.google.com/apis/adwords/docs/appendix/metrocodes.html
-    core::String city;
+    base::String city;
     /// Zip or postal code.
-    core::String zip;
+    base::String zip;
     /// Local time as the number +/- of minutes from UTC.
-    core::Int utcoffset;
+    base::Int utcoffset;
 };
 
 /**
@@ -893,65 +893,65 @@ struct Device
 {
 public:
     /// Browser user agent string.
-    core::String ua;
+    base::String ua;
     /// Location of the device assumed to be the user’s current location
     /// defined by a Geo object (Section 3.2.12).
-    core::Optional<Geo> geo;
+    base::Optional<Geo> geo;
     /// Standard “Do Not Track” flag as set in the header by the browser,
     /// where 0 = tracking is unrestricted, 1 = do not track.
-    core::Bool dnt;
+    base::Bool dnt;
     /// “Limit Ad Tracking” signal commercially endorsed (e.g., iOS, Android),
     /// where 0 = tracking is unrestricted, 1 = tracking must be limited per commercial guidelines.
-    core::Bool lmt;
+    base::Bool lmt;
     /// IPv4 address closest to device.
-    core::String ip;
+    base::String ip;
     /// IP address closest to device as IPv6.
-    core::String ipv6;
+    base::String ipv6;
     /// The general type of device. Refer to List 5.17.
     DeviceType devicetype;
     /// Device make (e.g., “Apple”).
-    core::String make;
+    base::String make;
     /// Device model (e.g., “iPhone”).
-    core::String model;
+    base::String model;
     /// Device operating system (e.g., “iOS”).
-    core::String os;
+    base::String os;
     /// Device operating system version (e.g., “3.1.2”).
-    core::String osv;
+    base::String osv;
     /// Hardware version of the device (e.g., “5S” for iPhone 5S).
-    core::String hwv;
+    base::String hwv;
     /// Physical height of the screen in pixels.
-    core::Int h;
+    base::Int h;
     /// Physical width of the screen in pixels.
-    core::Int w;
+    base::Int w;
     /// Screen size as pixels per linear inch.
-    core::Int ppi;
+    base::Int ppi;
     /// The ratio of physical pixels to device independent pixels.
-    core::Double pxratio;
+    base::Double pxratio;
     /// Support for JavaScript, where 0 = no, 1 = yes.
-    core::Bool js;
+    base::Bool js;
     /// Version of Flash supported by the browser.
-    core::String flashver;
+    base::String flashver;
     /// Browser language using ISO-639-1-alpha-2.
-    core::String language;
+    base::String language;
     /// Carrier or ISP (e.g., “VERIZON”). “WIFI” is often used in mobile to indicate high bandwidth
     /// (e.g., video friendly vs. cellular).
-    core::String carrier;
+    base::String carrier;
     /// Network connection type. Refer to List 5.18.
     ConnectionType connectiontype;
     /// ID sanctioned for advertiser use in the clear (i.e., not hashed).
-    core::String ifa;
+    base::String ifa;
     /// Hardware device ID (e.g., IMEI); hashed via SHA1.
-    core::String didsha1;
+    base::String didsha1;
     /// Hardware device ID (e.g., IMEI); hashed via MD5.
-    core::String didmd5;
+    base::String didmd5;
     /// Platform device ID (e.g., Android ID); hashed via SHA1.
-    core::String dpidsha1;
+    base::String dpidsha1;
     /// Platform device ID (e.g., Android ID); hashed via MD5.
-    core::String dpidmd5;
+    base::String dpidmd5;
     /// MAC address of the device; hashed via SHA1.
-    core::String macsha1;
+    base::String macsha1;
     /// MAC address of the device; hashed via MD5.
-    core::String macmd5;
+    base::String macmd5;
 };
 
 /**
@@ -967,11 +967,11 @@ struct Segment
 {
 public:
     /// ID of the data segment specific to the data provider.
-    core::String id;
+    base::String id;
     /// Name of the data segment specific to the data provider.
-    core::String name;
+    base::String name;
     /// String representation of the data segment value.
-    core::String value;
+    base::String value;
 };
 
 /**
@@ -987,11 +987,11 @@ struct Data
 {
 public:
     /// Exchange-specific ID for the data provider.
-    core::String id;
+    base::String id;
     /// Exchange-specific name for the data provider.
-    core::String name;
+    base::String name;
     /// Array of Segment (Section 3.2.15) objects that contain the actual data values.
-    core::Vector<Segment> segment;
+    base::Vector<Segment> segment;
 };
 
 
@@ -1008,25 +1008,25 @@ struct User
 {
 public:
     /// Exchange-specific ID for the user. At least one of id or buyer id is recommended.
-    core::String id;
+    base::String id;
     /// Buyer-specific ID for the user as mapped by the exchange for thebuyer.
     /// At least one of id or buyer id is recommended.
-    core::String buyerid;
+    base::String buyerid;
     /// Year of birth as a 4-digit integer.
-    core::Int yob;
+    base::Int yob;
     /// Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown).
-    core::String gender;
+    base::String gender;
     /// Comma separated list of keywords, interests, or intent.
-    core::Vector<core::String> keywords;
+    base::Vector<base::String> keywords;
     /// Optional feature to pass bidder data that was set in the exchange’s cookie.
     /// The string must be in base85 cookie safe characters and be in any format.
     /// Proper JSON encoding must be used to include “escaped” quotation marks.
-    core::String customdata;
+    base::String customdata;
     /// Location of the user’s home base defined by a Geo object (Section 3.2.12).
     /// This is not necessarily their current location.
-    core::Optional<Geo> geo;
+    base::Optional<Geo> geo;
     /// Additional user data. Each Data object (Section3.2.14) represents a different data source.
-    core::Vector<Data> data;
+    base::Vector<Data> data;
 };
 
 /**
@@ -1041,21 +1041,21 @@ struct Deal
 {
 public:
     /// A unique identifier for the direct deal.
-    core::String id;
+    base::String id;
     /// Minimum bid for this impression expressed in CPM.
-    core::Double bidfloor = 0.0;
+    base::Double bidfloor = 0.0;
     /// Currency specified using ISO-4217 alpha codes. This may be different from bid currency
     /// returned by bidder if this is allowed by the exchange.
-    core::String bidfloorcur = "USD";
+    base::String bidfloorcur = "USD";
     /// Optional override of the overall auction type of the bid request.
     /// Additional auction types can be defined by the exchange.
     AuctionPrice at;
-    /// WhiteCore::Vector of buyer seats allowed to bid on this deal. Seat IDs must be communicated
+    /// Whitelist of buyer seats allowed to bid on this deal. Seat IDs must be communicated
     /// between bidders and the exchange a priori. Omission implies no seat restrictions.
-    core::Vector<core::String> wseat;
+    base::Vector<base::String> wseat;
     /// Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal.
     /// Omission implies no advertiser restrictions.
-    core::Vector<core::String> wadomain;
+    base::Vector<base::String> wadomain;
 };
 
 /**
@@ -1072,10 +1072,10 @@ public:
     /// Indicator of auction eligibility to seats named in the Direct Deals object, where
     /// 0 = all bids are accepted, 1 = bids are restricted to the deals specified and
     /// the terms thereof.
-    core::Bool private_auction;
+    base::Bool private_auction;
     /// Array of Deal (Section 3.2.18) objects that convey the specific deals applicable
     /// to this impression.
-    core::Vector<Deal> deals;
+    base::Vector<Deal> deals;
 };
 
 /**
@@ -1095,44 +1095,44 @@ struct Impression
 {
 public:
     /// A unique identifier for this impression within the context of the bid request.
-    core::String id;
+    base::String id;
     /// A Banner object (Section 3.2.3);
     /// required if this impression is offered as a banner ad opportunity.
-    core::Optional<Banner> banner;
+    base::Optional<Banner> banner;
     /// A Video object (Section 3.2.4);
     /// required if this impression is offered as a video ad opportunity.
-    core::Optional<Video> video;
+    base::Optional<Video> video;
     /// A Native object (Section 3.2.5);
     /// required if this impression is offered as a native ad opportunity.
-    core::Optional<Native> native;
+    base::Optional<Native> native;
     /// Name of ad mediation partner, SDK technology, or player responsible for rendering ad
     /// (typically video or mobile). Used by some ad servers to customize ad code by partner.
     /// Recommended for video and/or apps.
-    core::String displaymanager;
+    base::String displaymanager;
     /// Version of ad mediation partner, SDK technology or player responsible for rendering ad
     /// (typically video or mobile). Used by some ad servers to customize ad code by partner.
     /// Recommended for video and/or apps.
-    core::String displaymanagerver;
+    base::String displaymanagerver;
     /// 1 = the ad is interstitial or full screen, 0 = not interstitial.
-    core::Bool instl = 0;
+    base::Bool instl = 0;
     /// Identifier for specific ad placement or ad tag that was used to initiate the auction.
-    /// This can be useful for debugging of any issues, or for Core::Optimization by the buyer.
-    core::String tagid;
+    /// This can be useful for debugging of any issues, or for optimization by the buyer.
+    base::String tagid;
     /// Minimum bid for this impression expressed in CPM.
-    core::Double bidfloor = 0.0;
+    base::Double bidfloor = 0.0;
     /// Currency specified using ISO-4217 alpha codes.
     /// This may be different from bid currency returned by bidder
     /// if this is allowed by the exchange.
-    core::String bidfloorcur = "USD";
+    base::String bidfloorcur = "USD";
     /// Flag to indicate if the impression requires secure HTTPS URL creative assets and markup,
     /// where 0 = non-secure, 1 = secure. If omitted, the secure state is unknown,
     /// but non-secure HTTP support can be assumed.
-    core::Int secure;
+    base::Int secure;
     /// Array of exchange-specific names of supported iframe busters.
-    core::Vector<core::String> iframebuster;
+    base::Vector<base::String> iframebuster;
     /// A Pmp object (Section 3.2.17) containing any private marketplace deals
     /// in effect for this impression.
-    core::Optional<Pmp> pmp;
+    base::Optional<Pmp> pmp;
 };
 
 /**
@@ -1153,50 +1153,50 @@ struct BidRequest
 {
 public:
     /// Unique ID of the bid request, provided by the exchange.
-    core::String id;
+    base::String id;
     /// Array of Imp objects (Section 3.2.2) representing the impressions offered.
     /// At least 1 Imp object is required.
-    core::Vector<Impression> imp;
+    base::Vector<Impression> imp;
     /// Details via a Site object (Section 3.2.6) about the publisher’s website.
     /// Only applicable and recommended for websites.
-    core::Optional<Site> site;
+    base::Optional<Site> site;
     /// Details via an App object (Section 3.2.7) about the publisher’s app (i.e.,
     /// non-browser applications). Only applicable and recommended for apps.
-    core::Optional<App> app;
+    base::Optional<App> app;
     /// Details via a Device object (Section 3.2.11) about the user’s device to which
     /// the impression will be delivered.
-    core::Optional<Device> device;
+    base::Optional<Device> device;
     /// Details via a User object (Section 3.2.13) about the human user of the device;
     /// the advertising audience.
-    core::Optional<User> user;
+    base::Optional<User> user;
     /// Indicator of test mode in which auctions are not billable, where
     /// 0 (false) = live mode, 1 (true) = test mode.
-    core::Bool test = false;
+    base::Bool test = false;
     /// Auction type, where 1 = First Price, 2 = Second Price Plus.
     /// Exchange-specific auction types can be defined using values greater than 500.
     AuctionPrice at = AuctionPrice::SECOND_PRICE_PLUS;
     /// Maximum time in milliseconds to submit a bid to avoid timeout.
     /// This value is commonly communicated offline.
-    core::Int tmax;
+    base::Int tmax;
     /// Whitelist of buyer seats allowed to bid on this impression.
     /// Seat IDs must be communicated between bidders and the exchange a priori.
     /// Omission implies no seat restrictions.
-    core::Vector<core::String> wseat;
+    base::Vector<base::String> wseat;
     /// Flag to indicate if Exchange can verify that the impressions offered represent all
     /// of the impressions available in context (e.g., all on the web page, all video spots
     /// such as pre/mid/post roll) to support road-blocking. 0 = no or unknown, 1 = yes,
     /// the impressions offered represent all that are available.
-    core::Bool allimps = false;
+    base::Bool allimps = false;
     /// Array of allowed currencies for bids on this bid request using ISO-4217 alpha codes.
     /// Recommended only if the exchange accepts multiple currencies.
-    core::Vector<core::String> cur;
+    base::Vector<base::String> cur;
     /// Blocked advertiser categories using the IAB content categories. Refer to List 5.1.
-    core::Vector<core::String> bcat;
+    base::Vector<base::String> bcat;
     /// Block list of advertisers by their domains (e.g., “ford.com”).
-    core::Vector<core::String> badv;
+    base::Vector<base::String> badv;
     /// A Regs object (Section 3.2.16) that specifies any industry, legal,
     /// or governmental regulations in force for this request.
-    core::Optional<json::Document> regs;
+    base::Optional<json::Document> regs;
     /// Unparseable fields get put here.
     json::Document unparseable;
 };

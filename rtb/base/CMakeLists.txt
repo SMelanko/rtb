@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(core LANGUAGES CXX)
+project(base LANGUAGES CXX)
 
 file(GLOB_RECURSE ${PROJECT_NAME}_INCLUDE "include/*.hpp")
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "source/*.cpp")
@@ -13,7 +13,7 @@ add_library(${PROJECT_NAME} STATIC
     ${${PROJECT_NAME}_SOURCE}
 )
 
-add_library(rtb::core ALIAS ${PROJECT_NAME})
+add_library(rtb::base ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 

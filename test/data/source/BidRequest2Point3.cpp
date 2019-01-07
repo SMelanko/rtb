@@ -1,11 +1,11 @@
 #include "test/data/BidRequest2Point3.hpp"
 
-#include <core/utils/StrAlgo.hpp>
+#include <base/utils/StrAlgo.hpp>
 
 namespace test::data
 {
 
-core::String OpenRtb2Point3Sample::GetBanner()
+base::String OpenRtb2Point3Sample::GetBanner()
 {
     auto str = R"({
         "h":250,
@@ -36,10 +36,10 @@ core::String OpenRtb2Point3Sample::GetBanner()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetVideo()
+base::String OpenRtb2Point3Sample::GetVideo()
 {
     auto str = R"({
         "w":640,
@@ -110,10 +110,10 @@ core::String OpenRtb2Point3Sample::GetVideo()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetNative()
+base::String OpenRtb2Point3Sample::GetNative()
 {
     auto str = R"({
         "request":"...Native_spec_request_as_an_encoded_string...",
@@ -127,10 +127,10 @@ core::String OpenRtb2Point3Sample::GetNative()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetApp()
+base::String OpenRtb2Point3Sample::GetApp()
 {
     auto str = R"({
         "id":"agltb3B1Yi1pbmNyDAsSA0FwcBiJkfIUDA",
@@ -150,10 +150,10 @@ core::String OpenRtb2Point3Sample::GetApp()
         "storeurl":"https://itunes.apple.com/id628677149"
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetSite()
+base::String OpenRtb2Point3Sample::GetSite()
 {
     auto str = R"({
         "id":"1345135123",
@@ -183,10 +183,10 @@ core::String OpenRtb2Point3Sample::GetSite()
         }
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetGeo()
+base::String OpenRtb2Point3Sample::GetGeo()
 {
     auto str = R"({
         "country":"USA",
@@ -201,7 +201,7 @@ core::String OpenRtb2Point3Sample::GetGeo()
     return str;
 }
 
-core::String OpenRtb2Point3Sample::GetDevice()
+base::String OpenRtb2Point3Sample::GetDevice()
 {
     auto str = R"({
         "dnt": 0,
@@ -233,7 +233,7 @@ core::String OpenRtb2Point3Sample::GetDevice()
     return str;
 }
 
-core::String OpenRtb2Point3Sample::GetUser()
+base::String OpenRtb2Point3Sample::GetUser()
 {
     auto str = R"({
         "id":"456789876567897654678987656789",
@@ -256,10 +256,10 @@ core::String OpenRtb2Point3Sample::GetUser()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetDeal()
+base::String OpenRtb2Point3Sample::GetDeal()
 {
     auto str = R"({
         "id":"1452f.eadb4.7aaa",
@@ -272,10 +272,10 @@ core::String OpenRtb2Point3Sample::GetDeal()
         }
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetPmp()
+base::String OpenRtb2Point3Sample::GetPmp()
 {
     auto str = R"({
         "private_auction":1,
@@ -288,10 +288,10 @@ core::String OpenRtb2Point3Sample::GetPmp()
         ]
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetImpression()
+base::String OpenRtb2Point3Sample::GetImpression()
 {
     auto str = R"({
         "id":"1",
@@ -308,10 +308,10 @@ core::String OpenRtb2Point3Sample::GetImpression()
         "bidfloor":0.5
     })";
 
-    return core::StrAlgo::RemoveWhitespaces(str);
+    return base::StrAlgo::RemoveWhitespaces(str);
 }
 
-core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
+base::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
 {
     // https://github.com/openrtb/examples/blob/master/brandscreen/example-request-mobile.json
     auto str = R"({
@@ -403,12 +403,12 @@ core::String OpenRtb2Point3Sample::GetBrandscreenBidRequest()
     return str;
 }
 
-core::String OpenRtb2Point3Sample::GetBrandscreenBidRequestBench()
+base::String OpenRtb2Point3Sample::GetBrandscreenBidRequestBench()
 {
-    return core::StrAlgo::RemoveWhitespaces(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
+    return base::StrAlgo::RemoveWhitespaces(OpenRtb2Point3Sample::GetBrandscreenBidRequest());
 }
 
-core::String OpenRtb2Point3Spec::GetSimpleBanner()
+base::String OpenRtb2Point3Spec::GetSimpleBanner()
 {
     auto str = R"({
         "id":"80ce30c53c16e6ede735f123ef6e32361bfc7b22",
@@ -455,7 +455,7 @@ core::String OpenRtb2Point3Spec::GetSimpleBanner()
     return str;
 }
 
-core::String OpenRtb2Point3Spec::GetExpandableCreative()
+base::String OpenRtb2Point3Spec::GetExpandableCreative()
 {
     auto str = R"({
         "id":"123456789316e6ede735f123ef6e32361bfc7b22",
@@ -535,7 +535,7 @@ core::String OpenRtb2Point3Spec::GetExpandableCreative()
     return str;
 }
 
-core::String OpenRtb2Point3Spec::GetMobile()
+base::String OpenRtb2Point3Spec::GetMobile()
 {
     auto str = R"({
         "id":"IxexyLDIIk",
@@ -624,7 +624,7 @@ core::String OpenRtb2Point3Spec::GetMobile()
     return str;
 }
 
-core::String OpenRtb2Point3Spec::GetVideo()
+base::String OpenRtb2Point3Spec::GetVideo()
 {
     auto str = R"({
         "id":"1234567893",
@@ -763,7 +763,7 @@ core::String OpenRtb2Point3Spec::GetVideo()
     return str;
 }
 
-core::String OpenRtb2Point3Spec::GetPmpWithDirectDeal()
+base::String OpenRtb2Point3Spec::GetPmpWithDirectDeal()
 {
     auto str = R"({
         "id":"80ce30c53c16e6ede735f123ef6e32361bfc7b22",
@@ -831,7 +831,7 @@ core::String OpenRtb2Point3Spec::GetPmpWithDirectDeal()
     return str;
 }
 
-core::String OpenRtb2Point3Spec::GetNativeAd()
+base::String OpenRtb2Point3Spec::GetNativeAd()
 {
     auto str = R"({
         "id":"33ce30c53c16e6ede735f123ef6e32361bfc7b22",

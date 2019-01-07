@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(unit-test-core LANGUAGES CXX)
+project(unit-test-base LANGUAGES CXX)
 
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCE "*.cpp")
 
@@ -20,5 +20,5 @@ endif ()
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::gtest
-        rtb::core
+        rtb::base
 )
