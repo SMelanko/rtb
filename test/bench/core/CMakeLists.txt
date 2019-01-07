@@ -14,5 +14,6 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::google-benchmark
         CONAN_PKG::boost
+        CONAN_PKG::range-v3
         rtb::core
 )

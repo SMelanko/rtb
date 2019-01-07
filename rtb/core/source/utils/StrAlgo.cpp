@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <sstream>
 
+#include <range/v3/view/split.hpp>
+
 namespace core
 {
 
@@ -16,21 +18,7 @@ core::String StrAlgo::RemoveWhitespaces(core::String str)
 
 core::Vector<core::String> StrAlgo::Split(const core::String& str, const char delimiter)
 {
-    core::Vector<core::String> result;
-    std::stringstream input{ str };
-    core::String item;
-
-    while (std::getline(input, item, delimiter)) {
-        if (item.size()) {
-            result.emplace_back(std::move(item));
-        }
-    }
-
-    if (std::getline(input, item, static_cast<char>(EOF)) && item.size()) {
-        result.emplace_back(std::move(item));
-    }
-
-    return result;
+    return ranges::view::split(str, delimiter);
 }
 
 }
