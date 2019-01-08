@@ -9,6 +9,8 @@
 
 #include <range/v3/view/split.hpp>
 
+#include <absl/strings/str_split.h>
+
 namespace detail
 {
 
@@ -31,6 +33,15 @@ base::Vector<base::String> SplitStlVer(const base::String& str, const char delim
     }
 
     return result;
+}
+
+bool Assert(const base::Vector<base::String>& reality)
+{
+    const base::Vector<base::String> expect = {
+        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"
+    };
+
+    return reality == expect;
 }
 
 } // namepsace detail
@@ -59,3 +70,11 @@ void SplitStrRangesV3Ver(bench::State& state)
     }
 }
 BENCH(SplitStrRangesV3Ver);
+
+void SplitStrAbseilVer(bench::State& state)
+{
+    for (auto _ : state) {
+        [[maybe_unused]] const auto result = absl::StrSplit(detail::str, ',');
+    }
+}
+BENCH(SplitStrAbseilVer);

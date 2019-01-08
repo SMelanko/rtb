@@ -11,7 +11,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set_property(CACHE CMAKE_BUILD_TYPE
         PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo"
     )
-endif()
+endif ()
 
 option(ENABLE_TESTING "Run unit tests" ON)
 option(ENABLE_BENCHMARKING "Run benchmark tests" ON)
@@ -23,7 +23,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(conan)
 conan_cmake_run(CONANFILE conanfile.txt
     BASIC_SETUP CMAKE_TARGETS
-    BUILD missing
+    BUILD abseil google-benchmark
 )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
