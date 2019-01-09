@@ -23,7 +23,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(conan)
 conan_cmake_run(CONANFILE conanfile.txt
     BASIC_SETUP CMAKE_TARGETS
-    BUILD abseil google-benchmark
+    BUILD missing
 )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
