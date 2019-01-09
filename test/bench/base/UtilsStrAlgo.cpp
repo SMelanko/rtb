@@ -81,7 +81,7 @@ BENCH(SplitStrBoostVer);
 void SplitStrRangesV3Ver(bench::State& state)
 {
     auto split = []{
-        return ranges::view::split(detail::str, ',');;
+        return ranges::view::split(detail::str, ',');
     };
 
     assert(detail::Assert(split()));
@@ -93,10 +93,19 @@ void SplitStrRangesV3Ver(bench::State& state)
 }
 BENCH(SplitStrRangesV3Ver);
 
+#if 0
 void SplitStrAbseilVer(bench::State& state)
 {
+    auto split = []{
+        return absl::StrSplit(detail::str, ',');
+    };
+
+    assert(detail::Assert(split()));
+
     for (auto _ : state) {
-        [[maybe_unused]] const auto result = absl::StrSplit(detail::str, ',');
+        const auto result = split();
+        bench::DoNotOptimize(result);
     }
 }
 BENCH(SplitStrAbseilVer);
+#endif

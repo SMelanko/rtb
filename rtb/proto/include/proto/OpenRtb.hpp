@@ -476,17 +476,7 @@ enum class FramePosition : int8_t
  * format contents transmitted on the Internet. For example, application/javascript.
  */
 
-struct MimeType
-{
-public:
-    explicit MimeType(base::String type = "")
-    : type{ std::move(type) }
-    {
-    }
-    
-public:
-    base::String type;
-};
+using MimeType = std::string;
 
 /**
  * Source Relationship

@@ -5,6 +5,7 @@
 #include <proto/Parser2Point3.hpp>
 #include <test/data/BidRequest2Point3.hpp>
 
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 namespace detail
@@ -19,34 +20,30 @@ template<class T>
     return proto::JsonWorker<T>::Parse(json::Str2Json(str));
 }
 
-}
+} // namespace detail
+
+using ::testing::ElementsAre;
 
 TEST(BannerTest, Parse)
 {
     const auto banner = detail::PrepareUnit<proto::Banner>(detail::SampleMock::GetBanner());
-    EXPECT_EQ(banner.w.size(), 1);
-    EXPECT_EQ(banner.w[0], 300);
-    EXPECT_EQ(banner.h.size(), 1);
-    EXPECT_EQ(banner.h[0], 250);
+    EXPECT_THAT(banner.w, ElementsAre(300));
+    EXPECT_THAT(banner.h, ElementsAre(250));
     EXPECT_EQ(banner.wmax, 640);
     EXPECT_EQ(banner.hmax, 320);
     EXPECT_EQ(banner.wmin, 240);
     EXPECT_EQ(banner.hmin, 200);
     EXPECT_EQ(banner.id, "p7mwtup3aep7c0io");
     EXPECT_EQ(banner.pos, proto::AdPosition::UNKNOWN);
-    EXPECT_EQ(banner.btype.size(), 1);
-    EXPECT_EQ(banner.btype[0], proto::BannerAdType::IFRAME);
-    EXPECT_EQ(banner.battr.size(), 1);
-    EXPECT_EQ(banner.battr[0], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
-    EXPECT_EQ(banner.mimes.size(), 2);
-    EXPECT_EQ(banner.mimes[0].type, "image/jpg");
-    EXPECT_EQ(banner.mimes[1].type, "image/png");
+    EXPECT_THAT(banner.btype, ElementsAre(proto::BannerAdType::IFRAME));
+    EXPECT_THAT(banner.battr, ElementsAre(
+        proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE));
+    EXPECT_THAT(banner.mimes, ElementsAre("image/jpg", "image/png"));
     EXPECT_EQ(banner.topframe, proto::FramePosition::IFRAME);
-    EXPECT_EQ(banner.expdir.size(), 2);
-    EXPECT_EQ(banner.expdir[0], proto::ExpandableDirection::RIGHT);
-    EXPECT_EQ(banner.expdir[1], proto::ExpandableDirection::DOWN);
-    EXPECT_EQ(banner.api.size(), 1);
-    EXPECT_EQ(banner.api[0], proto::ApiFramework::MRAID);
+    EXPECT_THAT(banner.expdir, ElementsAre(
+        proto::ExpandableDirection::RIGHT,
+        proto::ExpandableDirection::DOWN));
+    EXPECT_THAT(banner.api, ElementsAre(proto::ApiFramework::MRAID));
 }
 
 TEST(VideoTest, Parse)
@@ -68,10 +65,10 @@ TEST(VideoTest, Parse)
     EXPECT_EQ(video.protocols[0], proto::VideoBidResponseProtocol::VAST2);
     EXPECT_EQ(video.protocols[1], proto::VideoBidResponseProtocol::VAST3);
     EXPECT_EQ(video.mimes.size(), 4);
-    EXPECT_EQ(video.mimes[0].type, "video/x-flv");
-    EXPECT_EQ(video.mimes[1].type, "video/mp4");
-    EXPECT_EQ(video.mimes[2].type, "application/x-shockwave-flash");
-    EXPECT_EQ(video.mimes[3].type, "application/javascript");
+    EXPECT_EQ(video.mimes[0], "video/x-flv");
+    EXPECT_EQ(video.mimes[1], "video/mp4");
+    EXPECT_EQ(video.mimes[2], "application/x-shockwave-flash");
+    EXPECT_EQ(video.mimes[3], "application/javascript");
     EXPECT_EQ(video.linearity, proto::VideoLinearity::IN_STREAM);
     EXPECT_TRUE(video.boxingallowed);
     EXPECT_EQ(video.playbackmethod.size(), 2);
@@ -643,10 +640,10 @@ TEST(OpenRtb2Point3Spec, Video)
             EXPECT_EQ(video.protocols[0], proto::VideoBidResponseProtocol::VAST2);
             EXPECT_EQ(video.protocols[1], proto::VideoBidResponseProtocol::VAST3);
             EXPECT_EQ(video.mimes.size(), 4);
-            EXPECT_EQ(video.mimes[0].type, "video/x-flv");
-            EXPECT_EQ(video.mimes[1].type, "video/mp4");
-            EXPECT_EQ(video.mimes[2].type, "application/x-shockwave-flash");
-            EXPECT_EQ(video.mimes[3].type, "application/javascript");
+            EXPECT_EQ(video.mimes[0], "video/x-flv");
+            EXPECT_EQ(video.mimes[1], "video/mp4");
+            EXPECT_EQ(video.mimes[2], "application/x-shockwave-flash");
+            EXPECT_EQ(video.mimes[3], "application/javascript");
             EXPECT_EQ(video.linearity, proto::VideoLinearity::IN_STREAM);
             EXPECT_TRUE(video.boxingallowed);
             EXPECT_EQ(video.playbackmethod.size(), 2);
