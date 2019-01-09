@@ -44,29 +44,51 @@ bool Assert(const base::Vector<base::String>& reality)
     return reality == expect;
 }
 
-} // namepsace detail
+} // namespace detail
 
 void SplitStrStlVer(bench::State& state)
 {
+    auto split = []{
+        return detail::SplitStlVer(detail::str, ',');
+    };
+
+    assert(detail::Assert(split()));
+
     for (auto _ : state) {
-        [[maybe_unused]] const auto result = detail::SplitStlVer(detail::str, ',');
+        const auto result = split();
+        bench::DoNotOptimize(result);
     }
 }
 BENCH(SplitStrStlVer);
 
 void SplitStrBoostVer(bench::State& state)
 {
-    for (auto _ : state) {
+    auto split = []{
         base::Vector<base::String> result;
         boost::split(result, detail::str, boost::is_any_of(","));
+        return result;
+    };
+
+    assert(detail::Assert(split()));
+
+    for (auto _ : state) {
+        const auto result = split();
+        bench::DoNotOptimize(result);
     }
 }
 BENCH(SplitStrBoostVer);
 
 void SplitStrRangesV3Ver(bench::State& state)
 {
+    auto split = []{
+        return ranges::view::split(detail::str, ',');;
+    };
+
+    assert(detail::Assert(split()));
+
     for (auto _ : state) {
-        [[maybe_unused]] const auto result = ranges::view::split(detail::str, ',');
+        const auto result = split();
+        bench::DoNotOptimize(result);
     }
 }
 BENCH(SplitStrRangesV3Ver);

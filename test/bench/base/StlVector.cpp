@@ -30,6 +30,7 @@ void PushBackIntBoostPoolAllocator(benchmark::State& state)
 }
 BENCH(PushBackIntBoostPoolAllocator);
 
+#if 0
 void PushBackStrStlAllocator(benchmark::State& state)
 {
     for (auto _ : state) {
@@ -53,3 +54,4 @@ void PushBackStrBoostPoolAllocator(benchmark::State& state)
     }
 }
 BENCH(PushBackStrBoostPoolAllocator);
+#endif
