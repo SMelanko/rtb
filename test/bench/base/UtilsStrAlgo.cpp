@@ -10,6 +10,7 @@
 #include <range/v3/view/join.hpp>
 #include <range/v3/view/split.hpp>
 
+#include <absl/strings/str_join.h>
 #include <absl/strings/str_split.h>
 
 namespace detail
@@ -108,15 +109,15 @@ void SplitStrRangesV3Ver(bench::State& state)
     }
 }
 BENCH(SplitStrRangesV3Ver);
-
 #if 0
 void SplitStrAbseilVer(bench::State& state)
 {
     auto split = []{
-        return absl::StrSplit(detail::str, ',');
+        return absl::StrSplit(detail::splitTestStr, ",");
     };
 
-    assert(detail::Assert(split()));
+    base::Vector<base::String> list = split();
+    assert(list == detail::joinTestStr);
 
     for (auto _ : state) {
         const auto result = split();
@@ -125,7 +126,6 @@ void SplitStrAbseilVer(bench::State& state)
 }
 BENCH(SplitStrAbseilVer);
 #endif
-
 void JoinStrStlVer(bench::State& state)
 {
     auto join = [] {
@@ -171,3 +171,19 @@ void JoinStrRangesV3Ver(bench::State& state)
     }
 }
 BENCH(JoinStrRangesV3Ver);
+
+void JoinStrAbseilVer(bench::State& state)
+{
+    auto join = [] {
+        return absl::StrJoin(detail::joinTestStr, ",");
+    };
+
+    const base::String str = join();
+    assert(str == detail::splitTestStr);
+
+    for (auto _ : state) {
+        const auto result = join();
+        bench::DoNotOptimize(result);
+    }
+}
+BENCH(JoinStrAbseilVer);
