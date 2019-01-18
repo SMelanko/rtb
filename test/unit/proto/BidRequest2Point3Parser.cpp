@@ -58,52 +58,53 @@ TEST(VideoTest, Parse)
     EXPECT_EQ(video.maxextended, 30);
     EXPECT_EQ(video.minbitrate, 300);
     EXPECT_EQ(video.maxbitrate, 1500);
-    EXPECT_EQ(video.api.size(), 2);
-    EXPECT_EQ(video.api[0], proto::ApiFramework::VPAID_1);
-    EXPECT_EQ(video.api[1], proto::ApiFramework::VPAID_2);
-    EXPECT_EQ(video.protocols.size(), 2);
-    EXPECT_EQ(video.protocols[0], proto::VideoBidResponseProtocol::VAST2);
-    EXPECT_EQ(video.protocols[1], proto::VideoBidResponseProtocol::VAST3);
-    EXPECT_EQ(video.mimes.size(), 4);
-    EXPECT_EQ(video.mimes[0], "video/x-flv");
-    EXPECT_EQ(video.mimes[1], "video/mp4");
-    EXPECT_EQ(video.mimes[2], "application/x-shockwave-flash");
-    EXPECT_EQ(video.mimes[3], "application/javascript");
+    EXPECT_THAT(video.api, ElementsAre(
+       proto::ApiFramework::VPAID_1,
+       proto::ApiFramework::VPAID_2));
+    EXPECT_THAT(video.protocols, ElementsAre(
+        proto::VideoBidResponseProtocol::VAST2,
+        proto::VideoBidResponseProtocol::VAST3));
+    EXPECT_THAT(video.mimes, ElementsAre(
+        "video/x-flv",
+        "video/mp4",
+        "application/x-shockwave-flash",
+        "application/javascript"));
     EXPECT_EQ(video.linearity, proto::VideoLinearity::IN_STREAM);
     EXPECT_TRUE(video.boxingallowed);
-    EXPECT_EQ(video.playbackmethod.size(), 2);
-    EXPECT_EQ(video.playbackmethod[0], proto::VideoPlaybackMethod::AUTO_PLAY_SOUND_ON);
-    EXPECT_EQ(video.playbackmethod[1], proto::VideoPlaybackMethod::CLICK_TO_PLAY);
-    EXPECT_EQ(video.delivery.size(), 1);
-    EXPECT_EQ(video.delivery[0], proto::ContentDeliveryMethod::PROGRESSIVE);
-    EXPECT_EQ(video.battr.size(), 2);
-    EXPECT_EQ(video.battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
-    EXPECT_EQ(video.battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+    EXPECT_THAT(video.playbackmethod, ElementsAre(
+        proto::VideoPlaybackMethod::AUTO_PLAY_SOUND_ON,
+        proto::VideoPlaybackMethod::CLICK_TO_PLAY));
+    EXPECT_THAT(video.delivery, ElementsAre(proto::ContentDeliveryMethod::PROGRESSIVE));
+    EXPECT_THAT(video.battr, ElementsAre(
+        proto::CreativeAttribute::USER_INTERACTIVE,
+        proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE));
     EXPECT_EQ(video.companionad.size(), 2);
     {
-        EXPECT_EQ(video.companionad[0].id, "1234567893-1");
-        EXPECT_EQ(video.companionad[0].w[0], 300);
-        EXPECT_EQ(video.companionad[0].h[0], 250);
-        EXPECT_EQ(video.companionad[0].pos, proto::AdPosition::ABOVE);
-        EXPECT_EQ(video.companionad[0].battr.size(), 2);
-        EXPECT_EQ(video.companionad[0].battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
-        EXPECT_EQ(video.companionad[0].battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
-        EXPECT_EQ(video.companionad[0].expdir.size(), 2);
-        EXPECT_EQ(video.companionad[0].expdir[0], proto::ExpandableDirection::RIGHT);
-        EXPECT_EQ(video.companionad[0].expdir[1], proto::ExpandableDirection::DOWN);
+        const auto& companionad0 = video.companionad[0];
+        EXPECT_EQ(companionad0.id, "1234567893-1");
+        EXPECT_THAT(companionad0.w, ElementsAre(300));
+        EXPECT_THAT(companionad0.h, ElementsAre(250));
+        EXPECT_EQ(companionad0.pos, proto::AdPosition::ABOVE);
+        EXPECT_THAT(companionad0.battr, ElementsAre(
+            proto::CreativeAttribute::USER_INTERACTIVE,
+            proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE));
+        EXPECT_THAT(companionad0.expdir, ElementsAre(
+            proto::ExpandableDirection::RIGHT,
+            proto::ExpandableDirection::DOWN));
     }
     {
-        EXPECT_EQ(video.companionad[1].id, "1234567893-2");
-        EXPECT_EQ(video.companionad[1].w[0], 728);
-        EXPECT_EQ(video.companionad[1].h[0], 90);
-        EXPECT_EQ(video.companionad[1].pos, proto::AdPosition::ABOVE);
-        EXPECT_EQ(video.companionad[1].battr.size(), 2);
-        EXPECT_EQ(video.companionad[1].battr[0], proto::CreativeAttribute::USER_INTERACTIVE);
-        EXPECT_EQ(video.companionad[1].battr[1], proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE);
+        const auto& companionad1 = video.companionad[1];
+        EXPECT_EQ(companionad1.id, "1234567893-2");
+        EXPECT_THAT(companionad1.w, ElementsAre(728));
+        EXPECT_THAT(companionad1.h, ElementsAre(90));
+        EXPECT_EQ(companionad1.pos, proto::AdPosition::ABOVE);
+        EXPECT_THAT(companionad1.battr, ElementsAre(
+            proto::CreativeAttribute::USER_INTERACTIVE,
+            proto::CreativeAttribute::WINDOWS_DIALOG_OR_ALERT_STYLE));
     }
-    EXPECT_EQ(video.companiontype.size(), 2);
-    EXPECT_EQ(video.companiontype[0], proto::VastCompanionType::STATIC_RESOURCE);
-    EXPECT_EQ(video.companiontype[1], proto::VastCompanionType::HTML_RESOURCE);
+    EXPECT_THAT(video.companiontype, ElementsAre(
+        proto::VastCompanionType::STATIC_RESOURCE,
+        proto::VastCompanionType::HTML_RESOURCE));
 }
 
 TEST(NativeTest, Parse)
