@@ -743,7 +743,7 @@ public:
     /// Media rating per QAG guidelines. Refer to List 5.15.
     MediaRating qagmediarating;
     /// Comma separated list of keywords describing the content.
-    base::Vector<base::String> keywords;
+    base::String keywords;
     /// 0 = not live, 1 = content is live (e.g., stream, live blog).
     base::Bool livestream;
     /// 0 = indirect, 1 = direct.
@@ -783,7 +783,7 @@ public:
     /// Details about the Content (Section 3.2.9) within the site/app.
     base::Optional<Content> content;
     /// Comma separated list of keywords about the site/app.
-    base::Vector<base::String> keywords;
+    base::String keywords;
 };
 
 /**
@@ -1007,7 +1007,7 @@ public:
     /// Gender, where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown).
     base::String gender;
     /// Comma separated list of keywords, interests, or intent.
-    base::Vector<base::String> keywords;
+    base::String keywords;
     /// Optional feature to pass bidder data that was set in the exchange’s cookie.
     /// The string must be in base85 cookie safe characters and be in any format.
     /// Proper JSON encoding must be used to include “escaped” quotation marks.

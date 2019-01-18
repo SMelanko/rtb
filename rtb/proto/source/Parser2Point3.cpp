@@ -57,14 +57,6 @@ void ExtVecObj(const json::Object& j, base::StringView field, T& data)
     }
 }
 
-template<class T>
-void ExtKeywords(const json::Object& j, T& unit)
-{
-    base::String keywords;
-    json::ExtStr(j, "keywords", keywords);
-    unit.keywords = base::StrAlgo::Split(keywords);
-}
-
 void ExtContext(const json::Object& j, Context& c)
 {
     json::ExtReqStr(j, "id", c.id);
@@ -76,7 +68,7 @@ void ExtContext(const json::Object& j, Context& c)
     json::ExtBool(j, "privacypolicy", c.privacypolicy);
     detail::ExtObj(j, "publisher", c.publisher);
     detail::ExtObj(j, "content", c.content);
-    ExtKeywords(j, c);
+    json::ExtStr(j, "keywords", c.keywords);
 }
 
 }
@@ -173,7 +165,7 @@ Content JsonWorker<Content>::Parse(const json::Object& j)
     json::ExtStr(j, "contentrating", c.contentrating);
     json::ExtStr(j, "userrating", c.userrating);
     json::ExtEnum(j, "qagmediarating", c.qagmediarating);
-    detail::ExtKeywords(j, c);
+    json::ExtStr(j, "keywords", c.keywords);
     json::ExtBool(j, "livestream", c.livestream);
     json::ExtEnum(j, "sourcerelationship", c.sourcerelationship);
     json::ExtInt(j, "len", c.len);
@@ -293,7 +285,7 @@ User JsonWorker<User>::Parse(const json::Object& j)
     json::ExtStr(j, "buyerid", u.buyerid);
     json::ExtInt(j, "yob", u.yob);
     json::ExtStr(j, "gender", u.gender);
-    detail::ExtKeywords(j, u);
+    json::ExtStr(j, "keywords", u.keywords);
     json::ExtStr(j, "customdata", u.customdata);
     detail::ExtObj(j, "geo", u.geo);
     detail::ExtVecObj(j, "data", u.data);

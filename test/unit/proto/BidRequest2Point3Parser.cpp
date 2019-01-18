@@ -164,10 +164,7 @@ TEST(SiteTest, Parse)
         EXPECT_EQ(content.cat[0], "IAB2-2");
         EXPECT_EQ(content.episode, 23);
         EXPECT_EQ(content.id, "1234567");
-        EXPECT_EQ(content.keywords.size(), 3);
-        EXPECT_EQ(content.keywords[0], "keyword_a");
-        EXPECT_EQ(content.keywords[1], "keyword_b");
-        EXPECT_EQ(content.keywords[2], "keyword_c");
+        EXPECT_EQ(content.keywords, "keyword_a,keyword_b,keyword_c");
         EXPECT_EQ(content.season, "2");
         EXPECT_EQ(content.series, "All_About_Cars");
         EXPECT_EQ(content.title, "Car_Show");
@@ -707,10 +704,7 @@ TEST(OpenRtb2Point3Spec, Video)
                 EXPECT_EQ(content.title, "Car Show");
                 EXPECT_EQ(content.cat.size(), 1);
                 EXPECT_EQ(content.cat[0], "IAB2-2");
-                EXPECT_EQ(content.keywords.size(), 3);
-                EXPECT_EQ(content.keywords[0], "keyword-a");
-                EXPECT_EQ(content.keywords[1], "keyword-b");
-                EXPECT_EQ(content.keywords[2], "keyword-c");
+                EXPECT_EQ(content.keywords, "keyword-a,keyword-b,keyword-c");
             }
         }
         {
